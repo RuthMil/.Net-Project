@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    class Enum_s
+    public class Enum_s
     {
+        public enum HostingUnitTypes {Hut, Apartment, Hotel, Tent}
+        public enum Areas {North, South, Central, Jerusalem}
+        public enum OrderStatus {HasNotBeenTreated , MailSended, ClosedDueToUnresponsiveness, ClosedDueToResponsiveness }
+        public enum GuestRequestStatus {Open, ClosedDueToApp, ClosedDueToExpiry }
+        //טיפוס בשביל תת אזורים
     }
 }

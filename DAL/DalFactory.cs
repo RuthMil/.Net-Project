@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class Class1
+    public class DalFactory
     {
+        public static IDAL GetDAL()
+        {
+            return Dal_imp.Instance;  
+        }
     }
 }
