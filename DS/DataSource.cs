@@ -8,8 +8,8 @@ namespace DS
 {
     public class DataSource
     {
-        List<BE.GuestRequest> GuestRequestList = new List<BE.GuestRequest> { };
-        List<BE.HostingUnit> HostingUnitList = new List<BE.HostingUnit> { };
-        List<BE.Order> OrderList = new List<BE.Order> { };
+        public static List<BE.GuestRequest> GuestRequestList = new List<BE.GuestRequest> { };
+        public static List<BE.HostingUnit> HostingUnitList = new List<BE.HostingUnit> { };
+        public static List<BE.Order> OrderList = new List<BE.Order> { };
     }
 }

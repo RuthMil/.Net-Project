@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
-
+//האם שכבת הדאל אמורה לקדם את המפתח של מחלקת הזמנות ומארחים
 namespace DAL
 {
     public class Dal_imp : IDAL
@@ -25,22 +25,26 @@ namespace DAL
 
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {
-            throw new NotImplementedException();
+            myGuestRequest.GuestRequestKey = Configuration.GuestRequestID;
+            Configuration.GuestRequestID++;
+            DS.DataSource.GuestRequestList.Add(myGuestRequest);
         }
 
         public void AddHostingUnit(HostingUnit myHostingUnit)
         {
-            throw new NotImplementedException();
+            myHostingUnit.HostingUnitKey = Configuration.HostingUnitID;
+            Configuration.HostingUnitID++;
+            DS.DataSource.HostingUnitList.Add(myHostingUnit);
         }
 
         public void AddOrder(Order myOrder)
         {
-            throw new NotImplementedException();
+            DS.DataSource.OrderList.Add(myOrder);
         }
 
         public void DeleteHostingUnit(HostingUnit myHostingUnit)
         {
-            throw new NotImplementedException();
+            DS.DataSource.HostingUnitList.Remove(myHostingUnit);
         }
 
         public List<BankAccount> ReceiveBankBranchesList()

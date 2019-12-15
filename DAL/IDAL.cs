@@ -20,4 +20,7 @@ namespace DAL
         List<BE.Order> ReceiveOrderList();
         List<BE.BankAccount> ReceiveBankBranchesList();
     }
+
+    public interface Clonable { }
+
 }
