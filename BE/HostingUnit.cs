@@ -12,6 +12,8 @@ namespace BE
         public Host Owner { get; set; }
         public string HostingUnitName { get; set; }
         public bool[,] Diary { get; set; }
+        //לעשות טוסטרינג גנרי
+        //להוריד לוגיקה חובה
         private string hostingDays()
         {
             DateTime tempDate = new DateTime(2019, 1, 1);

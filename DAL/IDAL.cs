@@ -16,11 +16,8 @@ namespace DAL
         void AddOrder(BE.Order myOrder);
         void UpdateOrder(BE.Order myOrder);
         List<BE.HostingUnit> ReceiveHostingUnitList();
-        List<BE.GuestRequest> ReceiveClientList();
+        List<BE.GuestRequest> ReceiveGuestRequestList();
         List<BE.Order> ReceiveOrderList();
         List<BE.BankAccount> ReceiveBankBranchesList();
     }
-
-    public interface Clonable { }
-
 }

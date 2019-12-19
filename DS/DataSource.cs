@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BE;
+
 
 namespace DS
 {
     public class DataSource
     {
-        public static List<BE.GuestRequest> GuestRequestList = new List<BE.GuestRequest> { };
-        public static List<BE.HostingUnit> HostingUnitList = new List<BE.HostingUnit> { };
-        public static List<BE.Order> OrderList = new List<BE.Order> { };
+        public static List<GuestRequest> GuestRequestList;
+        public static List<HostingUnit> HostingUnitList;
+        public static List<Order> OrderList;
+        public DataSource()
+        {
+
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace BE
         public long HostingUnitKey { get; set; }
         public long GuestRequestKey { get; set; }
         public long OrderKey { get; set; }
-        public string Status { get; set; }
+        public Enum_s.OrderStatus Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime OrderDate { get; set; }
         public override string ToString()

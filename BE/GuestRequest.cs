@@ -12,13 +12,13 @@ namespace BE
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MailAddress { get; set; }
-        public string Status { get; set; }
+        public Enum_s.GuestRequestStatus Status { get; set; }
         public DateTime RegistrationDate { get; set; }
         public DateTime EntryDate { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public string Area { get; set; }
+        public Enum_s.Areas Area { get; set; }
         public string SubArea { get; set; }
-        public string Type { get; set; }
+        public Enum_s.HostingUnitTypes Type { get; set; }
         public int Adults { get; set; }
         public int Children { get; set; }
         public string Pool { get; set; }

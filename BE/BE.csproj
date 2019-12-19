@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BankAccount.cs" />
+    <Compile Include="Clonable.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Enum%27s.cs" />
     <Compile Include="GuestRequest.cs" />
