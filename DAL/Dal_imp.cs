@@ -65,58 +65,53 @@ namespace DAL
             DS.DataSource.OrderList.Remove(myOrder);
         }
 
-        public List<BankAccount> ReceiveBankBranchesList()
+        public List<BankBranch> ReceiveBankBranchesList()
         {
-            List<BankAccount> myBankAccountList = new List<BankAccount>
+            List<BankBranch> myBankAccountList = new List<BankBranch>
             {
-                new BankAccount()
+                new BankBranch()
                 {
                     BankNumber = 11,
                     BankName = "Discount",
                     BranchNumber = 41,
                     BranchAddress = "Jafa 220",
-                    BranchCity = "Jerusalem",
-                    BankAccountNumber = 166685
+                    BranchCity = "Jerusalem"
                 },
-                new BankAccount()
+                new BankBranch()
                 {
                     BankNumber = 13,
                     BankName = "Egood",
                     BranchNumber = 159,
                     BranchAddress = "Jabotinsky 20",
-                    BranchCity = "Rishon Le'zion",
-                    BankAccountNumber = 155247
+                    BranchCity = "Rishon Le'zion"
                 },
-                new BankAccount()
+                new BankBranch()
                 {
                     BankNumber = 10,
                     BankName = "Leumi",
                     BranchNumber = 840,
                     BranchAddress = "Hagalil 16",
-                    BranchCity = "Nazrat",
-                    BankAccountNumber = 16623
+                    BranchCity = "Nazrat"
                 },
-                new BankAccount()
+                new BankBranch()
                 {
                     BankNumber = 20,
                     BankName = "Mizrahi-tefahot",
                     BranchNumber = 653,
                     BranchAddress = "Efal 25",
-                    BranchCity = "Patach Tikva",
-                    BankAccountNumber = 169856
+                    BranchCity = "Petach Tikva"
                 },
-                new BankAccount()
+                new BankBranch()
                 {
                     BankNumber = 17,
                     BankName = "Mercantile",
                     BranchNumber = 725,
                     BranchAddress = "Yesha'ayaho Hanavi 4",
-                    BranchCity = "Beit Shemesh",
-                    BankAccountNumber = 14412
+                    BranchCity = "Beit Shemesh"
                 },
 
             };
-            BankAccount[] bankAccountsArr = new BankAccount[myBankAccountList.Count];
+            BankBranch[] bankAccountsArr = new BankBranch[myBankAccountList.Count];
             myBankAccountList.CopyTo(bankAccountsArr);
             return bankAccountsArr.ToList();
         }
@@ -144,7 +139,7 @@ namespace DAL
 
         public void UpdateGuestRequest(GuestRequest myGuestRequest)
         {
-            int isExist = DS.DataSource.GuestRequestList.IndexOf(myGuestRequest);
+            int isExist = DS.DataSource.GuestRequestList.FindIndex(x => x.GuestRequestKey == myGuestRequest.GuestRequestKey);
             if (isExist == -1)
                 throw Exception("Guest Request does not exist in the system");
             DS.DataSource.GuestRequestList.Insert(isExist, myGuestRequest.Clone());
@@ -152,7 +147,7 @@ namespace DAL
 
         public void UpdateHostingUnit(HostingUnit myHostingUnit)
         {
-            int isExist = DS.DataSource.HostingUnitList.IndexOf(myHostingUnit);
+            int isExist = DS.DataSource.HostingUnitList.FindIndex(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey);
             if (isExist == -1)
                 throw Exception("Hosting unit does not exist in the system");
             DS.DataSource.HostingUnitList.Insert(isExist, myHostingUnit.Clone());
@@ -160,7 +155,7 @@ namespace DAL
 
         public void UpdateOrder(Order myOrder)
         {
-            int isExist = DS.DataSource.OrderList.IndexOf(myOrder);
+            int isExist = DS.DataSource.OrderList.FindIndex(x => x.OrderKey == myOrder.OrderKey);
             if (isExist == -1)
                 throw Exception("Guest Request does not exist in the system");
             DS.DataSource.OrderList.Insert(isExist, myOrder.Clone());

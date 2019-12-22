@@ -13,13 +13,14 @@ namespace BE
         public string LastName { get; set; }
         public long PhoneNumber { get; set; }
         public string MailAddress { get; set; }
-        public BankAccount BankAccountDetails { get; set; }
+        public BankBranch BankBranchDetails { get; set; }
+        public long BankAccountNumber { get; set; }
         public string CollectionClearance { get; set; }
         public override string ToString()
         {
             return "Host ID: " + HostKey.ToString() + " Name: " + FirstName + ' ' + LastName +
                 " Phone Number: " + PhoneNumber.ToString() + " Mail Address: " + MailAddress +
-                "Bank Account Details: " + BankAccountDetails.ToString() + " Collection Clearance: " +
+                " Bank Account Details: " + BankBranchDetails.ToString() + " Bank Account Number: " + BankAccountNumber.ToString() + " Collection Clearance: " +
                 CollectionClearance;
         }
     }

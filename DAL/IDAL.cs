@@ -18,6 +18,6 @@ namespace DAL
         List<BE.HostingUnit> ReceiveHostingUnitList();
         List<BE.GuestRequest> ReceiveGuestRequestList();
         List<BE.Order> ReceiveOrderList();
-        List<BE.BankAccount> ReceiveBankBranchesList();
+        List<BE.BankBranch> ReceiveBankBranchesList();
     }
 }
