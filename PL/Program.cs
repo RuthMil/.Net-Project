@@ -12,8 +12,11 @@ namespace PL
         static void Main(string[] args)
         {
             BL.IBL bl = BL.BlFactory.GetBL();
-            List<HostingUnit> myUnits = bl.FreeHostingUnitsByDates_List(new DateTime(2000,07,5), 5);
-            Console.WriteLine(myUnits);
+            List<int> b = new List<int>{ 3, 5, 6, 4, 7 };
+            var ordersForGuest = from order in b
+                                 where order >= 6
+                                 select new { };
+            Console.WriteLine(ordersForGuest.Count()); 
         }
     }
 }

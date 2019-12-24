@@ -21,8 +21,11 @@ namespace BL
         List<Order> ReceiveOrderList();
         List<BankBranch> ReceiveBankBranchesList();
         List<HostingUnit> FreeHostingUnitsByDates_List(DateTime entryDate, int hostingDays);
-        int sumDaysBetween(DateTime firstDate, DateTime secondDate);
+        int SumDaysBetween(DateTime firstDate, DateTime? secondDate = null);
         bool HostingUnitIsFree(HostingUnit myHostingUnit, DateTime entryDate, DateTime releaseDate);
-
+        List<Order> ExpiredOrder(int days);
+        List<GuestRequest> GuestRequestsWithCondition(Predicate<GuestRequest> condition);
+        int SumOrdersForGuest(GuestRequest myGusetRequest);
+        int SumOrdersSendedOrResponded(HostingUnit myHostingUnit);
     }
 }
