@@ -26,6 +26,8 @@ namespace DAL
 
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {
+            Configuration.GuestRequestID++;
+            myGuestRequest.GuestRequestKey = Configuration.GuestRequestID;
             if (DS.DataSource.GuestRequestList.Exists(x => x.GuestRequestKey
             == myGuestRequest.GuestRequestKey))
                 throw Exception("Request number exists in the system");
@@ -39,6 +41,8 @@ namespace DAL
 
         public void AddHostingUnit(HostingUnit myHostingUnit)
         {
+            Configuration.HostingUnitID++;
+            myHostingUnit.HostingUnitKey = Configuration.HostingUnitID;
             if (DS.DataSource.HostingUnitList.Exists(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey))
                 throw Exception("Hosting Unit number exists in the system");
             DS.DataSource.HostingUnitList.Add(myHostingUnit.Clone());
@@ -46,6 +50,8 @@ namespace DAL
 
         public void AddOrder(Order myOrder)
         {
+            Configuration.OrderID++;
+            myOrder.OrderKey = Configuration.OrderID;
             if (DS.DataSource.OrderList.Exists(x => x.OrderKey == myOrder.OrderKey))
                 throw Exception("Order number exists in the system");
             DS.DataSource.OrderList.Add(myOrder.Clone());
