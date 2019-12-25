@@ -117,30 +117,37 @@ namespace DAL
                 },
 
             };
-            BankBranch[] bankAccountsArr = new BankBranch[myBankAccountList.Count];
-            myBankAccountList.CopyTo(bankAccountsArr);
-            return bankAccountsArr.ToList();
+            return myBankAccountList; 
         }
 
         public List<GuestRequest> ReceiveGuestRequestList()
         {
-            GuestRequest[] guestRequestsArr = new GuestRequest[DS.DataSource.GuestRequestList.Count];
-            DS.DataSource.GuestRequestList.CopyTo(guestRequestsArr);
-            return guestRequestsArr.ToList();
+            List<GuestRequest> tmpGuestRequestsList = new List<GuestRequest>();
+            foreach (var item in DS.DataSource.GuestRequestList)
+            {
+                tmpGuestRequestsList.Add(item.Clone());
+            }
+            return tmpGuestRequestsList; 
         }
 
         public List<HostingUnit> ReceiveHostingUnitList()
         {
-            HostingUnit[] hostingUnitsArr = new HostingUnit[DS.DataSource.HostingUnitList.Count];
-            DS.DataSource.HostingUnitList.CopyTo(hostingUnitsArr);
-            return hostingUnitsArr.ToList();
+            List<HostingUnit> tmpHostingUnitsList = new List<HostingUnit>();
+            foreach (var item in DS.DataSource.HostingUnitList)
+            {
+                tmpHostingUnitsList.Add(item.Clone());
+            }
+            return tmpHostingUnitsList;
         }
 
         public List<Order> ReceiveOrderList()
         {
-            Order[] orderArr = new Order[DS.DataSource.OrderList.Count];
-            DS.DataSource.OrderList.CopyTo(orderArr);
-            return orderArr.ToList();
+            List<Order> tmpOrdersList = new List<Order>();
+            foreach (var item in DS.DataSource.OrderList)
+            {
+                tmpOrdersList.Add(item.Clone());
+            }
+            return tmpOrdersList;
         }
 
         public void UpdateGuestRequest(GuestRequest myGuestRequest)

@@ -40,6 +40,10 @@ namespace BL
         {
             try
             {
+                List<GuestRequest> guestRequestsList = dal.ReceiveGuestRequestList();
+                List<HostingUnit> hostingUnitsList = dal.ReceiveHostingUnitList();
+                if (!guestRequestsList.Exists(x => x.GuestRequestKey == myOrder.GuestRequestKey)) 
+                    throw new ArgumentException("You entered not existing guest request", "GuestRequest");
                 dal.AddOrder(myOrder);
             }
             catch (Exception ex)
@@ -105,10 +109,42 @@ namespace BL
             }
         }
 
+        public List<Order> ReceiveClashOrders(Order myOrder)
+        {
+            List<GuestRequest> myGuestRequests = dal.ReceiveGuestRequestList();
+            var sameOrders = from order in dal.ReceiveOrderList()
+                             let myRequest = myGuestRequests.Find(x => x.GuestRequestKey == myOrder.GuestRequestKey)
+                             where order.HostingUnitKey == myOrder.HostingUnitKey &&
+                             myGuestRequests.Find(x => x.GuestRequestKey == order.GuestRequestKey).EntryDate == myRequest.EntryDate &&
+                             myGuestRequests.Find(x => x.GuestRequestKey == order.GuestRequestKey).ReleaseDate == myRequest.ReleaseDate
+                             select order;
+            return (List<Order>)sameOrders; 
+        }
+
+        public void SendMailAboutCloseOrder(List<Order> orders)
+        {
+
+        }
         public void UpdateOrder(Order myOrder)
         {
             try
             {
+                List<Order> myOrders = dal.ReceiveOrderList();
+                if (myOrders.Exists(x => x.OrderKey == myOrder.OrderKey &&
+                x.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness))
+                    throw new Exception();//לטפל בחריגה
+                if (myOrder.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness)
+                {
+                    List<Order> sameOrders = ReceiveClashOrders(myOrder);
+                    SendMailAboutCloseOrder(sameOrders);
+                    foreach (var item in sameOrders) 
+                    {
+                        item.Status = Enum_s.OrderStatus.ClosedDueToClash;
+                    }
+                    //לסמן במטריצה ימים תפוסים
+                    //חישוב עמלה
+                    //
+                }
                 dal.UpdateOrder(myOrder);
             }
             catch (Exception ex)
@@ -117,14 +153,12 @@ namespace BL
             }
         }
 
-
         public int SumDaysBetween(DateTime firstDate, DateTime? secondDate = null)
         {
             if (secondDate == null)
                 secondDate = DateTime.Now;
             return Math.Abs((firstDate - secondDate).Value.Days);
         }
-
 
         /// <summary>
         /// returns list of free hosting units, for a specific period
@@ -150,7 +184,6 @@ namespace BL
                 throw ex;
             }
         }
-
 
         /// <summary>
         /// checks if hosting unit is free for a spcific period
@@ -191,7 +224,6 @@ namespace BL
             }              
         }
 
-
         /// <summary>
         /// return list of guest requests which realizes specific condition
         /// </summary>
@@ -204,7 +236,6 @@ namespace BL
                                    select request;
             return (List<GuestRequest>)guestRequestWith; 
         }
-
 
         /// <summary>
         /// Returns the number of orders for a specific guest request.
@@ -221,7 +252,6 @@ namespace BL
             return ordersForGuest.Count();  
         }
 
-
         /// <summary>
         /// Returns the number of orders for a specific hosting unit, 
         /// which their status is "MailSended" or "ClosedDueToResponsiveness" 
@@ -234,9 +264,48 @@ namespace BL
             var ordersForHostingUnit = from order in dal.ReceiveOrderList()
                                        let unitID = myHostingUnit.HostingUnitKey
                                        where order.HostingUnitKey == unitID &&
-                                       (order.Status == Enum_s.OrderStatus.MailSended || order.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness)
+                                       (order.Status == Enum_s.OrderStatus.MailSended ||
+                                       order.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness)
                                        select new { };
             return ordersForHostingUnit.Count();
         }
+
+        public IEnumerable<IGrouping<Enum_s.Areas, GuestRequest>> GroupGuestRequestByAreas()
+        {
+            var groupByArea = from request in dal.ReceiveGuestRequestList()
+                              group request by request.Area;
+            return groupByArea;
+        }
+
+        public IEnumerable<IGrouping<int, GuestRequest>> GroupGuestRequestByNumberOfAdults()
+        {
+            var groupByNumberOfAdults = from request in dal.ReceiveGuestRequestList()
+                                        group request by request.Adults;
+            return groupByNumberOfAdults;
+        }
+
+        public IEnumerable<IGrouping<int, GuestRequest>> GroupGuestRequestByNumberOfChildren()
+        {
+            var groupByNumberOfChildren = from request in dal.ReceiveGuestRequestList()
+                                          group request by request.Children;
+            return groupByNumberOfChildren;
+        }
+
+        //כתיבת פונקצית השוואה למחלקת הוסט, עדיף גנרי
+        public IEnumerable<IGrouping<int, Host>> GroupHostByNumberOfHostingUnit()
+        {
+            var groupByNumberOfHostingUnit = from unit in dal.ReceiveHostingUnitList()
+                                             group unit by unit.Owner into groupByHost
+                                             group groupByHost.Key by groupByHost.Count();
+            return groupByNumberOfHostingUnit;
+        }
+
+        public IEnumerable<IGrouping<Enum_s.Areas, HostingUnit>> GroupHostingUnitByAreas()
+        {
+            var groupByAreas = from unit in dal.ReceiveHostingUnitList()
+                               group unit by unit.Area;
+            return groupByAreas;
+        }
+        
     }
 }

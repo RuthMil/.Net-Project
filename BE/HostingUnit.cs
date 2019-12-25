@@ -12,6 +12,15 @@ namespace BE
         public Host Owner { get; set; }
         public string HostingUnitName { get; set; }
         public bool[,] Diary { get; set; }
+        public Enum_s.Areas Area { get; set; }
+        public string SubArea { get; set; }
+        public Enum_s.HostingUnitTypes Type { get; set; }
+        public int Adults { get; set; }
+        public int Children { get; set; }
+        public string Pool { get; set; }
+        public string Jacuzzi { get; set; }
+        public string Garden { get; set; }
+        public string ChildrenAttractions { get; set; }
         //לעשות טוסטרינג גנרי
         //להוריד לוגיקה חובה
         private string hostingDays()

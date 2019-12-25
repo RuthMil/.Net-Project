@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
-
+//לבדוק האם לתעד בממשק או במחלקת המימוש
 namespace BL
 {
     public interface IBL
@@ -27,5 +27,12 @@ namespace BL
         List<GuestRequest> GuestRequestsWithCondition(Predicate<GuestRequest> condition);
         int SumOrdersForGuest(GuestRequest myGusetRequest);
         int SumOrdersSendedOrResponded(HostingUnit myHostingUnit);
+        IEnumerable<IGrouping<Enum_s.Areas, GuestRequest>> GroupGuestRequestByAreas();
+        IEnumerable<IGrouping<int, GuestRequest>> GroupGuestRequestByNumberOfAdults();
+        IEnumerable<IGrouping<int, GuestRequest>> GroupGuestRequestByNumberOfChildren();
+        IEnumerable<IGrouping<int, Host>> GroupHostByNumberOfHostingUnit();
+        IEnumerable<IGrouping<Enum_s.Areas, HostingUnit>> GroupHostingUnitByAreas();
+        List<Order> ReceiveClashOrders(Order myOrder);
+        void SendMailAboutCloseOrder(List<Order> orders);
     }
 }
