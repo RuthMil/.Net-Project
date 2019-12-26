@@ -15,7 +15,8 @@ namespace BE
         public string MailAddress { get; set; }
         public BankBranch BankBranchDetails { get; set; }
         public long BankAccountNumber { get; set; }
-        public string CollectionClearance { get; set; }
+        public bool CollectionClearance { get; set; }
+        public int Commission { get; set; }
         public override string ToString()
         {
             return "Host ID: " + HostKey.ToString() + " Name: " + FirstName + ' ' + LastName +

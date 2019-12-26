@@ -13,46 +13,15 @@ namespace PL
         {
             BL.IBL bl = BL.BlFactory.GetBL();
             int[] numbers = { 5, 4, 12, 33, 91, 8, 6, 7, 22, 0 };
-            IEnumerable<IGrouping<int, int>> GroupHostByNumberOfHostingUnit()
+            IEnumerable<IGrouping<int, int>> GroupHostingUnitByAreas()
             {
-                var groupByNumberOfHostingUnit = from num in numbers
-                                                 group num by num%2 into groupByodd
-                                                 group groupByodd.Key by groupByodd.Count() into groupByCount
-                                                 select groupByCount;
-                return groupByNumberOfHostingUnit;
+                var nums = from num in numbers
+                                   group num by num%2;
+                return nums;
             }
-            
-
-            IEnumerable<IGrouping<int, int>> result = from n in numbers
-                                                      group n by n % 2;
-
-            foreach (IGrouping<int, int> g in result)
-            {
-                switch (g.Key)
-                {
-                    case 1:
-                        Console.WriteLine("Odd Number:");
-                        foreach (int n in g)
-                            Console.Write("{0}, ", n);
-                        Console.WriteLine("\n");
-                        break;
-
-                    case 0:
-                        Console.WriteLine("Even Number:");
-                        foreach (int n in g)
-                            Console.Write("{0}, ", n);
-                        Console.WriteLine("\n");
-                        break;
-                }
-            }
-            var mygr = GroupHostByNumberOfHostingUnit();
-            foreach (var item in mygr)
-            {
-                Console.WriteLine(item.Key);
-                foreach (var y in item)
-                    Console.WriteLine(y);
-            }
-
+            List<IGrouping<int,int>> nn = GroupHostingUnitByAreas().ToList();
+            foreach (var item in nn)
+                Console.WriteLine(item);
+        }    
     }
-}
 }

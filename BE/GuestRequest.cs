@@ -21,10 +21,10 @@ namespace BE
         public Enum_s.HostingUnitTypes Type { get; set; }
         public int Adults { get; set; }
         public int Children { get; set; }
-        public string Pool { get; set; }
-        public string Jacuzzi { get; set; }
-        public string Garden { get; set; }
-        public string ChildrenAttractions { get; set; }
+        public Enum_s.RequestOption Pool { get; set; }
+        public Enum_s.RequestOption Jacuzzi { get; set; }
+        public Enum_s.RequestOption Garden { get; set; }
+        public Enum_s.RequestOption ChildrenAttractions { get; set; }
         public override string ToString()
         {
             string isSubArea = SubArea!=null ? "Specific Area: " + SubArea : ""; 

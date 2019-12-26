@@ -19,5 +19,8 @@ namespace DAL
         List<BE.GuestRequest> ReceiveGuestRequestList();
         List<BE.Order> ReceiveOrderList();
         List<BE.BankBranch> ReceiveBankBranchesList();
+        BE.GuestRequest GetGuestRequestByKey(long key);
+        BE.Order GetOrderByKey(long key);
+        BE.HostingUnit GetHostingUnitByKey(long key);
     }
 }

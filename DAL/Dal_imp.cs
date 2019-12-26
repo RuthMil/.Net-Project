@@ -26,48 +26,51 @@ namespace DAL
 
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {
+            if (DS.DataSource.GuestRequestList.Exists(x => x.GuestRequestKey == myGuestRequest.GuestRequestKey))
+                throw new ArgumentException("Request number exists in the system");
             Configuration.GuestRequestID++;
             myGuestRequest.GuestRequestKey = Configuration.GuestRequestID;
-            if (DS.DataSource.GuestRequestList.Exists(x => x.GuestRequestKey
-            == myGuestRequest.GuestRequestKey))
-                throw Exception("Request number exists in the system");
             DS.DataSource.GuestRequestList.Add(myGuestRequest.Clone()); 
         }
         //לטפל בחריגות
-        private Exception Exception(string v)
-        {
-            throw new NotImplementedException();
-        }
 
         public void AddHostingUnit(HostingUnit myHostingUnit)
         {
+            if (DS.DataSource.HostingUnitList.Exists(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey))
+                throw new ArgumentException("Hosting Unit number exists in the system");
+            HostingUnit hostIsExist = DS.DataSource.HostingUnitList.Find(x => x.Owner.MailAddress == myHostingUnit.Owner.MailAddress);
+            if (hostIsExist == default(HostingUnit))
+            {
+                Configuration.HostID++;
+                myHostingUnit.Owner.HostKey = Configuration.HostID;
+            }
+            else
+                myHostingUnit.Owner.HostKey = hostIsExist.Owner.HostKey;
             Configuration.HostingUnitID++;
             myHostingUnit.HostingUnitKey = Configuration.HostingUnitID;
-            if (DS.DataSource.HostingUnitList.Exists(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey))
-                throw Exception("Hosting Unit number exists in the system");
             DS.DataSource.HostingUnitList.Add(myHostingUnit.Clone());
         }
 
         public void AddOrder(Order myOrder)
         {
+            if (DS.DataSource.OrderList.Exists(x => x.OrderKey == myOrder.OrderKey))
+                throw new ArgumentException("Order number exists in the system");
             Configuration.OrderID++;
             myOrder.OrderKey = Configuration.OrderID;
-            if (DS.DataSource.OrderList.Exists(x => x.OrderKey == myOrder.OrderKey))
-                throw Exception("Order number exists in the system");
             DS.DataSource.OrderList.Add(myOrder.Clone());
         }
 
         public void DeleteHostingUnit(HostingUnit myHostingUnit)
         {
             if (!DS.DataSource.HostingUnitList.Exists(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey))
-                throw Exception("Hosting unit does not exists in the system");
+                throw new KeyNotFoundException("Hosting unit does not exists in the system");
             DS.DataSource.HostingUnitList.Remove(myHostingUnit);
         }
 
         public void DeleteOrder(Order myOrder)
         {
             if (!DS.DataSource.OrderList.Exists(x => x.OrderKey == myOrder.OrderKey))
-                throw Exception("Order does not exists in the system");
+                throw new KeyNotFoundException("Order does not exists in the system");
             DS.DataSource.OrderList.Remove(myOrder);
         }
 
@@ -154,7 +157,7 @@ namespace DAL
         {
             int isExist = DS.DataSource.GuestRequestList.FindIndex(x => x.GuestRequestKey == myGuestRequest.GuestRequestKey);
             if (isExist == -1)
-                throw Exception("Guest Request does not exist in the system");
+                throw new KeyNotFoundException("Guest Request does not exist in the system");
             DS.DataSource.GuestRequestList.Insert(isExist, myGuestRequest.Clone());
         }
 
@@ -162,7 +165,7 @@ namespace DAL
         {
             int isExist = DS.DataSource.HostingUnitList.FindIndex(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey);
             if (isExist == -1)
-                throw Exception("Hosting unit does not exist in the system");
+                throw new KeyNotFoundException("Hosting unit does not exist in the system");
             DS.DataSource.HostingUnitList.Insert(isExist, myHostingUnit.Clone());
         }
 
@@ -170,8 +173,59 @@ namespace DAL
         {
             int isExist = DS.DataSource.OrderList.FindIndex(x => x.OrderKey == myOrder.OrderKey);
             if (isExist == -1)
-                throw Exception("Guest Request does not exist in the system");
+                throw new KeyNotFoundException("Guest Request does not exist in the system");
             DS.DataSource.OrderList.Insert(isExist, myOrder.Clone());
+        }
+
+        public GuestRequest GetGuestRequestByKey(long key)
+        {
+            var myGuestRequest = from request in DS.DataSource.GuestRequestList
+                                 where request.GuestRequestKey == key
+                                 select request;
+            try
+            {
+                if (myGuestRequest == null)
+                    throw new KeyNotFoundException("Guest Request Does Not Exist");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            return myGuestRequest.First().Clone();
+        }
+
+        public Order GetOrderByKey(long key)
+        {
+            var myOrder = from order in DS.DataSource.OrderList
+                                 where order.OrderKey == key
+                                 select order;
+            try
+            {
+                if (myOrder == null)
+                    throw new KeyNotFoundException("Order Does Not Exist");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            return myOrder.First().Clone();
+        }
+
+        public HostingUnit GetHostingUnitByKey(long key)
+        {
+            var myUnit = from unit in DS.DataSource.HostingUnitList
+                          where unit.HostingUnitKey == key
+                          select unit;
+            try
+            {
+                if (myUnit == null)
+                    throw new KeyNotFoundException("Hosting Unit Does Not Exist");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            return myUnit.First().Clone();
         }
     }
 }

@@ -17,10 +17,10 @@ namespace BE
         public Enum_s.HostingUnitTypes Type { get; set; }
         public int Adults { get; set; }
         public int Children { get; set; }
-        public string Pool { get; set; }
-        public string Jacuzzi { get; set; }
-        public string Garden { get; set; }
-        public string ChildrenAttractions { get; set; }
+        public bool Pool { get; set; }
+        public bool Jacuzzi { get; set; }
+        public bool Garden { get; set; }
+        public bool ChildrenAttractions { get; set; }
         //לעשות טוסטרינג גנרי
         //להוריד לוגיקה חובה
         private string hostingDays()

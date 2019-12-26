@@ -11,17 +11,35 @@ namespace BL
     public class Bl_imp : IBL
     {
         readonly DAL.IDAL dal = DAL.DalFactory.GetDAL();
+
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {
+            myGuestRequest.RegistrationDate = DateTime.Now;
             try
             {
                 dal.AddGuestRequest(myGuestRequest);
             }
-            catch(Exception ex)
+            catch(ArgumentException ex)
             {
                 throw ex;
             }
-            
+            List<HostingUnit> matchHostingUnit = ReceiveMatchHostingUnitForRequest(myGuestRequest);
+            if (matchHostingUnit.Count == 0)
+                throw new ArgumentException("Sorry, we did not found match hosting unit for you.");
+            foreach (var item in matchHostingUnit)
+            {
+                Order myOrder = new Order() {OrderKey = 0, HostingUnitKey = item.HostingUnitKey, GuestRequestKey = myGuestRequest.GuestRequestKey,
+                Status = Enum_s.OrderStatus.HasNotBeenTreated, CreateDate = DateTime.Now, OrderDate = default(DateTime)};
+                dal.AddOrder(myOrder);
+                if (HostingUnitIsFree(item, myGuestRequest.EntryDate, myGuestRequest.ReleaseDate))
+                {
+                    myOrder.Status = Enum_s.OrderStatus.MailSended;
+                    myOrder.OrderDate = DateTime.Now;
+                    UpdateOrder(myOrder);
+                }
+                //לשים בתוך טריי
+                //אם שום יחידה לא פנויה תזרוק חריגה קאונטר
+            }
         }
 
         public void AddHostingUnit(HostingUnit myHostingUnit)
@@ -30,7 +48,7 @@ namespace BL
             {
                 dal.AddHostingUnit(myHostingUnit);
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
                 throw ex;
             }
@@ -42,22 +60,36 @@ namespace BL
             {
                 List<GuestRequest> guestRequestsList = dal.ReceiveGuestRequestList();
                 List<HostingUnit> hostingUnitsList = dal.ReceiveHostingUnitList();
-                if (!guestRequestsList.Exists(x => x.GuestRequestKey == myOrder.GuestRequestKey)) 
-                    throw new ArgumentException("You entered not existing guest request", "GuestRequest");
+                if (!guestRequestsList.Exists(x => x.GuestRequestKey == myOrder.GuestRequestKey))
+                    throw new KeyNotFoundException("You entered not existing guest request");
                 dal.AddOrder(myOrder);
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (ArgumentException ex)
             {
                 throw ex;
             }
         }
 
-
         public void DeleteHostingUnit(HostingUnit myHostingUnit)
         {
             try
             {
+                var openOrdersByUnit = from order in dal.ReceiveOrderList()
+                                       where order.HostingUnitKey == myHostingUnit.HostingUnitKey &&
+                                       (order.Status == Enum_s.OrderStatus.HasNotBeenTreated ||
+                                       order.Status == Enum_s.OrderStatus.MailSended)
+                                       select order;
+                if (openOrdersByUnit.Count() != 0)
+                    throw new Exception();//ליצור חריגה עבור מחיקת יחידה עם הזמנות פתוחות
                 dal.DeleteHostingUnit(myHostingUnit);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -91,7 +123,7 @@ namespace BL
             {
                 dal.UpdateGuestRequest(myGuestRequest);
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
             {
                 throw ex;
             }
@@ -101,7 +133,20 @@ namespace BL
         {
             try
             {
+                if (!myHostingUnit.Owner.CollectionClearance && dal.GetHostingUnitByKey(myHostingUnit.HostingUnitKey).Owner.CollectionClearance)
+                {
+                    var openOrders = from order in dal.ReceiveOrderList()
+                                     where dal.GetHostingUnitByKey(order.HostingUnitKey).Owner.HostKey == myHostingUnit.Owner.HostKey &&
+                                     (order.Status == Enum_s.OrderStatus.HasNotBeenTreated || order.Status == Enum_s.OrderStatus.MailSended)
+                                     select order;
+                    if (openOrders.Count() != 0)
+                        throw new Exception(); //לטפל בחריגה מתאימה, לפי חריגות הסטטוסים
+                }
                 dal.UpdateHostingUnit(myHostingUnit);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -109,48 +154,136 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// gets order, and returns list of all the order which has the same hosting unit,
+        /// and crashing hosting period.
+        /// </summary>
+        /// <param name="myOrder">specific order for cheking</param>
+        /// <returns>list of all the order which has the same hosting unit,
+        /// and crashing hosting period</returns>
         public List<Order> ReceiveClashOrders(Order myOrder)
         {
-            List<GuestRequest> myGuestRequests = dal.ReceiveGuestRequestList();
             var sameOrders = from order in dal.ReceiveOrderList()
-                             let myRequest = myGuestRequests.Find(x => x.GuestRequestKey == myOrder.GuestRequestKey)
+                             let myRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey)
                              where order.HostingUnitKey == myOrder.HostingUnitKey &&
-                             myGuestRequests.Find(x => x.GuestRequestKey == order.GuestRequestKey).EntryDate == myRequest.EntryDate &&
-                             myGuestRequests.Find(x => x.GuestRequestKey == order.GuestRequestKey).ReleaseDate == myRequest.ReleaseDate
+                             ((dal.GetGuestRequestByKey(order.GuestRequestKey).EntryDate >= myRequest.EntryDate &&
+                             dal.GetGuestRequestByKey(order.GuestRequestKey).EntryDate <= myRequest.ReleaseDate) ||
+                             (dal.GetGuestRequestByKey(order.GuestRequestKey).ReleaseDate >= myRequest.EntryDate &&
+                             dal.GetGuestRequestByKey(order.GuestRequestKey).ReleaseDate <= myRequest.ReleaseDate))
                              select order;
-            return (List<Order>)sameOrders; 
+            return sameOrders.ToList(); 
         }
 
         public void SendMailAboutCloseOrder(List<Order> orders)
         {
-
+            Console.WriteLine("Sending Mail For All Clashing Orders:\nWe are sory, your order was caught"); 
         }
+
+        public List<Order> ReceiveOrdersListForGuestRequestKey(long myGuestRequestKey)
+        {
+            var orders = from order in dal.ReceiveOrderList()
+                         where order.GuestRequestKey == myGuestRequestKey
+                         select order;
+            return orders.ToList();
+        }
+
+        public GuestRequest GetGuestRequestByKey(long key)
+        {
+            try
+            {
+                return dal.GetGuestRequestByKey(key);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Order GetOrderByKey(long key)
+        {
+            try
+            {
+                return dal.GetOrderByKey(key);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public HostingUnit GetHostingUnitByKey(long key)
+        {
+            try
+            {
+                return dal.GetHostingUnitByKey(key);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+        }
+
         public void UpdateOrder(Order myOrder)
         {
             try
             {
-                List<Order> myOrders = dal.ReceiveOrderList();
-                if (myOrders.Exists(x => x.OrderKey == myOrder.OrderKey &&
-                x.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness))
-                    throw new Exception();//לטפל בחריגה
-                if (myOrder.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness)
-                {
-                    List<Order> sameOrders = ReceiveClashOrders(myOrder);
-                    SendMailAboutCloseOrder(sameOrders);
-                    foreach (var item in sameOrders) 
-                    {
-                        item.Status = Enum_s.OrderStatus.ClosedDueToClash;
-                    }
-                    //לסמן במטריצה ימים תפוסים
-                    //חישוב עמלה
-                    //
-                }
-                dal.UpdateOrder(myOrder);
+                Order oldOrder = dal.GetOrderByKey(myOrder.OrderKey);
+                if (oldOrder.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness ||
+                    oldOrder.Status == Enum_s.OrderStatus.ClosedDueToClash ||
+                    oldOrder.Status == Enum_s.OrderStatus.ClosedDueToOtherPurchase ||
+                    oldOrder.Status == Enum_s.OrderStatus.ClosedDueToUnresponsiveness ||
+                    (myOrder.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness &&
+                    oldOrder.Status == Enum_s.OrderStatus.HasNotBeenTreated) ||
+                    myOrder.Status == Enum_s.OrderStatus.MailSended &&
+                    !dal.GetHostingUnitByKey(myOrder.HostingUnitKey).Owner.CollectionClearance)   
+                    throw new Exception();//לטפל בחריגה עבור שינוי סטטוס להזמנה סגורה
+            }
+            catch(KeyNotFoundException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            switch (myOrder.Status)
+            {
+                case Enum_s.OrderStatus.ClosedDueToResponsiveness:
+                    List<Order> sameOrders = ReceiveClashOrders(myOrder);
+                    SendMailAboutCloseOrder(sameOrders);
+                    foreach (var item in sameOrders)
+                    {
+                        item.Status = Enum_s.OrderStatus.ClosedDueToClash;
+                        dal.UpdateOrder(item);
+                    }
+                    foreach (var item in ReceiveOrdersListForGuestRequestKey(myOrder.GuestRequestKey))
+                    {
+                        item.Status = Enum_s.OrderStatus.ClosedDueToOtherPurchase;
+                        dal.UpdateOrder(item);
+                    }
+                    GuestRequest orderGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
+                    orderGuestRequest.Status = Enum_s.GuestRequestStatus.ClosedDueToResponsivenessByApp;
+                    dal.UpdateGuestRequest(orderGuestRequest);
+                    HostingUnit myHostingUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
+                    //signing the busy days in the diary matrix
+                    for (DateTime tmp = orderGuestRequest.EntryDate; tmp < orderGuestRequest.ReleaseDate; tmp = tmp.AddDays(1)) 
+                        myHostingUnit.Diary[tmp.Month - 1, tmp.Day - 1] = true;
+                    myHostingUnit.Owner.Commission += Configuration.commission * SumDaysBetween(orderGuestRequest.EntryDate, orderGuestRequest.RegistrationDate); 
+                    dal.UpdateHostingUnit(myHostingUnit);
+                    break;
+                case Enum_s.OrderStatus.MailSended:
+                    SendMailForSuggest(myOrder);
+                    break;
+            }
+            dal.UpdateOrder(myOrder);
+        }
+
+        public void SendMailForSuggest(Order myOrder)
+        {
+            HostingUnit myUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
+            Console.WriteLine("Sending Mail For Suggest: Hello, we found special " +
+                "hosting unit for you, according to your request number: {0}\n Hosting unit details:\n{1}",
+                myOrder.GuestRequestKey.ToString(), dal.GetHostingUnitByKey(myOrder.HostingUnitKey).ToString()); 
         }
 
         public int SumDaysBetween(DateTime firstDate, DateTime? secondDate = null)
@@ -177,7 +310,7 @@ namespace BL
                                        let releaseDate = entryDate.AddDays(hostingDays)
                                        where HostingUnitIsFree(unit, entryDate, releaseDate)
                                        select unit;
-                return (List<HostingUnit>)freeHostingUnits;
+                return freeHostingUnits.ToList();
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -216,7 +349,7 @@ namespace BL
                 var expiredOrders = from order in dal.ReceiveOrderList()
                                     where (order.OrderDate - DateTime.Now).Days >= days || (order.CreateDate - DateTime.Now).Days >= days
                                     select order;
-                return (List<Order>)expiredOrders; 
+                return expiredOrders.ToList(); 
             }
             catch(ArgumentOutOfRangeException ex)
             {
@@ -234,7 +367,7 @@ namespace BL
             var guestRequestWith = from request in dal.ReceiveGuestRequestList()
                                    where condition(request)
                                    select request;
-            return (List<GuestRequest>)guestRequestWith; 
+            return guestRequestWith.ToList(); 
         }
 
         /// <summary>
@@ -306,6 +439,33 @@ namespace BL
                                group unit by unit.Area;
             return groupByAreas;
         }
-        
+
+        public List<Order> ReceiveOrderForHostingUnit(long hostingUnitKey)
+        {
+            var orderForUnit = from order in dal.ReceiveOrderList()
+                               where order.HostingUnitKey == hostingUnitKey
+                               select order;
+            return orderForUnit.ToList(); 
+        }
+
+        public List<HostingUnit> ReceiveMatchHostingUnitForRequest(GuestRequest myGuestRequest)
+        {
+            var matchHostingUnits = from unit in dal.ReceiveHostingUnitList()
+                                    where myGuestRequest.Adults == unit.Adults &&
+                                    myGuestRequest.Area == unit.Area &&
+                                    myGuestRequest.Children == unit.Children &&
+                                    ((myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.Necessary && unit.ChildrenAttractions) ||
+                                    (myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.NotInterested && !unit.ChildrenAttractions)) &&
+                                    ((myGuestRequest.Garden == Enum_s.RequestOption.Necessary && unit.Garden) ||
+                                    (myGuestRequest.Garden == Enum_s.RequestOption.NotInterested && !unit.Garden)) &&
+                                    ((myGuestRequest.Jacuzzi == Enum_s.RequestOption.Necessary && unit.Jacuzzi) ||
+                                    (myGuestRequest.Jacuzzi == Enum_s.RequestOption.NotInterested && !unit.Jacuzzi)) &&
+                                    ((myGuestRequest.Pool == Enum_s.RequestOption.Necessary && unit.Pool) ||
+                                    (myGuestRequest.Pool == Enum_s.RequestOption.NotInterested && !unit.Pool)) &&
+                                    myGuestRequest.SubArea == unit.SubArea &&
+                                    myGuestRequest.Type == unit.Type
+                                    select unit;
+            return matchHostingUnits.ToList();
+        }
     }
 }
