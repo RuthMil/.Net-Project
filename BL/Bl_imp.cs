@@ -14,6 +14,12 @@ namespace BL
 
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {
+            if (myGuestRequest.ReleaseDate <= myGuestRequest.EntryDate)
+                throw new ArgumentException("Second date must be later than first date.");
+            if (myGuestRequest.EntryDate <= DateTime.Now)
+                throw new ArgumentException("Entry date must be later than today.");
+            if (myGuestRequest.ReleaseDate > DateTime.Now.AddMonths(11))
+                throw new ArgumentException("you can look for hosting unit up to 11 months in advance.");
             myGuestRequest.RegistrationDate = DateTime.Now;
             try
             {
