@@ -14,6 +14,7 @@ namespace BL
         void UpdateGuestRequest(GuestRequest myGuestRequest);
         void AddHostingUnit(HostingUnit myHostingUnit);
         void DeleteHostingUnit(HostingUnit myHostingUnit);
+        void DeleteOrder(Order myOrder);
         void UpdateHostingUnit(HostingUnit myHostingUnit);
         void AddOrder(Order myOrder);
         void UpdateOrder(Order myOrder);

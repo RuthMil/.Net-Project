@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
+    [Serializable]
     public class Enum_s
     {
         public enum HostingUnitTypes {Hut, Apartment, Hotel, Tent}

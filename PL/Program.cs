@@ -22,7 +22,7 @@ namespace PL
                         HostKey = 1,
                         FirstName = "Efraim",
                         LastName = "Miller",
-                        PhoneNumber = 0545851233,
+                        PhoneNumber = "0545851233",
                         MailAddress = "efraimmiller@gmail.com",
                         BankBranchDetails = new BankBranch()
                         {
@@ -37,7 +37,7 @@ namespace PL
                         Commission = 0
                     },
                     HostingUnitName = "Kalanit",
-                    Diary = default(bool[,]),
+                    Diary = new bool[12,31],
                     Area = Enum_s.Areas.North,
                     SubArea = Enum_s.SubArea.Galil,
                     Type = Enum_s.HostingUnitTypes.Tent,
@@ -56,7 +56,7 @@ namespace PL
                         HostKey = 2,
                         FirstName = "Israel",
                         LastName = "Avramov",
-                        PhoneNumber = 0527188451,
+                        PhoneNumber = "0527188451",
                         MailAddress = "israelav@gmail.com",
                         BankBranchDetails = new BankBranch()
                         {
@@ -71,7 +71,7 @@ namespace PL
                         Commission = 0
                     },
                     HostingUnitName = "Antiques",
-                    Diary = default(bool[,]),
+                    Diary = new bool[12,31],
                     Area = Enum_s.Areas.Jerusalem,
                     SubArea = Enum_s.SubArea.Jerusalem,
                     Type = Enum_s.HostingUnitTypes.Apartment,
@@ -90,7 +90,7 @@ namespace PL
                         HostKey = 3,
                         FirstName = "Yafit",
                         LastName = "Halevi",
-                        PhoneNumber = 0587760213,
+                        PhoneNumber = "0587760213",
                         MailAddress = "yafitHalevi1@gmail.com",
                         BankBranchDetails = new BankBranch()
                         {
@@ -105,7 +105,7 @@ namespace PL
                         Commission = 0
                     },
                     HostingUnitName = "Flower",
-                    Diary = default(bool[,]),
+                    Diary = new bool[12,31],
                     Area = Enum_s.Areas.South,
                     SubArea = Enum_s.SubArea.BeerSheba,
                     Type = Enum_s.HostingUnitTypes.Hut,
@@ -124,7 +124,7 @@ namespace PL
                         HostKey = 4,
                         FirstName = "Yizhak",
                         LastName = "Shamir",
-                        PhoneNumber = 0512054332,
+                        PhoneNumber = "0512054332",
                         MailAddress = "yshamir123@gmail.com",
                         BankBranchDetails = new BankBranch()
                         {
@@ -139,7 +139,7 @@ namespace PL
                         Commission = 0
                     },
                     HostingUnitName = "BlueSea",
-                    Diary = default(bool[,]),
+                    Diary = new bool[12,31],
                     Area = Enum_s.Areas.South,
                     SubArea = Enum_s.SubArea.Eilat,
                     Type = Enum_s.HostingUnitTypes.Hotel,
@@ -158,7 +158,7 @@ namespace PL
                         HostKey = 5,
                         FirstName = "Ruth",
                         LastName = "Miller",
-                        PhoneNumber = 0587760213,
+                        PhoneNumber = "0587760213",
                         MailAddress = "ruthmiller2000@gmail.com",
                         BankBranchDetails = new BankBranch()
                         {
@@ -173,7 +173,7 @@ namespace PL
                         Commission = 0
                     },
                     HostingUnitName = "Hordus",
-                    Diary = default(bool[,]),
+                    Diary = new bool[12,31],
                     Area = Enum_s.Areas.Jerusalem,
                     SubArea = Enum_s.SubArea.Jerusalem,
                     Type = Enum_s.HostingUnitTypes.Hut,
@@ -186,7 +186,20 @@ namespace PL
                 }
             };
             foreach (var item in HostingUnitList)
-                bl.AddHostingUnit(item);
+            {
+                try
+                {
+                    bl.AddHostingUnit(item);
+                }
+                catch (ArgumentException ex)
+                {
+                    //Console.WriteLine(ex);
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine(ex);
+                }
+            }
             List<GuestRequest> guestRequestList = new List<GuestRequest>()
             {
                 new GuestRequest()
@@ -291,7 +304,20 @@ namespace PL
                 }
             };
             foreach (var item in guestRequestList)
-                bl.AddGuestRequest(item);
+            {
+                try
+                {
+                    bl.AddGuestRequest(item);
+                }
+                catch (ArgumentException ex)
+                {
+                    //Console.WriteLine(ex);
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine(ex);
+                }
+            }
             List<Order> orderList = new List<Order>()
             {
                 new Order()
@@ -326,7 +352,29 @@ namespace PL
                 },
             };
             foreach (var item in orderList)
-                bl.AddOrder(item);
+            {
+                try
+                {
+                    bl.AddOrder(item);
+                }
+                catch (ArgumentException ex)
+                {
+                    //Console.WriteLine(ex);
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine(ex);
+                }
+            }
+            Console.WriteLine("All The Hosting Units:\n");
+            foreach (var item in HostingUnitList)
+                Console.WriteLine(item);
+            Console.WriteLine("All The Guest Request:\n");
+            foreach (var item in guestRequestList)
+                Console.WriteLine(item);
+            Console.WriteLine("All The Orders:\n");
+            foreach (var item in orderList)
+                Console.WriteLine(item);
         }
     }
 }

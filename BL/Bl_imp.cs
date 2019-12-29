@@ -111,6 +111,23 @@ namespace BL
             }
         }
 
+        public void DeleteOrder(Order myOrder)
+        {
+            try
+            {
+                dal.DeleteOrder(myOrder);
+                HostingUnit myHostingUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
+                GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
+                for (DateTime tmp = myGuestRequest.EntryDate; tmp < myGuestRequest.ReleaseDate; tmp = tmp.AddDays(1))
+                    myHostingUnit.Diary[tmp.Month - 1, tmp.Day - 1] = false;
+                dal.UpdateHostingUnit(myHostingUnit);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<BankBranch> ReceiveBankBranchesList()
         {
             return dal.ReceiveBankBranchesList();
