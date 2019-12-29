@@ -184,7 +184,7 @@ namespace DAL
                                  select request;
             try
             {
-                if (myGuestRequest == null)
+                if (myGuestRequest.Count() == 0) 
                     throw new KeyNotFoundException("Guest Request Does Not Exist");
             }
             catch (KeyNotFoundException ex)
@@ -201,7 +201,7 @@ namespace DAL
                                  select order;
             try
             {
-                if (myOrder == null)
+                if (myOrder.Count() == 0) 
                     throw new KeyNotFoundException("Order Does Not Exist");
             }
             catch (KeyNotFoundException ex)
@@ -218,7 +218,7 @@ namespace DAL
                           select unit;
             try
             {
-                if (myUnit == null)
+                if (myUnit.Count() == 0) 
                     throw new KeyNotFoundException("Hosting Unit Does Not Exist");
             }
             catch (KeyNotFoundException ex)
@@ -226,6 +226,24 @@ namespace DAL
                 throw ex;
             }
             return myUnit.First().Clone();
+        }
+
+        public Host getHostByKey(long key)
+        {
+            var myHost = from unit in DS.DataSource.HostingUnitList
+                         where unit.Owner.HostKey == key
+                         select unit.Owner;
+            try
+            {
+                if (myHost.Count() == 0)
+                    throw new KeyNotFoundException("Host Does Not Exist");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            return myHost.First().Clone();
+
         }
     }
 }

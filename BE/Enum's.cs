@@ -10,9 +10,10 @@ namespace BE
     {
         public enum HostingUnitTypes {Hut, Apartment, Hotel, Tent}
         public enum Areas {North, South, Central, Jerusalem}
-        public enum OrderStatus {HasNotBeenTreated , MailSended, ClosedDueToUnresponsiveness, ClosedDueToResponsiveness, ClosedDueToClash, ClosedDueToOtherPurchase }
+        public enum OrderStatus {HasNotBeenTreated , MailSended, ClosedDueToUnresponsiveness,
+            ClosedDueToResponsiveness, ClosedDueToClash, ClosedDueToOtherPurchase }
         public enum GuestRequestStatus {Open, ClosedDueToResponsivenessByApp, ClosedDueToExpiry }
         public enum RequestOption { Necessary, Possible, NotInterested }
-        //טיפוס בשביל תת אזורים
+        public enum SubArea { Haifa, TelAviv, Galil, BeerSheba, Eilat }
     }
 }

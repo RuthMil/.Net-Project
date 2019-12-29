@@ -7,6 +7,7 @@ using BE;
 //לבדוק האם לתעד בממשק או במחלקת המימוש
 namespace BL
 {
+    public delegate bool SendedOrResponded(Order myOrder);
     public interface IBL
     {
         void AddGuestRequest(GuestRequest myGuestRequest);
@@ -23,23 +24,25 @@ namespace BL
         GuestRequest GetGuestRequestByKey(long key);
         Order GetOrderByKey(long key);
         HostingUnit GetHostingUnitByKey(long key);
-        List<HostingUnit> FreeHostingUnitsByDates_List(DateTime entryDate, int hostingDays);
+        Host GetHostByKey(long key);
         int SumDaysBetween(DateTime firstDate, DateTime? secondDate = null);
+        List<HostingUnit> FreeHostingUnitsByDates_List(DateTime entryDate, int hostingDays);
         bool HostingUnitIsFree(HostingUnit myHostingUnit, DateTime entryDate, DateTime releaseDate);
         List<Order> ExpiredOrder(int days);
         List<GuestRequest> GuestRequestsWithCondition(Predicate<GuestRequest> condition);
         int SumOrdersForGuest(GuestRequest myGusetRequest);
-        int SumOrdersSendedOrResponded(HostingUnit myHostingUnit);
+        int SumOrdersSendedOrResponded(HostingUnit myHostingUnit, SendedOrResponded myFunction);
         IEnumerable<IGrouping<Enum_s.Areas, GuestRequest>> GroupGuestRequestByAreas();
         IEnumerable<IGrouping<int, GuestRequest>> GroupGuestRequestByNumberOfAdults();
         IEnumerable<IGrouping<int, GuestRequest>> GroupGuestRequestByNumberOfChildren();
         IEnumerable<IGrouping<int, Host>> GroupHostByNumberOfHostingUnit();
         IEnumerable<IGrouping<Enum_s.Areas, HostingUnit>> GroupHostingUnitByAreas();
-        List<Order> ReceiveClashOrders(Order myOrder);
         void SendMailAboutCloseOrder(List<Order> orders);
-        List<Order> ReceiveOrdersListForGuestRequestKey(long myGuestRequestKey);
         void SendMailForSuggest(Order myOrder);
-        List<Order> ReceiveOrderForHostingUnit(long hostingUnitKey);
+        List<Order> ReceiveClashOrders(Order myOrder);
+        List<Order> ReceiveOrdersForGuestRequest(long GuestRequestKey);
         List<HostingUnit> ReceiveMatchHostingUnitForRequest(GuestRequest myGuestRequest);
+        List<Order> ReceiveOrdersForHostingUnit(long hostingUnitKey);
+        List<Order> ReceiveOrdersForHost(long hostKey);
     }
 }

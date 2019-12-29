@@ -22,5 +22,6 @@ namespace DAL
         BE.GuestRequest GetGuestRequestByKey(long key);
         BE.Order GetOrderByKey(long key);
         BE.HostingUnit GetHostingUnitByKey(long key);
+        BE.Host getHostByKey(long key);
     }
 }

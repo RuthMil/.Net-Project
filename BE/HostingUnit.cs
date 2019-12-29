@@ -13,7 +13,7 @@ namespace BE
         public string HostingUnitName { get; set; }
         public bool[,] Diary { get; set; }
         public Enum_s.Areas Area { get; set; }
-        public string SubArea { get; set; }
+        public Enum_s.SubArea SubArea { get; set; }
         public Enum_s.HostingUnitTypes Type { get; set; }
         public int Adults { get; set; }
         public int Children { get; set; }
