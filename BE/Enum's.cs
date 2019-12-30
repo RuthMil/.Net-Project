@@ -15,6 +15,6 @@ namespace BE
             ClosedDueToResponsiveness, ClosedDueToClash, ClosedDueToOtherPurchase, ClosedDueToExpired }
         public enum GuestRequestStatus {Open, ClosedDueToResponsivenessByApp, ClosedDueToExpiry }
         public enum RequestOption { Necessary, Possible, NotInterested }
-        public enum SubArea { Haifa, TelAviv, Galil, BeerSheba, Eilat, Jerusalem}
+        public enum SubArea { Haifa, TelAviv, Galil, BeerSheba, Eilat, Jerusalem }
     }
 }

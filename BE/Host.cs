@@ -22,7 +22,7 @@ namespace BE
         {
             return "Host ID: " + HostKey.ToString() + " Name: " + FirstName + ' ' + LastName +
                 " Phone Number: " + PhoneNumber + " Mail Address: " + MailAddress +
-                " Bank Account Details: " + BankBranchDetails.ToString() + " Bank Account Number: " + BankAccountNumber.ToString() + " Collection Clearance: " +
+                " Bank Account Details: " + BankBranchDetails.ToString() + "Bank Account Number: " + BankAccountNumber.ToString() + " Collection Clearance: " +
                 CollectionClearance;
         }
     }

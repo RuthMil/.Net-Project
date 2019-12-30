@@ -31,8 +31,8 @@ namespace BE
             string isSubArea = SubArea != default(Enum_s.SubArea) ? "Specific Area: " + SubArea.ToString("g") : ""; 
             return "Hosting Request ID: " + GuestRequestKey.ToString() + "   Name: "
                 + FirstName + ' ' + LastName + "   Mail Address: " + MailAddress + 
-                "\nOrder Status: " + Status.ToString("g") + " Application Date: " + RegistrationDate.ToString() +
-                "Check In Date: " + EntryDate.ToString() + " Check Out Date: " + ReleaseDate.ToString() +
+                "\nOrder Status: " + Status.ToString("g") + " Application Date: " + RegistrationDate.ToString("d") +
+                " Check In Date: " + EntryDate.ToString("d") + " Check Out Date: " + ReleaseDate.ToString("d") +
                 "\nArea: " + Area.ToString("g") + isSubArea + " Hosting Unit Type: " + Type + "\nYour Group: Adults- " + 
                 Adults.ToString() + " Children- " + Children.ToString() +" Special Additions: Pool- " + Pool.ToString("g") +
                 " Jucuzzi- " + Jacuzzi.ToString("g") + " Garden- " + Garden.ToString("g") + " Attractions For Children- " + 

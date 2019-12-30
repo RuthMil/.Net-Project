@@ -9,6 +9,174 @@ namespace PL
 {
     class Program
     {
+        private static GuestRequest addRequest()
+        {
+            string tmp;
+            GuestRequest newGuestRequest = new GuestRequest();
+            newGuestRequest.RegistrationDate = DateTime.Now;
+            Console.Write("Enter your first name: ");
+            tmp = Console.ReadLine();
+            newGuestRequest.FirstName = tmp;
+            Console.Write("Enter your first name: ");
+            tmp = Console.ReadLine();
+            newGuestRequest.LastName = tmp;
+            Console.Write("Enter your email address: ");
+            tmp = Console.ReadLine();
+            int indexOfStru = tmp.IndexOf('@');
+            while (indexOfStru == -1 || tmp.IndexOf('.') >= tmp.Length - 1 || tmp.IndexOf('.') <= indexOfStru + 1)
+            {
+                Console.WriteLine("Invalid email address. Please enter correct email.");
+                tmp = Console.ReadLine();
+                indexOfStru = tmp.IndexOf('@');
+            }
+            newGuestRequest.MailAddress = tmp;
+            Console.WriteLine("Enter entry date");
+            tmp = Console.ReadLine();
+            DateTime tmpDate = new DateTime();
+            bool dateIsValid = DateTime.TryParse(tmp, out tmpDate);
+            while (!dateIsValid)
+            {
+                Console.WriteLine("Invalid date. Please enter correct date.");
+                tmp = Console.ReadLine();
+                dateIsValid = DateTime.TryParse(tmp, out tmpDate);
+            }
+            newGuestRequest.EntryDate = tmpDate;
+            Console.WriteLine("Enter release date");
+            tmp = Console.ReadLine();
+            dateIsValid = DateTime.TryParse(tmp, out tmpDate);
+            while (!dateIsValid)
+            {
+                Console.WriteLine("Invalid date. Please enter correct date.");
+                dateIsValid = DateTime.TryParse(tmp, out tmpDate);
+            }
+            newGuestRequest.ReleaseDate = tmpDate;
+            Console.WriteLine("Enter vacation area, chose the coreect number:\n1 - North, 2 - South, 3 - Central, 4 - Jerusalem");
+            tmp = Console.ReadLine();
+            switch (tmp)
+            {
+                case "1":
+                    newGuestRequest.Area = Enum_s.Areas.North;
+                    break;
+                case "2":
+                    newGuestRequest.Area = Enum_s.Areas.South;
+                    break;
+                case "3":
+                    newGuestRequest.Area = Enum_s.Areas.Central;
+                    break;
+                case "4":
+                    newGuestRequest.Area = Enum_s.Areas.Jerusalem;
+                    break;
+            }
+            Console.WriteLine("Enter vacation sub area, chose the coreect number:\n1 - Haifa," +
+                " 2 - TelAviv, 3 - Galil, 4 - BeerSheba, 5 - Eilat, 6 - Jerusalem");
+            tmp = Console.ReadLine();
+            switch (tmp)
+            {
+                case "1":
+                    newGuestRequest.SubArea = Enum_s.SubArea.Haifa;
+                    break;
+                case "2":
+                    newGuestRequest.SubArea = Enum_s.SubArea.TelAviv;
+                    break;
+                case "3":
+                    newGuestRequest.SubArea = Enum_s.SubArea.Galil;
+                    break;
+                case "4":
+                    newGuestRequest.SubArea = Enum_s.SubArea.BeerSheba;
+                    break;
+                case "5":
+                    newGuestRequest.SubArea = Enum_s.SubArea.Eilat;
+                    break;
+                case "6":
+                    newGuestRequest.SubArea = Enum_s.SubArea.Jerusalem;
+                    break;
+            }
+            Console.WriteLine("Enter type of hosting unit, chose the coreect number:\n1 - Hut, 2 - Apartment, 3 - Hotel, 4 - Tent");
+            tmp = Console.ReadLine();
+            switch (tmp)
+            {
+                case "1":
+                    newGuestRequest.Type = Enum_s.HostingUnitTypes.Hut;
+                    break;
+                case "2":
+                    newGuestRequest.Type = Enum_s.HostingUnitTypes.Apartment;
+                    break;
+                case "3":
+                    newGuestRequest.Type = Enum_s.HostingUnitTypes.Hotel;
+                    break;
+                case "4":
+                    newGuestRequest.Type = Enum_s.HostingUnitTypes.Tent;
+                    break;
+            }
+            Console.WriteLine("Enter number of adults");
+            tmp = Console.ReadLine();
+            newGuestRequest.Adults = Int32.Parse(tmp);
+            Console.WriteLine("Enter number of children");
+            tmp = Console.ReadLine();
+            newGuestRequest.Children = Int32.Parse(tmp);
+            Console.WriteLine("Do you want a pool in the hosting unit? chose the coreect number:\n 1 - neccessary, 2 - possible, 3 - not interested");
+            tmp = Console.ReadLine();
+            switch (tmp)
+            {
+                case "1":
+                    newGuestRequest.Pool = Enum_s.RequestOption.Necessary;
+                    break;
+                case "2":
+                    newGuestRequest.Pool = Enum_s.RequestOption.Possible;
+                    break;
+                case "3":
+                    newGuestRequest.Pool = Enum_s.RequestOption.NotInterested;
+                    break;
+            }
+            Console.WriteLine("Do you want a jacuzzi in the hosting unit? chose the coreect number:\n 1 - neccessary, 2 - possible, 3 - not interested");
+            tmp = Console.ReadLine();
+            switch (tmp)
+            {
+                case "1":
+                    newGuestRequest.Jacuzzi = Enum_s.RequestOption.Necessary;
+                    break;
+                case "2":
+                    newGuestRequest.Jacuzzi = Enum_s.RequestOption.Possible;
+                    break;
+                case "3":
+                    newGuestRequest.Jacuzzi = Enum_s.RequestOption.NotInterested;
+                    break;
+            }
+            Console.WriteLine("Do you want a garden in the hosting unit? chose the coreect number:\n 1 - neccessary, 2 - possible, 3 - not interested");
+            tmp = Console.ReadLine();
+            switch (tmp)
+            {
+                case "1":
+                    newGuestRequest.Garden = Enum_s.RequestOption.Necessary;
+                    break;
+                case "2":
+                    newGuestRequest.Garden = Enum_s.RequestOption.Possible;
+                    break;
+                case "3":
+                    newGuestRequest.Garden = Enum_s.RequestOption.NotInterested;
+                    break;
+            }
+            if (newGuestRequest.Children != 0)
+            {
+                Console.WriteLine("Do you want attraction for children in the hosting unit? chose the coreect number:\n 1 - neccessary, 2 - possible, 3 - not interested");
+                tmp = Console.ReadLine();
+                switch (tmp)
+                {
+                    case "1":
+                        newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.Necessary;
+                        break;
+                    case "2":
+                        newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.Possible;
+                        break;
+                    case "3":
+                        newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.NotInterested;
+                        break;
+                }
+            }
+            else
+                newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.Possible;
+            return newGuestRequest;
+        }
         static void Main(string[] args)
         {
             BL.IBL bl = BL.BlFactory.GetBL();
@@ -375,6 +543,84 @@ namespace PL
             Console.WriteLine("All The Orders:\n");
             foreach (var item in orderList)
                 Console.WriteLine(item);
+            Console.WriteLine("Hello User\nThis is Searching And Maching Vacation System.\n" +
+                "Menu:\nA: Add Guest Request\nB: Add Hosting Unit\nC: Update Hosting Unit\n" +
+                "D: Delete Hosting Unit\nE: Update Order Status\nF: Delete Order\nG: Show Hosting Units inventory" +
+                "\nH: Show Guest Requests inventory\nI: Show Orders inventory\nJ: Show specific Order\nK: Show " +
+                "specific hosting unit\nL: Show Expired Orders\nM: Show sum of orders for specific guest\nN: Sum" +
+                "oeders which sended or responded\nO: Show guest requests by areas\nP: Show guest requests by number" +
+                "of adults\nQ: Show guest requests by number of children\nR: Show hosts by number og their hosting units" +
+                "\nS: Show hosting units by areas\nT: Show orders for specific fuest Request\nU: Show orders for specific hosting unit" +
+                "\nV: Show orders for specific host\nX: Exit");
+            string choice;
+            do 
+            {
+                choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "A":
+                        try
+                        {
+                            GuestRequest mm = addRequest();
+                            bl.AddGuestRequest(mm);
+                        }
+                        catch(ArgumentException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        foreach (var item in bl.ReceiveGuestRequestList())
+                            Console.WriteLine(item);
+                        break;
+                    case "B":
+                        break;
+                    case "C":
+                        break;
+                    case "D":
+                        break;
+                    case "E":
+                        break;
+                    case "F":
+                        break;
+                    case "G":
+                        break;
+                    case "H":
+                        break;
+                    case "I":
+                        break;
+                    case "J":
+                        break;
+                    case "K":
+                        break;
+                    case "L":
+                        break;
+                    case "M":
+                        break;
+                    case "N":
+                        break;
+                    case "O":
+                        break;
+                    case "P":
+                        break;
+                    case "Q":
+                        break;
+                    case "R":
+                        break;
+                    case "S":
+                        break;
+                    case "T":
+                        break;
+                    case "U":
+                        break;
+                    case "V":
+                        break;
+                    default:
+                        break;
+                }
+            } while (choice != "X");
         }
     }
 }

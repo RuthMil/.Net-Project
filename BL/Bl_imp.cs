@@ -41,7 +41,6 @@ namespace BL
                     {
                         myOrder.Status = Enum_s.OrderStatus.MailSended;
                         UpdateOrder(myOrder);
-                        SendMailForSuggest(myOrder);
                         myOrder.OrderDate = DateTime.Now;
                     }
                     catch (Exception) { }//לזכור לשנות את סוג החריגה    
@@ -113,11 +112,14 @@ namespace BL
 
         public void DeleteOrder(Order myOrder)
         {
+            GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
+            if (DateTime.Now > myGuestRequest.EntryDate.AddDays(14))
+                throw new TimeoutException("sorry, cancelation time passed, you cannot cancel your order.");
             try
             {
+                
                 dal.DeleteOrder(myOrder);
                 HostingUnit myHostingUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
-                GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
                 for (DateTime tmp = myGuestRequest.EntryDate; tmp < myGuestRequest.ReleaseDate; tmp = tmp.AddDays(1))
                     myHostingUnit.Diary[tmp.Month - 1, tmp.Day - 1] = false;
                 dal.UpdateHostingUnit(myHostingUnit);
@@ -162,9 +164,10 @@ namespace BL
 
         public void UpdateHostingUnit(HostingUnit myHostingUnit)
         {
+            HostingUnit oldUnit = dal.GetHostingUnitByKey(myHostingUnit.HostingUnitKey);
             try
             {
-                if (!myHostingUnit.Owner.CollectionClearance && dal.GetHostingUnitByKey(myHostingUnit.HostingUnitKey).Owner.CollectionClearance)
+                if (!myHostingUnit.Owner.CollectionClearance && oldUnit.Owner.CollectionClearance)
                 {
                     var openOrders = from order in dal.ReceiveOrderList()
                                      where dal.GetHostingUnitByKey(order.HostingUnitKey).Owner.HostKey == myHostingUnit.Owner.HostKey &&
@@ -172,8 +175,7 @@ namespace BL
                                      select order;
                     if (openOrders.Count() != 0)
                         throw new Exception(); //לטפל בחריגה מתאימה, לפי חריגות הסטטוסים
-                }
-                dal.UpdateHostingUnit(myHostingUnit);
+                }   
             }
             catch (KeyNotFoundException ex)
             {
@@ -183,17 +185,20 @@ namespace BL
             {
                 throw ex;
             }
-            if (myHostingUnit.Owner.CollectionClearance && !dal.GetHostingUnitByKey(myHostingUnit.HostingUnitKey).Owner.CollectionClearance)
+            if (myHostingUnit.Owner.CollectionClearance && !oldUnit.Owner.CollectionClearance)
             {
                 List<Order> ordersForHost = ReceiveOrdersForHost(myHostingUnit.Owner.HostKey);
                 foreach (var item in ordersForHost)
                     if (item.Status == Enum_s.OrderStatus.HasNotBeenTreated)
                     {
-                        SendMailForSuggest(item);
                         item.Status = Enum_s.OrderStatus.MailSended;
                         dal.UpdateOrder(item);
                     }
             }
+            for (int i = 0; i < 12; i++)
+                for (int j = 0; j < 31; j++)
+                    myHostingUnit.Diary[i, j] = oldUnit.Diary[i, j];
+            dal.UpdateHostingUnit(myHostingUnit);
         }
 
         /// <summary>
@@ -423,8 +428,7 @@ namespace BL
         /// <returns>the number of orders for a specific guest request</returns>
         public int SumOrdersForGuest(GuestRequest myGusetRequest)
         {
-            long requestKey = myGusetRequest.GuestRequestKey;
-            return dal.ReceiveOrderList().FindAll(delegate(Order x) { return x.GuestRequestKey == requestKey; }).Count();  
+            return ReceiveOrdersForGuestRequest(myGusetRequest.GuestRequestKey).Count();  
         }
 
         /// <summary>
@@ -490,13 +494,17 @@ namespace BL
                                     myGuestRequest.Area == unit.Area &&
                                     myGuestRequest.Children == unit.Children &&
                                     ((myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.Necessary && unit.ChildrenAttractions) ||
-                                    (myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.NotInterested && !unit.ChildrenAttractions)) &&
+                                    (myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.NotInterested && !unit.ChildrenAttractions) ||
+                                    myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.Possible) &&
                                     ((myGuestRequest.Garden == Enum_s.RequestOption.Necessary && unit.Garden) ||
-                                    (myGuestRequest.Garden == Enum_s.RequestOption.NotInterested && !unit.Garden)) &&
+                                    (myGuestRequest.Garden == Enum_s.RequestOption.NotInterested && !unit.Garden) ||
+                                    myGuestRequest.Garden == Enum_s.RequestOption.Possible) &&
                                     ((myGuestRequest.Jacuzzi == Enum_s.RequestOption.Necessary && unit.Jacuzzi) ||
-                                    (myGuestRequest.Jacuzzi == Enum_s.RequestOption.NotInterested && !unit.Jacuzzi)) &&
+                                    (myGuestRequest.Jacuzzi == Enum_s.RequestOption.NotInterested && !unit.Jacuzzi) ||
+                                    myGuestRequest.Jacuzzi == Enum_s.RequestOption.Possible) &&
                                     ((myGuestRequest.Pool == Enum_s.RequestOption.Necessary && unit.Pool) ||
-                                    (myGuestRequest.Pool == Enum_s.RequestOption.NotInterested && !unit.Pool)) &&
+                                    (myGuestRequest.Pool == Enum_s.RequestOption.NotInterested && !unit.Pool) ||
+                                    myGuestRequest.Pool == Enum_s.RequestOption.Possible) &&
                                     myGuestRequest.SubArea == unit.SubArea &&
                                     myGuestRequest.Type == unit.Type
                                     select unit;

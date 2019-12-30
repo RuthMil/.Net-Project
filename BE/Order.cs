@@ -19,7 +19,7 @@ namespace BE
         {
             return "Hosting Unit ID: " + HostingUnitKey.ToString() + " Hosting Request ID: " + GuestRequestKey.ToString() +
                 " Order ID: " + OrderKey.ToString() + " Order Status: " + Status + " Order Creation Date: " +
-                CreateDate.ToString() + " Offer Date Submission: " + OrderDate.ToString(); 
+                CreateDate.ToString("d") + " Offer Date Submission: " + OrderDate.ToString("d"); 
         }
     }
 }
