@@ -490,9 +490,9 @@ namespace BL
             if (freeHostingUnits.Count() == 0)
                 throw new ArgumentException("Sorry, there is no free hosting units for those dates", "myGeustRequest");
             var matchHostingUnits = from unit in freeHostingUnits
-                                    where myGuestRequest.Adults == unit.Adults &&
+                                    where myGuestRequest.Adults <= unit.Adults &&
                                     myGuestRequest.Area == unit.Area &&
-                                    myGuestRequest.Children == unit.Children &&
+                                    myGuestRequest.Children <= unit.Children &&
                                     ((myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.Necessary && unit.ChildrenAttractions) ||
                                     (myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.NotInterested && !unit.ChildrenAttractions) ||
                                     myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.Possible) &&

@@ -17,7 +17,7 @@ namespace PL
             Console.Write("Enter your first name: ");
             tmp = Console.ReadLine();
             newGuestRequest.FirstName = tmp;
-            Console.Write("Enter your first name: ");
+            Console.Write("Enter your last name: ");
             tmp = Console.ReadLine();
             newGuestRequest.LastName = tmp;
             Console.Write("Enter your email address: ");
@@ -30,7 +30,7 @@ namespace PL
                 indexOfStru = tmp.IndexOf('@');
             }
             newGuestRequest.MailAddress = tmp;
-            Console.WriteLine("Enter entry date");
+            Console.Write("Enter entry date: ");
             tmp = Console.ReadLine();
             DateTime tmpDate = new DateTime();
             bool dateIsValid = DateTime.TryParse(tmp, out tmpDate);
@@ -41,7 +41,7 @@ namespace PL
                 dateIsValid = DateTime.TryParse(tmp, out tmpDate);
             }
             newGuestRequest.EntryDate = tmpDate;
-            Console.WriteLine("Enter release date");
+            Console.Write("Enter release date: ");
             tmp = Console.ReadLine();
             dateIsValid = DateTime.TryParse(tmp, out tmpDate);
             while (!dateIsValid)
@@ -91,7 +91,7 @@ namespace PL
                     newGuestRequest.SubArea = Enum_s.SubArea.Jerusalem;
                     break;
             }
-            Console.WriteLine("Enter type of hosting unit, chose the coreect number:\n1 - Hut, 2 - Apartment, 3 - Hotel, 4 - Tent");
+            Console.WriteLine("Enter hosting unit type, chose the coreect number:\n1 - Hut, 2 - Apartment, 3 - Hotel, 4 - Tent");
             tmp = Console.ReadLine();
             switch (tmp)
             {
@@ -108,12 +108,12 @@ namespace PL
                     newGuestRequest.Type = Enum_s.HostingUnitTypes.Tent;
                     break;
             }
-            Console.WriteLine("Enter number of adults");
+            Console.Write("Enter number of adults: ");
             tmp = Console.ReadLine();
-            newGuestRequest.Adults = Int32.Parse(tmp);
-            Console.WriteLine("Enter number of children");
+            newGuestRequest.Adults = int.Parse(tmp);
+            Console.Write("Enter number of children: ");
             tmp = Console.ReadLine();
-            newGuestRequest.Children = Int32.Parse(tmp);
+            newGuestRequest.Children = int.Parse(tmp);
             Console.WriteLine("Do you want a pool in the hosting unit? chose the coreect number:\n 1 - neccessary, 2 - possible, 3 - not interested");
             tmp = Console.ReadLine();
             switch (tmp)
@@ -177,6 +177,183 @@ namespace PL
                 newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.Possible;
             return newGuestRequest;
         }
+        private static HostingUnit addUnit()
+        {
+            HostingUnit newHostingUnit = new HostingUnit();
+            newHostingUnit.Owner = new Host();
+            newHostingUnit.Owner.BankBranchDetails = new BankBranch();
+            Console.Write("Enter name of your hosting unit: ");
+            string tmp = Console.ReadLine();
+            newHostingUnit.HostingUnitName = tmp;
+            Console.Write("Enter first name of the hosting unit owner: ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Owner.FirstName = tmp;
+            Console.Write("Enter last name of the hosting unit owner: ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Owner.LastName = tmp;
+            Console.Write("Enter phone number of the hosting unit owner: ");
+            tmp = Console.ReadLine();
+            while (tmp.Length != 10 && tmp.Length != 9)
+            {
+                Console.WriteLine("Uncorrect phone number, please enter correct number.");
+                tmp = Console.ReadLine();
+            }
+            newHostingUnit.Owner.PhoneNumber = tmp;
+            Console.Write("Enter email address of the hosting unit owner: ");
+            tmp = Console.ReadLine();
+            int indexOfStru = tmp.IndexOf('@');
+            while (indexOfStru == -1 || tmp.IndexOf('.') >= tmp.Length - 1 || tmp.IndexOf('.') <= indexOfStru + 1)
+            {
+                Console.WriteLine("Invalid email address, Please enter correct email.");
+                tmp = Console.ReadLine();
+                indexOfStru = tmp.IndexOf('@');
+            }
+            newHostingUnit.Owner.MailAddress = tmp;
+            Console.WriteLine("Enter Details of the owner's bank account");
+            Console.Write("Enter bank name: ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Owner.BankBranchDetails.BankName = tmp;
+            Console.Write("Enter bank number: ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Owner.BankBranchDetails.BankNumber = int.Parse(tmp);
+            Console.Write("Enter branch number: ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Owner.BankBranchDetails.BranchNumber = int.Parse(tmp);
+            Console.Write("Enter branch address (street, number): ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Owner.BankBranchDetails.BranchAddress = tmp;
+            Console.Write("Enter city: ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Owner.BankBranchDetails.BranchCity = tmp;
+            Console.Write("Enter bank account number: ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Owner.BankAccountNumber = tmp;
+            Console.WriteLine("Do you have collection clearance? answer yes/no.");
+            tmp = Console.ReadLine();
+            while (tmp != "yes" && tmp != "no")
+            {
+                Console.WriteLine("Invalid answer, please enter valid answer.");
+                tmp = Console.ReadLine();
+            }
+            if (tmp == "yes")
+                newHostingUnit.Owner.CollectionClearance = true;
+            else
+                newHostingUnit.Owner.CollectionClearance = false;
+            newHostingUnit.Diary = new bool[12, 31];
+            Console.WriteLine("Enter hosting unit area, chose the coreect number:\n1 - North, 2 - South, 3 - Central, 4 - Jerusalem");
+            tmp = Console.ReadLine();
+            switch (tmp)
+            {
+                case "1":
+                    newHostingUnit.Area = Enum_s.Areas.North;
+                    break;
+                case "2":
+                    newHostingUnit.Area = Enum_s.Areas.South;
+                    break;
+                case "3":
+                    newHostingUnit.Area = Enum_s.Areas.Central;
+                    break;
+                case "4":
+                    newHostingUnit.Area = Enum_s.Areas.Jerusalem;
+                    break;
+            }
+            Console.WriteLine("Enter hosting unit sub area, chose the coreect number:\n1 - Haifa," +
+                " 2 - TelAviv, 3 - Galil, 4 - BeerSheba, 5 - Eilat, 6 - Jerusalem");
+            tmp = Console.ReadLine();
+            switch (tmp)
+            {
+                case "1":
+                    newHostingUnit.SubArea = Enum_s.SubArea.Haifa;
+                    break;
+                case "2":
+                    newHostingUnit.SubArea = Enum_s.SubArea.TelAviv;
+                    break;
+                case "3":
+                    newHostingUnit.SubArea = Enum_s.SubArea.Galil;
+                    break;
+                case "4":
+                    newHostingUnit.SubArea = Enum_s.SubArea.BeerSheba;
+                    break;
+                case "5":
+                    newHostingUnit.SubArea = Enum_s.SubArea.Eilat;
+                    break;
+                case "6":
+                    newHostingUnit.SubArea = Enum_s.SubArea.Jerusalem;
+                    break;
+            }
+            Console.WriteLine("Enter hosting unit type, chose the coreect number:\n1 - Hut, 2 - Apartment, 3 - Hotel, 4 - Tent");
+            tmp = Console.ReadLine();
+            switch (tmp)
+            {
+                case "1":
+                    newHostingUnit.Type = Enum_s.HostingUnitTypes.Hut;
+                    break;
+                case "2":
+                    newHostingUnit.Type = Enum_s.HostingUnitTypes.Apartment;
+                    break;
+                case "3":
+                    newHostingUnit.Type = Enum_s.HostingUnitTypes.Hotel;
+                    break;
+                case "4":
+                    newHostingUnit.Type = Enum_s.HostingUnitTypes.Tent;
+                    break;
+            }
+            Console.Write("Enter number of adults which the hosting unit contains: ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Adults = int.Parse(tmp);
+            Console.Write("Enter number of children which the hosting unit contains: ");
+            tmp = Console.ReadLine();
+            newHostingUnit.Children = int.Parse(tmp);
+            Console.WriteLine("Do you have a pool in the hosting unit? answer yes/no");
+            tmp = Console.ReadLine();
+            while (tmp != "yes" && tmp != "no")
+            {
+                Console.WriteLine("Invalid answer, please enter valid answer.");
+                tmp = Console.ReadLine();
+            }
+            if (tmp == "yes")
+                newHostingUnit.Pool = true;
+            else
+                newHostingUnit.Pool = false;
+            Console.WriteLine("Do you have a jacuzzi in the hosting unit? answer yes/no");
+            tmp = Console.ReadLine();
+            while (tmp != "yes" && tmp != "no")
+            {
+                Console.WriteLine("Invalid answer, please enter valid answer.");
+                tmp = Console.ReadLine();
+            }
+            if (tmp == "yes")
+                newHostingUnit.Jacuzzi = true;
+            else
+                newHostingUnit.Jacuzzi = false;
+            Console.WriteLine("Do you have a garden in the hosting unit? answer yes/no");
+            tmp = Console.ReadLine();
+            while (tmp != "yes" && tmp != "no")
+            {
+                Console.WriteLine("Invalid answer, please enter valid answer.");
+                tmp = Console.ReadLine();
+            }
+            if (tmp == "yes")
+                newHostingUnit.Garden = true;
+            else
+                newHostingUnit.Garden = false;
+            if (newHostingUnit.Children != 0)
+            {
+                Console.WriteLine("Do you have attraction for children in the hosting unit? answer yes/no");
+                tmp = Console.ReadLine();
+                while (tmp != "yes" && tmp != "no")
+                {
+                    Console.WriteLine("Invalid answer, please enter valid answer.");
+                    tmp = Console.ReadLine();
+                }
+                if (tmp == "yes")
+                    newHostingUnit.ChildrenAttractions = true;
+            }
+            else
+                newHostingUnit.ChildrenAttractions = false;
+            return newHostingUnit;
+        }
+
         static void Main(string[] args)
         {
             BL.IBL bl = BL.BlFactory.GetBL();
@@ -200,7 +377,7 @@ namespace PL
                             BranchAddress = "Kaplan 2",
                             BranchCity = "Tel Aviv"
                         },
-                        BankAccountNumber = 1601245551,
+                        BankAccountNumber = "1601245551",
                         CollectionClearance = true,
                         Commission = 0
                     },
@@ -234,7 +411,7 @@ namespace PL
                             BranchAddress = "Kanfe Nesharim 22",
                             BranchCity = "Jerusalem"
                         },
-                        BankAccountNumber = 1612348133,
+                        BankAccountNumber = "1612348133",
                         CollectionClearance = false,
                         Commission = 0
                     },
@@ -268,7 +445,7 @@ namespace PL
                             BranchAddress = "Kakal 130",
                             BranchCity = "Beer Sheba"
                         },
-                        BankAccountNumber = 1616342139,
+                        BankAccountNumber = "1616342139",
                         CollectionClearance = true,
                         Commission = 0
                     },
@@ -302,7 +479,7 @@ namespace PL
                             BranchAddress = "Shderot Hatmarim, Shalom Center",
                             BranchCity = "Eilat"
                         },
-                        BankAccountNumber = 1694527361,
+                        BankAccountNumber = "1694527361",
                         CollectionClearance = false,
                         Commission = 0
                     },
@@ -336,7 +513,7 @@ namespace PL
                             BranchAddress = "Beit Hateomim 15",
                             BranchCity = "Jerusalem"
                         },
-                        BankAccountNumber = 1615978523,
+                        BankAccountNumber = "1615978523",
                         CollectionClearance = false,
                         Commission = 0
                     },
@@ -555,14 +732,18 @@ namespace PL
             string choice;
             do 
             {
+                Console.Write("Please enter youe choice: ");
                 choice = Console.ReadLine();
                 switch (choice)
                 {
                     case "A":
+                        GuestRequest newGuestRequest = addRequest();
+
                         try
                         {
-                            GuestRequest mm = addRequest();
-                            bl.AddGuestRequest(mm);
+                            bl.AddGuestRequest(newGuestRequest);
+                            Console.WriteLine("Your request received successfully! request ID is: " +
+                                newGuestRequest.GuestRequestKey.ToString());
                         }
                         catch(ArgumentException ex)
                         {
@@ -576,8 +757,39 @@ namespace PL
                             Console.WriteLine(item);
                         break;
                     case "B":
+                        HostingUnit newHostingUnit =  addUnit();
+                        try
+                        {
+                            bl.AddHostingUnit(newHostingUnit);
+                            Console.WriteLine("Your hosting unit received successfully! hosting unit ID is: " +
+                                newHostingUnit.HostingUnitKey.ToString()); 
+                        }
+                        catch(ArgumentException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case "C":
+                        Console.Write("Enter your hosting unit's ID: ");
+                        string tmp = Console.ReadLine();
+                        HostingUnit updateHostingUnit = addUnit();
+                        updateHostingUnit.HostingUnitKey = long.Parse(tmp);
+                        try
+                        {
+                            bl.UpdateHostingUnit(updateHostingUnit);
+                        }
+                        catch(KeyNotFoundException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case "D":
                         break;

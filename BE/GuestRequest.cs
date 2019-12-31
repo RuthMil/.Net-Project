@@ -28,8 +28,8 @@ namespace BE
         public Enum_s.RequestOption ChildrenAttractions { get; set; }
         public override string ToString()
         {
-            string isSubArea = SubArea != default(Enum_s.SubArea) ? "Specific Area: " + SubArea.ToString("g") : ""; 
-            return "Hosting Request ID: " + GuestRequestKey.ToString() + "   Name: "
+            string isSubArea = SubArea != default(Enum_s.SubArea) ? " Specific Area: " + SubArea.ToString("g") : ""; 
+            return "Guest Request ID: " + GuestRequestKey.ToString() + "   Name: "
                 + FirstName + ' ' + LastName + "   Mail Address: " + MailAddress + 
                 "\nOrder Status: " + Status.ToString("g") + " Application Date: " + RegistrationDate.ToString("d") +
                 " Check In Date: " + EntryDate.ToString("d") + " Check Out Date: " + ReleaseDate.ToString("d") +
