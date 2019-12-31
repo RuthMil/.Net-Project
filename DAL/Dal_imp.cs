@@ -27,7 +27,7 @@ namespace DAL
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {
             if (DS.DataSource.GuestRequestList.Exists(x => x.GuestRequestKey == myGuestRequest.GuestRequestKey))
-                throw new ArgumentException("Request number exists in the system");
+                throw new ExistValueException("Request number exists in the system");
             Configuration.GuestRequestID++;
             myGuestRequest.GuestRequestKey = Configuration.GuestRequestID;
             DS.DataSource.GuestRequestList.Add(myGuestRequest.Clone()); 
@@ -37,7 +37,7 @@ namespace DAL
         public void AddHostingUnit(HostingUnit myHostingUnit)
         {
             if (DS.DataSource.HostingUnitList.Exists(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey))
-                throw new ArgumentException("Hosting Unit number exists in the system");
+                throw new ExistValueException("Hosting Unit number exists in the system");
             HostingUnit hostIsExist = DS.DataSource.HostingUnitList.Find(x => x.Owner.MailAddress == myHostingUnit.Owner.MailAddress);
             if (hostIsExist == default(HostingUnit))
             {
@@ -54,7 +54,7 @@ namespace DAL
         public void AddOrder(Order myOrder)
         {
             if (DS.DataSource.OrderList.Exists(x => x.OrderKey == myOrder.OrderKey))
-                throw new ArgumentException("Order number exists in the system");
+                throw new ExistValueException("Order number exists in the system");
             Configuration.OrderID++;
             myOrder.OrderKey = Configuration.OrderID;
             DS.DataSource.OrderList.Add(myOrder.Clone());
@@ -158,7 +158,8 @@ namespace DAL
             int isExist = DS.DataSource.GuestRequestList.FindIndex(x => x.GuestRequestKey == myGuestRequest.GuestRequestKey);
             if (isExist == -1)
                 throw new KeyNotFoundException("Guest Request does not exist in the system");
-            DS.DataSource.GuestRequestList.Insert(isExist, myGuestRequest.Clone());
+            DS.DataSource.GuestRequestList.RemoveAt(isExist);
+            DS.DataSource.GuestRequestList.Add(myGuestRequest.Clone());
         }
 
         public void UpdateHostingUnit(HostingUnit myHostingUnit)
@@ -166,7 +167,8 @@ namespace DAL
             int isExist = DS.DataSource.HostingUnitList.FindIndex(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey);
             if (isExist == -1)
                 throw new KeyNotFoundException("Hosting unit does not exist in the system");
-            DS.DataSource.HostingUnitList.Insert(isExist, myHostingUnit.Clone());
+            DS.DataSource.HostingUnitList.RemoveAt(isExist);
+            DS.DataSource.HostingUnitList.Add(myHostingUnit.Clone());
         }
 
         public void UpdateOrder(Order myOrder)
@@ -174,7 +176,8 @@ namespace DAL
             int isExist = DS.DataSource.OrderList.FindIndex(x => x.OrderKey == myOrder.OrderKey);
             if (isExist == -1)
                 throw new KeyNotFoundException("Guest Request does not exist in the system");
-            DS.DataSource.OrderList.Insert(isExist, myOrder.Clone());
+            DS.DataSource.OrderList.RemoveAt(isExist);
+            DS.DataSource.OrderList.Add(myOrder.Clone());
         }
 
         public GuestRequest GetGuestRequestByKey(long key)

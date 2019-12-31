@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Ruth Miller & Tehila Yafe
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -722,10 +723,9 @@ namespace PL
                 "D: Delete Hosting Unit\nE: Update Order Status\nF: Delete Order\nG: Show Hosting Units inventory" +
                 "\nH: Show Guest Requests inventory\nI: Show Orders inventory\nJ: Show specific Order\nK: Show " +
                 "specific hosting unit\nL: Show Expired Orders\nM: Show sum of orders for specific guest\nN: Sum" +
-                "oeders which sended or responded\nO: Show guest requests by areas\nP: Show guest requests by number" +
+                "orders which sended or responded\nO: Show guest requests by areas\nP: Show guest requests by number" +
                 "of adults\nQ: Show guest requests by number of children\nR: Show hosts by number og their hosting units" +
-                "\nS: Show hosting units by areas\nT: Show orders for specific fuest Request\nU: Show orders for specific hosting unit" +
-                "\nV: Show orders for specific host\nX: Exit");
+                "\nS: Show hosting units by areas\nX: Exit");
             string choice, tmp;
             do 
             {
@@ -768,6 +768,7 @@ namespace PL
                         updateHostingUnit.HostingUnitKey = long.Parse(tmp);
                         try
                         {
+                            updateHostingUnit.Owner.HostKey = bl.GetHostingUnitByKey(long.Parse(tmp)).Owner.HostKey;
                             bl.UpdateHostingUnit(updateHostingUnit);
                             Console.WriteLine("Hosting unit updates successfully!");
                         }
@@ -840,41 +841,94 @@ namespace PL
                         break;
                     case "H":
                         Console.WriteLine("Guest requests inventory:");
-                        foreach (var item in bl.ReceiveHostingUnitList())
+                        foreach (var item in bl.ReceiveGuestRequestList())
                             Console.WriteLine(item);
                         break;
                     case "I":
                         Console.WriteLine("Orders inventory:");
-                        foreach (var item in bl.ReceiveHostingUnitList())
+                        foreach (var item in bl.ReceiveOrderList())
                             Console.WriteLine(item);
                         break;
                     case "J":
+                        Console.WriteLine("Enter required order ID: ");
+                        tmp = Console.ReadLine();
+                        try
+                        {
+                            Console.WriteLine(bl.GetOrderByKey(long.Parse(tmp)));
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case "K":
+                        Console.WriteLine("Enter required hosting unit ID: ");
+                        tmp = Console.ReadLine();
+                        try
+                        {
+                            Console.WriteLine(bl.GetGuestRequestByKey(long.Parse(tmp)));
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case "L":
+                        foreach (var item in bl.ExpiredOrders(30))
+                            Console.WriteLine(item);
                         break;
                     case "M":
+                        Console.Write("Enter guest request ID: ");
+                        tmp = Console.ReadLine();
+                        try
+                        {
+                            GuestRequest myGuestRequest = bl.GetGuestRequestByKey(long.Parse(tmp));
+                            Console.WriteLine(bl.SumOrdersForGuest(myGuestRequest));
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case "N":
+                        Console.Write("Enter hosting unit ID: ");
+                        tmp = Console.ReadLine();
+                        try
+                        {
+                            HostingUnit newHostingUnit1 = bl.GetHostingUnitByKey(long.Parse(tmp));
+                            Console.WriteLine("Sum of responded or sended orders: " + bl.SumOrdersSendedOrResponded(newHostingUnit1, x => x.Status == Enum_s.OrderStatus.MailSended));
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case "O":
+                        foreach (var item in bl.GroupGuestRequestByAreas())
+                            Console.WriteLine(item);
                         break;
                     case "P":
+                        foreach(var item in bl.GroupGuestRequestByNumberOfAdults())
+                            foreach(var item2 in item)
+                                Console.WriteLine(item);
                         break;
                     case "Q":
+                        foreach (var item in bl.GroupGuestRequestByNumberOfChildren())
+                            foreach (var item2 in item)
+                                Console.WriteLine(item);
                         break;
                     case "R":
+                        foreach (var item in bl.GroupHostByNumberOfHostingUnit())
+                            foreach (var item2 in item)
+                                Console.WriteLine(item);
                         break;
                     case "S":
-                        break;
-                    case "T":
-                        break;
-                    case "U":
-                        break;
-                    case "V":
+                        foreach (var item in bl.GroupHostingUnitByAreas())
+                            foreach (var item2 in item)
+                                Console.WriteLine(item);
                         break;
                     default:
+                        Console.WriteLine("Invalid choice.");
                         break;
                 }
             } while (choice != "X");
