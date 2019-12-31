@@ -9,6 +9,7 @@ namespace PL
 {
     class Program
     {
+        #region add guest request
         private static GuestRequest addRequest()
         {
             string tmp;
@@ -177,6 +178,8 @@ namespace PL
                 newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.Possible;
             return newGuestRequest;
         }
+        #endregion
+        #region add hosting unit
         private static HostingUnit addUnit()
         {
             HostingUnit newHostingUnit = new HostingUnit();
@@ -353,10 +356,11 @@ namespace PL
                 newHostingUnit.ChildrenAttractions = false;
             return newHostingUnit;
         }
-
+        #endregion
         static void Main(string[] args)
         {
             BL.IBL bl = BL.BlFactory.GetBL();
+            #region hosting units initializing
             List<HostingUnit> HostingUnitList = new List<HostingUnit>()
             {
                 new HostingUnit()
@@ -536,15 +540,13 @@ namespace PL
                 {
                     bl.AddHostingUnit(item);
                 }
-                catch (ArgumentException ex)
-                {
-                    //Console.WriteLine(ex);
-                }
                 catch (Exception ex)
                 {
-                    //Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
             }
+            #endregion
+            #region guest requests initializing
             List<GuestRequest> guestRequestList = new List<GuestRequest>()
             {
                 new GuestRequest()
@@ -654,15 +656,13 @@ namespace PL
                 {
                     bl.AddGuestRequest(item);
                 }
-                catch (ArgumentException ex)
-                {
-                    //Console.WriteLine(ex);
-                }
                 catch (Exception ex)
                 {
-                    //Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
             }
+            #endregion
+            #region orders initializing
             List<Order> orderList = new List<Order>()
             {
                 new Order()
@@ -702,15 +702,12 @@ namespace PL
                 {
                     bl.AddOrder(item);
                 }
-                catch (ArgumentException ex)
-                {
-                    //Console.WriteLine(ex);
-                }
                 catch (Exception ex)
                 {
-                    //Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
             }
+            #endregion
             Console.WriteLine("All The Hosting Units:\n");
             foreach (var item in HostingUnitList)
                 Console.WriteLine(item);
@@ -729,7 +726,7 @@ namespace PL
                 "of adults\nQ: Show guest requests by number of children\nR: Show hosts by number og their hosting units" +
                 "\nS: Show hosting units by areas\nT: Show orders for specific fuest Request\nU: Show orders for specific hosting unit" +
                 "\nV: Show orders for specific host\nX: Exit");
-            string choice;
+            string choice, tmp;
             do 
             {
                 Console.Write("Please enter youe choice: ");
@@ -738,16 +735,11 @@ namespace PL
                 {
                     case "A":
                         GuestRequest newGuestRequest = addRequest();
-
                         try
                         {
                             bl.AddGuestRequest(newGuestRequest);
                             Console.WriteLine("Your request received successfully! request ID is: " +
                                 newGuestRequest.GuestRequestKey.ToString());
-                        }
-                        catch(ArgumentException ex)
-                        {
-                            Console.WriteLine(ex.Message);
                         }
                         catch(Exception ex)
                         {
@@ -762,11 +754,7 @@ namespace PL
                         {
                             bl.AddHostingUnit(newHostingUnit);
                             Console.WriteLine("Your hosting unit received successfully! hosting unit ID is: " +
-                                newHostingUnit.HostingUnitKey.ToString()); 
-                        }
-                        catch(ArgumentException ex)
-                        {
-                            Console.WriteLine(ex.Message);
+                                newHostingUnit.HostingUnitKey.ToString() + "   host ID is: " + newHostingUnit.Owner.HostKey.ToString());  
                         }
                         catch(Exception ex)
                         {
@@ -775,33 +763,90 @@ namespace PL
                         break;
                     case "C":
                         Console.Write("Enter your hosting unit's ID: ");
-                        string tmp = Console.ReadLine();
+                        tmp = Console.ReadLine();
                         HostingUnit updateHostingUnit = addUnit();
                         updateHostingUnit.HostingUnitKey = long.Parse(tmp);
                         try
                         {
                             bl.UpdateHostingUnit(updateHostingUnit);
+                            Console.WriteLine("Hosting unit updates successfully!");
                         }
-                        catch(KeyNotFoundException ex)
+                        catch (Exception ex)
                         {
                             Console.WriteLine(ex.Message);
+                        }
+                        break;
+                    case "D":
+                        Console.Write("Enter your hosting unit's ID for deleting: ");
+                        tmp = Console.ReadLine();
+                        try
+                        {
+                            bl.DeleteHostingUnit(bl.GetHostingUnitByKey(long.Parse(tmp)));
+                            Console.WriteLine("Hosting unit deleted successfully!");
                         }
                         catch(Exception ex)
                         {
                             Console.WriteLine(ex.Message);
                         }
                         break;
-                    case "D":
-                        break;
                     case "E":
+                        Console.Write("Enter your host ID: ");
+                        tmp = Console.ReadLine();
+                        Console.WriteLine("Here is the orders for your hosting units:");
+                        foreach (var item in bl.ReceiveOrdersForHost(long.Parse(tmp)))
+                            Console.WriteLine(item);
+                        Console.WriteLine("Enter the required order key which you wand to update it's status");
+                        string orderKey = Console.ReadLine();
+                        Console.WriteLine("Do you want to make a deal/ close order due to gest disinterest?" +
+                            " answer 1 - for making a deal, 2 - for closing order");
+                        tmp = Console.ReadLine();
+                        while (tmp != "1" && tmp != "2")
+                        {
+                            Console.WriteLine("Invalid answer, please enter correct answer.");
+                            tmp = Console.ReadLine();
+                        }
+                        try
+                        {
+                            Order updateOrder = bl.GetOrderByKey(long.Parse(orderKey));
+                            if (tmp == "1")
+                                updateOrder.Status = Enum_s.OrderStatus.ClosedDueToResponsiveness;
+                            else
+                                updateOrder.Status = Enum_s.OrderStatus.ClosedDueToUnresponsiveness;
+                            bl.UpdateOrder(updateOrder);
+                            Console.WriteLine("Order status updates successfully!");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case "F":
+                        Console.Write("Enter request order ID for cancelation: ");
+                        tmp = Console.ReadLine();
+                        try
+                        {
+                            bl.DeleteOrder(bl.GetOrderByKey(long.Parse(tmp)));
+                            Console.WriteLine("Order canceled successfully!");
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case "G":
+                        Console.WriteLine("Hosting units inventory:");
+                        foreach (var item in bl.ReceiveHostingUnitList())
+                            Console.WriteLine(item);
                         break;
                     case "H":
+                        Console.WriteLine("Guest requests inventory:");
+                        foreach (var item in bl.ReceiveHostingUnitList())
+                            Console.WriteLine(item);
                         break;
                     case "I":
+                        Console.WriteLine("Orders inventory:");
+                        foreach (var item in bl.ReceiveHostingUnitList())
+                            Console.WriteLine(item);
                         break;
                     case "J":
                         break;

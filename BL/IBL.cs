@@ -40,6 +40,7 @@ namespace BL
         IEnumerable<IGrouping<Enum_s.Areas, HostingUnit>> GroupHostingUnitByAreas();
         void SendMailAboutCloseOrder(List<Order> orders);
         void SendMailForSuggest(Order myOrder);
+        void SendMailToHostAboutCancelOrder(Order myOrder);
         List<Order> ReceiveClashOrders(Order myOrder);
         List<Order> ReceiveOrdersForGuestRequest(long GuestRequestKey);
         List<HostingUnit> ReceiveMatchHostingUnitForRequest(GuestRequest myGuestRequest);

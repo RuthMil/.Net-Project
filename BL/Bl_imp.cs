@@ -223,7 +223,12 @@ namespace BL
 
         public void SendMailAboutCloseOrder(List<Order> orders)
         {
-            Console.WriteLine("Sending Mail For All Clashing Orders:\nWe are sory, your order was caught"); 
+            Console.WriteLine("Sending mail for all clashing orders:\nWe are sory, your order was caught"); 
+        }
+
+        public void SendMailToHostAboutCancelOrder(Order myOrder)
+        {
+            Console.WriteLine("Sending mail about order cancelation. oreder details:\n" + myOrder.ToString());
         }
 
         public List<Order> ReceiveOrdersForGuestRequest(long myGuestRequestKey)
