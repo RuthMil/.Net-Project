@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
-
+//לבדוק תפיסת חריגת סטטוס
 namespace PL
 {
     class Program
@@ -541,10 +541,7 @@ namespace PL
                 {
                     bl.AddHostingUnit(item);
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                catch (Exception) { }
             }
             #endregion
             #region guest requests initializing
@@ -657,10 +654,7 @@ namespace PL
                 {
                     bl.AddGuestRequest(item);
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                catch (Exception) { }
             }
             #endregion
             #region orders initializing
@@ -703,10 +697,7 @@ namespace PL
                 {
                     bl.AddOrder(item);
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                catch (Exception) { }
             }
             #endregion
             Console.WriteLine("All The Hosting Units:\n");
@@ -745,8 +736,6 @@ namespace PL
                         {
                             Console.WriteLine(ex.Message);
                         }
-                        foreach (var item in bl.ReceiveGuestRequestList())
-                            Console.WriteLine(item);
                         break;
                     case "B":
                         HostingUnit newHostingUnit =  addUnit();
@@ -794,35 +783,38 @@ namespace PL
                         Console.Write("Enter your host ID: ");
                         tmp = Console.ReadLine();
                         Console.WriteLine("Here is the orders for your hosting units:");
-                        foreach (var item in bl.ReceiveOrdersForHost(long.Parse(tmp)))
-                            Console.WriteLine(item);
-                        Console.WriteLine("Enter the required order key which you wand to update it's status");
-                        string orderKey = Console.ReadLine();
-                        Console.WriteLine("Do you want to make a deal/ close order due to gest disinterest?" +
-                            " answer 1 - for making a deal, 2 - for closing order");
-                        tmp = Console.ReadLine();
-                        while (tmp != "1" && tmp != "2")
+                        List<Order> ordersForHost = bl.ReceiveOrdersForHost(long.Parse(tmp));
+                        if (ordersForHost.Count != 0)
                         {
-                            Console.WriteLine("Invalid answer, please enter correct answer.");
+                            foreach (var item in ordersForHost)
+                                Console.WriteLine(item);
+                            Console.WriteLine("Enter the required order key which you wand to update it's status");
+                            string orderKey = Console.ReadLine();
+                            Console.WriteLine("Do you want to make a deal/ close order due to gest disinterest?" +
+                                " answer 1 - for making a deal, 2 - for closing order");
                             tmp = Console.ReadLine();
+                            while (tmp != "1" && tmp != "2")
+                            {
+                                Console.WriteLine("Invalid answer, please enter correct answer.");
+                                tmp = Console.ReadLine();
+                            }
+                            try
+                            {
+                                Order updateOrder = bl.GetOrderByKey(long.Parse(orderKey));
+                                updateOrder.Status = tmp == "1" ? Enum_s.OrderStatus.ClosedDueToResponsiveness : Enum_s.OrderStatus.ClosedDueToUnresponsiveness;
+                                bl.UpdateOrder(updateOrder);
+                                Console.WriteLine("Order status updates successfully!");
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
                         }
-                        try
-                        {
-                            Order updateOrder = bl.GetOrderByKey(long.Parse(orderKey));
-                            if (tmp == "1")
-                                updateOrder.Status = Enum_s.OrderStatus.ClosedDueToResponsiveness;
-                            else
-                                updateOrder.Status = Enum_s.OrderStatus.ClosedDueToUnresponsiveness;
-                            bl.UpdateOrder(updateOrder);
-                            Console.WriteLine("Order status updates successfully!");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
+                        else
+                            Console.WriteLine("There are no orders for you.");
                         break;
                     case "F":
-                        Console.Write("Enter request order ID for cancelation: ");
+                        Console.Write("Enter order ID for cancelation: ");
                         tmp = Console.ReadLine();
                         try
                         {
@@ -866,7 +858,7 @@ namespace PL
                         tmp = Console.ReadLine();
                         try
                         {
-                            Console.WriteLine(bl.GetGuestRequestByKey(long.Parse(tmp)));
+                            Console.WriteLine(bl.GetHostingUnitByKey(long.Parse(tmp)));
                         }
                         catch(Exception ex)
                         {
@@ -905,27 +897,43 @@ namespace PL
                         break;
                     case "O":
                         foreach (var item in bl.GroupGuestRequestByAreas())
-                            Console.WriteLine(item);
+                        {
+                            Console.WriteLine(item.Key);
+                            foreach (var item2 in item)
+                                Console.WriteLine(item2);
+                        }
                         break;
                     case "P":
                         foreach(var item in bl.GroupGuestRequestByNumberOfAdults())
-                            foreach(var item2 in item)
-                                Console.WriteLine(item);
+                        {
+                            Console.WriteLine(item.Key);
+                            foreach (var item2 in item)
+                                Console.WriteLine(item2);
+                        }
                         break;
                     case "Q":
                         foreach (var item in bl.GroupGuestRequestByNumberOfChildren())
+                        {
+                            Console.WriteLine(item.Key);
                             foreach (var item2 in item)
-                                Console.WriteLine(item);
+                                Console.WriteLine(item2);
+                        }
                         break;
                     case "R":
                         foreach (var item in bl.GroupHostByNumberOfHostingUnit())
+                        {
+                            Console.WriteLine(item.Key);
                             foreach (var item2 in item)
-                                Console.WriteLine(item);
+                                Console.WriteLine(item2);
+                        }
                         break;
                     case "S":
                         foreach (var item in bl.GroupHostingUnitByAreas())
+                        {
+                            Console.WriteLine(item.Key);
                             foreach (var item2 in item)
-                                Console.WriteLine(item);
+                                Console.WriteLine(item2);
+                        }
                         break;
                     default:
                         Console.WriteLine("Invalid choice.");

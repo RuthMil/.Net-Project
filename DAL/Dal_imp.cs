@@ -32,7 +32,6 @@ namespace DAL
             myGuestRequest.GuestRequestKey = Configuration.GuestRequestID;
             DS.DataSource.GuestRequestList.Add(myGuestRequest.Clone()); 
         }
-        //לטפל בחריגות
 
         public void AddHostingUnit(HostingUnit myHostingUnit)
         {
@@ -64,14 +63,14 @@ namespace DAL
         {
             if (!DS.DataSource.HostingUnitList.Exists(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey))
                 throw new KeyNotFoundException("Hosting unit does not exists in the system");
-            DS.DataSource.HostingUnitList.Remove(myHostingUnit);
+            DS.DataSource.HostingUnitList.RemoveAt(DS.DataSource.HostingUnitList.FindIndex(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey));
         }
 
         public void DeleteOrder(Order myOrder)
         {
             if (!DS.DataSource.OrderList.Exists(x => x.OrderKey == myOrder.OrderKey))
                 throw new KeyNotFoundException("Order does not exists in the system");
-            DS.DataSource.OrderList.Remove(myOrder);
+            DS.DataSource.OrderList.RemoveAt(DS.DataSource.OrderList.FindIndex(x => x.OrderKey == myOrder.OrderKey));
         }
 
         public List<BankBranch> ReceiveBankBranchesList()

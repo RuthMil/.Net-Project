@@ -90,7 +90,6 @@ namespace BL
                 throw new TimeoutException("sorry, cancelation time passed, you cannot cancel your order.");
             try
             {
-                
                 dal.DeleteOrder(myOrder);
                 HostingUnit myHostingUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
                 for (DateTime tmp = myGuestRequest.EntryDate; tmp < myGuestRequest.ReleaseDate; tmp = tmp.AddDays(1))
@@ -154,16 +153,6 @@ namespace BL
                 {
                     throw ex;
                 }
-            }
-            if (myHostingUnit.Owner.CollectionClearance && !oldUnit.Owner.CollectionClearance)
-            {
-                List<Order> ordersForHost = ReceiveOrdersForHost(myHostingUnit.Owner.HostKey);
-                foreach (var item in ordersForHost)
-                    if (item.Status == Enum_s.OrderStatus.HasNotBeenTreated)
-                    {
-                        item.Status = Enum_s.OrderStatus.MailSended;
-                        dal.UpdateOrder(item);
-                    }
             }
             for (int i = 0; i < 12; i++)
                 for (int j = 0; j < 31; j++)
@@ -479,7 +468,7 @@ namespace BL
         public List<HostingUnit> ReceiveMatchHostingUnitForRequest(GuestRequest myGuestRequest)
         {
             List<HostingUnit> freeHostingUnits = FreeHostingUnitsByDates_List
-                (myGuestRequest.EntryDate, SumDaysBetween(myGuestRequest.EntryDate, myGuestRequest.RegistrationDate));
+                (myGuestRequest.EntryDate, SumDaysBetween(myGuestRequest.EntryDate, myGuestRequest.ReleaseDate));
             if (freeHostingUnits.Count() == 0)
                 throw new ArgumentException("Sorry, there is no free hosting units for those dates");
             var matchHostingUnits = from unit in freeHostingUnits
