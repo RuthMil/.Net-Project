@@ -9,10 +9,10 @@ namespace BL
     [Serializable]
     class DeleteUnitWithOpenOrdersException : Exception
     {
-        public new string Message;
-        public DeleteUnitWithOpenOrdersException(string tmp)
+        public DeleteUnitWithOpenOrdersException(string message) : base(message)
         {
-            Message = tmp;
         }
+
+        public override string Message => base.Message;
     }
 }

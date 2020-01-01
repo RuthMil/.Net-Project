@@ -261,7 +261,8 @@ namespace BL
                 case Enum_s.OrderStatus.ClosedDueToResponsiveness:
                     List<Order> sameOrders = ReceiveClashOrders(myOrder);
                     sameOrders.RemoveAt(sameOrders.FindIndex(x => x.OrderKey == myOrder.OrderKey));
-                    SendMailAboutCloseOrder(sameOrders);
+                    if (sameOrders.Count != 0)
+                        SendMailAboutCloseOrder(sameOrders);
                     foreach (var item in sameOrders)
                     {
                         item.Status = Enum_s.OrderStatus.ClosedDueToClash;
@@ -486,6 +487,7 @@ namespace BL
             return dal.ReceiveOrderList().FindAll(x => x.HostingUnitKey == hostingUnitKey);
         }
 
+        //להוסיף בדיקה שהמארח קיים
         public List<Order> ReceiveOrdersForHost(long hostKey)
         {
             var orders = from unit in dal.ReceiveHostingUnitList()

@@ -9,11 +9,10 @@ namespace BL
     [Serializable]
     class StatusChangeException : Exception
     {
-        public new string Message;
-
-        public StatusChangeException(string tmp)
+        public StatusChangeException(string message) : base(message)
         {
-            Message = tmp;
         }
+
+        public override string Message => base.Message;
     }
 }

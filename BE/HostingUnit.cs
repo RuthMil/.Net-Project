@@ -25,8 +25,12 @@ namespace BE
         //לעשות טוסטרינג גנרי
         public override string ToString()
         {
+            string isSubArea = SubArea != default(Enum_s.SubArea) ? " Specific Area: " + SubArea.ToString("g") : "";
             return "Hosting Unit ID: " + HostingUnitKey.ToString() + " Hosting Unit Name: " + HostingUnitName + " Owner: " +
-                Owner.ToString(); 
+                Owner.ToString() + "\nArea: " + Area.ToString("g") + isSubArea + " Hosting Unit Type: " + Type + "\nYour Group: Adults- " +
+                Adults.ToString() + " Children- " + Children.ToString() + " Special Additions: Pool- " + Pool.ToString() +
+                " Jucuzzi- " + Jacuzzi.ToString() + " Garden- " + Garden.ToString() + " Attractions For Children- " +
+                ChildrenAttractions.ToString() + '\n'; 
         }
     }
 }

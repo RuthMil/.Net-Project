@@ -9,10 +9,10 @@ namespace DAL
     [Serializable]
     class ExistValueException : Exception
     {
-        public new string Message;
-        public ExistValueException(string tmp)
+        public ExistValueException(string message) : base(message)
         {
-            Message = tmp;
         }
+
+        public override string Message => base.Message;
     }
 }

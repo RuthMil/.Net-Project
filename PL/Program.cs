@@ -657,49 +657,6 @@ namespace PL
                 catch (Exception) { }
             }
             #endregion
-            #region orders initializing
-            List<Order> orderList = new List<Order>()
-            {
-                new Order()
-                {
-                    OrderKey = 1,
-                    Status = Enum_s.OrderStatus.HasNotBeenTreated,
-                    CreateDate = DateTime.Now
-                },
-                new Order()
-                {
-                    OrderKey = 2,
-                    Status = Enum_s.OrderStatus.HasNotBeenTreated ,
-                    CreateDate = DateTime.Now
-                },
-                new Order()
-                {
-                    OrderKey = 3,
-                    Status = Enum_s.OrderStatus.HasNotBeenTreated,
-                    CreateDate = DateTime.Now
-                },
-                new Order()
-                {
-                    OrderKey = 4,
-                    Status = Enum_s.OrderStatus.HasNotBeenTreated,
-                    CreateDate = DateTime.Now
-                },
-                new Order()
-                {
-                    OrderKey = 5,
-                    Status = Enum_s.OrderStatus.HasNotBeenTreated,
-                    CreateDate = DateTime.Now
-                },
-            };
-            foreach (var item in orderList)
-            {
-                try
-                {
-                    bl.AddOrder(item);
-                }
-                catch (Exception) { }
-            }
-            #endregion
             Console.WriteLine("All The Hosting Units:\n");
             foreach (var item in HostingUnitList)
                 Console.WriteLine(item);
@@ -707,8 +664,6 @@ namespace PL
             foreach (var item in guestRequestList)
                 Console.WriteLine(item);
             Console.WriteLine("All The Orders:\n");
-            foreach (var item in orderList)
-                Console.WriteLine(item);
             Console.WriteLine("Hello User\nThis is Searching And Maching Vacation System.\n" +
                 "Menu:\nA: Add Guest Request\nB: Add Hosting Unit\nC: Update Hosting Unit\n" +
                 "D: Delete Hosting Unit\nE: Update Order Status\nF: Delete Order\nG: Show Hosting Units inventory" +
