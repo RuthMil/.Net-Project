@@ -414,7 +414,7 @@ namespace BL
         {
             return dal.ReceiveGuestRequestList().FindAll(x => condition(x));
         }
-
+        
         public int SumOrdersForGuest(GuestRequest myGusetRequest)
         {
             return ReceiveOrdersForGuestRequest(myGusetRequest.GuestRequestKey).Count();  
@@ -497,6 +497,11 @@ namespace BL
             foreach (var item in orders) 
                 ordersForHost.AddRange(item);
             return ordersForHost;
+        }
+
+        public float CalcPriceByDays(int days, float price)
+        {
+            return days * price;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace BE
     [Serializable]
     public class Enum_s
     {
-        public enum HostingUnitTypes {Hut, Apartment, Hotel, Tent}
+        public enum HostingUnitTypes {Hut, Apartment, Hotel, Camping, Villa}
         public enum Areas {North, South, Central, Jerusalem}
         public enum OrderStatus {HasNotBeenTreated , MailSended, ClosedDueToUnresponsiveness,
             ClosedDueToResponsiveness, ClosedDueToClash, ClosedDueToOtherPurchase, ClosedDueToExpired }

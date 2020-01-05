@@ -22,6 +22,7 @@ namespace BE
         public bool Jacuzzi { get; set; }
         public bool Garden { get; set; }
         public bool ChildrenAttractions { get; set; }
+        public float Price { get; set; }
         //לעשות טוסטרינג גנרי
         public override string ToString()
         {
@@ -30,7 +31,7 @@ namespace BE
                 Owner.ToString() + "\nArea: " + Area.ToString("g") + isSubArea + " Hosting Unit Type: " + Type + "\nYour Group: Adults- " +
                 Adults.ToString() + " Children- " + Children.ToString() + " Special Additions: Pool- " + Pool.ToString() +
                 " Jucuzzi- " + Jacuzzi.ToString() + " Garden- " + Garden.ToString() + " Attractions For Children- " +
-                ChildrenAttractions.ToString() + '\n'; 
+                ChildrenAttractions.ToString() + "price for a day: " + Price.ToString() + '\n'; 
         }
     }
 }

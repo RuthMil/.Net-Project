@@ -109,5 +109,6 @@ namespace BL
         List<HostingUnit> ReceiveMatchHostingUnitForRequest(GuestRequest myGuestRequest);
         List<Order> ReceiveOrdersForHostingUnit(long hostingUnitKey);
         List<Order> ReceiveOrdersForHost(long hostKey);
+        float CalcPriceByDays(int days, float price);
     }
 }
