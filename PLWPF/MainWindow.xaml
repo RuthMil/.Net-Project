@@ -46,6 +46,8 @@
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -53,7 +55,8 @@
             <RowDefinition Height="62*"/>
             <RowDefinition Height="41*"/>
             <RowDefinition Height="50*"/>
-            <RowDefinition Height="267*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="226*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="367*"/>
@@ -62,18 +65,24 @@
             <ColumnDefinition Width="142*"/>
         </Grid.ColumnDefinitions>
         <Button Content="בעל האתר" Background="White" HorizontalAlignment="Left" FontWeight="DemiBold" Margin="1.8,62,-1.4,0" VerticalAlignment="Top" Width="142" Height="41" Grid.Column="3" Grid.RowSpan="2"/>
-        <ComboBox Name="hostingCmb" Text="מקומות אירוח" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="0.2,62,0,0" RenderTransformOrigin="0.476,0.118" SelectionChanged="HostingCmb_SelectionChanged" Grid.Column="2" Grid.RowSpan="2">
+        <ComboBox Name="hostingCmb" Text="מקומות אירוח" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="0.2,62,0.2,0.2" RenderTransformOrigin="0.476,0.118" SelectionChanged="HostingCmb_SelectionChanged" Grid.Column="2" Grid.RowSpan="2">
             <ComboBoxItem Content="הוספת מקום אירוח" Style="{StaticResource myComboBoxItem}" />
             <ComboBoxItem Content="עדכון מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
             <ComboBoxItem Content="הסרת מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
         </ComboBox>
-        <ComboBox Text="הזמנות" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="0.6,62,0,0" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
+        <ComboBox Text="הזמנות" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="0.6,62,142.2,0.2" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
             <ComboBoxItem Content="ביצוע עסקה" Style="{StaticResource myComboBoxItem}"/>
         </ComboBox>
         <Expander Header="צור קשר" FontWeight="Bold" Content ="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" Height="96" VerticalAlignment="Top" Width="187" Grid.RowSpan="2">
         </Expander>
 
-        <TextBlock HorizontalAlignment="Right" TextAlignment="Center" Margin="0,40.6,-0.4,0" Grid.Row="1" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="3" Grid.Column="1" Grid.RowSpan="3"/>
-        <ComboBox x:Name="areasComboBox" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Margin="1.8,0.2,-1.4,0" Grid.Row="3" Grid.Column="3"/>
+        <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" Margin="46.6,40.6,46.6,0" Grid.Row="1" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="3" Grid.Column="1" Grid.RowSpan="3"/>
+        <ComboBox x:Name="areasComboBox" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Margin="1.8,0.4,-1.4,225" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Stretch" SelectionChanged="AreasComboBox_SelectionChanged" Grid.RowSpan="2"/>
+        <ComboBox x:Name="dateComboBox" Text="צ'ק-אין - צ'ק-אאוט" IsEditable="True" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Stretch" Height="41" Margin="0,49.8,0.2,0.4" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="188" DropDownClosed="DateComboBox_DropDownClosed">
+            <ComboBoxItem>
+                <Calendar x:Name="myCalendar" SelectionMode="SingleRange" IsTodayHighlighted="True" SelectedDatesChanged="MyCalendar_SelectedDatesChanged"/>
+            </ComboBoxItem>
+        </ComboBox>
+        <ComboBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="366,0,0,0.4" Grid.Row="3" VerticalAlignment="Bottom" Width="97" Height="40"/>
     </Grid>
 </Window>
