@@ -30,19 +30,9 @@ namespace PLWPF
 
         }
 
-        private void Trigger_MouseMove(object sender, MouseEventArgs e)
+        private void TextBox_MouseEnter(object sender, MouseEventArgs e)
         {
 
-        }
-
-        private void ComboBoxItem_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Background = Brushes.Black;
-        }
-
-        private void ComboBoxItem_MouseEnter_1(object sender, MouseEventArgs e)
-        {
-            Background = Brushes.Black;
         }
     }
 }

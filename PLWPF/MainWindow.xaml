@@ -15,9 +15,28 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="White"/>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseMove">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="Red"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="BlueViolet"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="myComboBox" TargetType="ComboBox">
-            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Width" Value="142"/>
             <Setter Property="Height" Value="41"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -34,16 +53,25 @@
             <RowDefinition Height="8*"/>
             <RowDefinition Height="27*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
         <Button Content="בעל האתר" Background="White" HorizontalAlignment="Left" FontWeight="DemiBold" Margin="652,55,-0.4,0" VerticalAlignment="Top" Width="142" Height="41"/>
-        <ComboBox Name="hostingCmb" Text="מקומות אירוח" Style="{StaticResource myComboBox}" Margin="510,55,0,0" RenderTransformOrigin="0.476,0.118" SelectionChanged="HostingCmb_SelectionChanged">
-            <ComboBoxItem Content="הוספת מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
+        <ComboBox Name="hostingCmb" Text="מקומות אירוח" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="510,55,0,0" RenderTransformOrigin="0.476,0.118" SelectionChanged="HostingCmb_SelectionChanged">
+            <ComboBoxItem Content="הוספת מקום אירוח" Style="{StaticResource myComboBoxItem}" />
             <ComboBoxItem Content="עדכון מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
             <ComboBoxItem Content="הסרת מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
         </ComboBox>
-        <ComboBox Text="הזמנות" Style="{StaticResource myComboBox}" Margin="368,55,0,0">
+        <ComboBox Text="הזמנות" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="368,55,0,0">
             <ComboBoxItem Content="ביצוע עסקה" Style="{StaticResource myComboBoxItem}"/>
         </ComboBox>
         <Expander Header="צור קשר" FontWeight="Bold" Content ="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" Height="96" VerticalAlignment="Top" Width="187">
         </Expander>
+
+        <TextBlock HorizontalAlignment="Right" TextAlignment="Center" Margin="460,24,-0.4,0" Grid.Row="1" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20"/>
+        <ComboBox Text="בחר אזור" Style="{StaticResource myComboBox}" Grid.ColumnSpan="4" Margin="652,74,-0.4,0" Grid.Row="1"/>
     </Grid>
 </Window>
