@@ -50,28 +50,30 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="27*"/>
+            <RowDefinition Height="62*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="267*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="367*"/>
+            <ColumnDefinition Width="142*"/>
+            <ColumnDefinition Width="142*"/>
+            <ColumnDefinition Width="142*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="בעל האתר" Background="White" HorizontalAlignment="Left" FontWeight="DemiBold" Margin="652,55,-0.4,0" VerticalAlignment="Top" Width="142" Height="41"/>
-        <ComboBox Name="hostingCmb" Text="מקומות אירוח" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="510,55,0,0" RenderTransformOrigin="0.476,0.118" SelectionChanged="HostingCmb_SelectionChanged">
+        <Button Content="בעל האתר" Background="White" HorizontalAlignment="Left" FontWeight="DemiBold" Margin="1.8,62,-1.4,0" VerticalAlignment="Top" Width="142" Height="41" Grid.Column="3" Grid.RowSpan="2"/>
+        <ComboBox Name="hostingCmb" Text="מקומות אירוח" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="0.2,62,0,0" RenderTransformOrigin="0.476,0.118" SelectionChanged="HostingCmb_SelectionChanged" Grid.Column="2" Grid.RowSpan="2">
             <ComboBoxItem Content="הוספת מקום אירוח" Style="{StaticResource myComboBoxItem}" />
             <ComboBoxItem Content="עדכון מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
             <ComboBoxItem Content="הסרת מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
         </ComboBox>
-        <ComboBox Text="הזמנות" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="368,55,0,0">
+        <ComboBox Text="הזמנות" FontWeight="Bold" Style="{StaticResource myComboBox}" Margin="0.6,62,0,0" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
             <ComboBoxItem Content="ביצוע עסקה" Style="{StaticResource myComboBoxItem}"/>
         </ComboBox>
-        <Expander Header="צור קשר" FontWeight="Bold" Content ="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" Height="96" VerticalAlignment="Top" Width="187">
+        <Expander Header="צור קשר" FontWeight="Bold" Content ="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" Height="96" VerticalAlignment="Top" Width="187" Grid.RowSpan="2">
         </Expander>
 
-        <TextBlock HorizontalAlignment="Right" TextAlignment="Center" Margin="460,24,-0.4,0" Grid.Row="1" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20"/>
-        <ComboBox Text="בחר אזור" Style="{StaticResource myComboBox}" Grid.ColumnSpan="4" Margin="652,74,-0.4,0" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Right" TextAlignment="Center" Margin="0,40.6,-0.4,0" Grid.Row="1" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="3" Grid.Column="1" Grid.RowSpan="3"/>
+        <ComboBox x:Name="areasComboBox" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Margin="1.8,0.2,-1.4,0" Grid.Row="3" Grid.Column="3"/>
     </Grid>
 </Window>

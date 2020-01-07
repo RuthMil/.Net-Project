@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BE;
 
 namespace PLWPF
 {
@@ -23,6 +24,9 @@ namespace PLWPF
         public MainWindow()
         {
             InitializeComponent();
+            List<Enum_s.Areas> areas = new List<Enum_s.Areas>() {Enum_s.Areas.דרום, Enum_s.Areas.ירושלים, Enum_s.Areas.מרכז, Enum_s.Areas.צפון};
+            areasComboBox.DataContext = areas;
+            GuestRequest myGuestRequest = new GuestRequest();
         }
 
         private void HostingCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
