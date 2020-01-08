@@ -26,6 +26,7 @@
             <EventSetter Event="MouseLeave" Handler="ComboBoxItem_MouseLeave"/>
         </Style>
         <Style x:Key="myComboBox" TargetType="ComboBox">
+            <Setter Property="FlowDirection" Value="RightToLeft"/>
             <Setter Property="Width" Value="142"/>
             <Setter Property="Height" Value="41"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -39,7 +40,7 @@
         </Style>
     </Window.Resources>
     <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True">
-        <Grid x:Name="mainGrid" ScrollViewer.CanContentScroll="True">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="mainGrid" ScrollViewer.CanContentScroll="True" Width="780">
             <Grid.RowDefinitions>
                 <RowDefinition Height="90"/>
                 <RowDefinition Height="41"/>
@@ -77,13 +78,13 @@
                     <ColumnDefinition Width="142"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" Grid.Row="0" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2" Grid.Column="3"/>
-                <ComboBox x:Name="areasComboBox" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" SelectionChanged="AreasComboBox_SelectionChanged"/>
-                <ComboBox x:Name="dateComboBox" Text="צ'ק-אין - צ'ק-אאוט" IsEditable="True" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" Height="41" Width="188" DropDownClosed="DateComboBox_DropDownClosed">
+                <ComboBox x:Name="areasComboBox" FlowDirection="RightToLeft" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" SelectionChanged="AreasComboBox_SelectionChanged"/>
+                <ComboBox x:Name="dateComboBox" FlowDirection="RightToLeft" Text="צ'ק-אין - צ'ק-אאוט" IsEditable="True" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" Height="41" Width="188" DropDownClosed="DateComboBox_DropDownClosed">
                     <ComboBoxItem>
                         <Calendar x:Name="myCalendar" SelectionMode="SingleRange" IsTodayHighlighted="True" SelectedDatesChanged="MyCalendar_SelectedDatesChanged"/>
                     </ComboBoxItem>
                 </ComboBox>
-                <ComboBox x:Name="childrenAndAdults" Text="מבוגרים: 2 ילדים: 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" IsEditable="True" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" Width="165" Height="41" SelectionChanged="Selected_SelectionChanged">
+                <ComboBox x:Name="childrenAndAdults" FlowDirection="RightToLeft" Text="מבוגרים: 2 ילדים: 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" IsEditable="True" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" Width="165" Height="41" SelectionChanged="Selected_SelectionChanged">
                     <ComboBoxItem Height="100" Margin="0,0,9.8,0">
                         <Grid Height="88" Width="165">
                             <Grid.RowDefinitions>
