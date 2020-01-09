@@ -9,12 +9,12 @@ namespace BE
     [Serializable]
     public class Enum_s
     {
-        public enum HostingUnitTypes {Hut, Apartment, Hotel, Camping, Villa}
+        public enum HostingUnitTypes {הכל, בקתה, דירה, מלון, קמפינג, וילה}
         public enum Areas {צפון, דרום, מרכז, ירושלים}
         public enum OrderStatus {HasNotBeenTreated , MailSended, ClosedDueToUnresponsiveness,
             ClosedDueToResponsiveness, ClosedDueToClash, ClosedDueToOtherPurchase, ClosedDueToExpired }
         public enum GuestRequestStatus {Open, ClosedDueToResponsivenessByApp, ClosedDueToExpiry }
-        public enum RequestOption { Necessary, Possible, NotInterested }
-        public enum SubArea { Haifa, TelAviv, Galil, BeerSheba, Eilat, Jerusalem }
+        public enum RequestOption { Possible, Necessary, NotInterested }
+        public enum SubArea { חיפה, תל_אביב, גליל, באר_שבע, אילת, ירושלים, צפון, דרום, מרכז }
     }
 }

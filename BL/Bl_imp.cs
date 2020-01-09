@@ -325,8 +325,10 @@ namespace BL
                                     ((myGuestRequest.Pool == Enum_s.RequestOption.Necessary && myHostingUnit.Pool) ||
                                     (myGuestRequest.Pool == Enum_s.RequestOption.NotInterested && !myHostingUnit.Pool) ||
                                     myGuestRequest.Pool == Enum_s.RequestOption.Possible) &&
-                                    myGuestRequest.SubArea == myHostingUnit.SubArea &&
-                                    myGuestRequest.Type == myHostingUnit.Type;
+                                    (myGuestRequest.SubArea == myHostingUnit.SubArea ||
+                                    myGuestRequest.SubArea.ToString() == myGuestRequest.Area.ToString()) &&
+                                    (myGuestRequest.Type == myHostingUnit.Type ||
+                                    myGuestRequest.Type == Enum_s.HostingUnitTypes.הכל); 
         }
 
         public void CheckMatchBetweenHostingUnitToOpenRequests(HostingUnit myHostingUnit)

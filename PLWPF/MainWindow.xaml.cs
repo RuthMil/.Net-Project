@@ -24,9 +24,6 @@ namespace PLWPF
         GuestRequest myGuestRequest;
         public MainWindow()
         {
-            //ScrollViewer myScroll = new ScrollViewer();
-            //myScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-            //mainGrid.Children.Add(myScroll);
             InitializeComponent();
             List<Enum_s.Areas> areas = new List<Enum_s.Areas>() {Enum_s.Areas.דרום, Enum_s.Areas.ירושלים, Enum_s.Areas.מרכז, Enum_s.Areas.צפון};
             areasComboBox.DataContext = areas;
@@ -95,6 +92,12 @@ namespace PLWPF
         {
             ComboBoxItem myComboBoxItem = sender as ComboBoxItem;
             myComboBoxItem.Background = Brushes.BlueViolet;
+        }
+
+        private void MoreButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            moreButtonGrid.Background = Brushes.Red;
         }
     }
 }

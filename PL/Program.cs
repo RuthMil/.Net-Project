@@ -75,22 +75,22 @@ namespace PL
             switch (tmp)
             {
                 case "1":
-                    newGuestRequest.SubArea = Enum_s.SubArea.Haifa;
+                    newGuestRequest.SubArea = Enum_s.SubArea.חיפה;
                     break;
                 case "2":
-                    newGuestRequest.SubArea = Enum_s.SubArea.TelAviv;
+                    newGuestRequest.SubArea = Enum_s.SubArea.תל_אביב;
                     break;
                 case "3":
-                    newGuestRequest.SubArea = Enum_s.SubArea.Galil;
+                    newGuestRequest.SubArea = Enum_s.SubArea.גליל;
                     break;
                 case "4":
-                    newGuestRequest.SubArea = Enum_s.SubArea.BeerSheba;
+                    newGuestRequest.SubArea = Enum_s.SubArea.באר_שבע;
                     break;
                 case "5":
-                    newGuestRequest.SubArea = Enum_s.SubArea.Eilat;
+                    newGuestRequest.SubArea = Enum_s.SubArea.אילת;
                     break;
                 case "6":
-                    newGuestRequest.SubArea = Enum_s.SubArea.Jerusalem;
+                    newGuestRequest.SubArea = Enum_s.SubArea.ירושלים;
                     break;
             }
             Console.WriteLine("Enter hosting unit type, chose the coreect number:\n1 - Hut, 2 - Apartment, 3 - Hotel, 4 - Tent");
@@ -98,16 +98,16 @@ namespace PL
             switch (tmp)
             {
                 case "1":
-                    newGuestRequest.Type = Enum_s.HostingUnitTypes.Hut;
+                    newGuestRequest.Type = Enum_s.HostingUnitTypes.בקתה;
                     break;
                 case "2":
-                    newGuestRequest.Type = Enum_s.HostingUnitTypes.Apartment;
+                    newGuestRequest.Type = Enum_s.HostingUnitTypes.דירה;
                     break;
                 case "3":
-                    newGuestRequest.Type = Enum_s.HostingUnitTypes.Hotel;
+                    newGuestRequest.Type = Enum_s.HostingUnitTypes.מלון;
                     break;
                 case "4":
-                    newGuestRequest.Type = Enum_s.HostingUnitTypes.Camping;
+                    newGuestRequest.Type = Enum_s.HostingUnitTypes.קמפינג;
                     break;
             }
             Console.Write("Enter number of adults: ");
@@ -267,22 +267,22 @@ namespace PL
             switch (tmp)
             {
                 case "1":
-                    newHostingUnit.SubArea = Enum_s.SubArea.Haifa;
+                    newHostingUnit.SubArea = Enum_s.SubArea.חיפה;
                     break;
                 case "2":
-                    newHostingUnit.SubArea = Enum_s.SubArea.TelAviv;
+                    newHostingUnit.SubArea = Enum_s.SubArea.תל_אביב;
                     break;
                 case "3":
-                    newHostingUnit.SubArea = Enum_s.SubArea.Galil;
+                    newHostingUnit.SubArea = Enum_s.SubArea.גליל;
                     break;
                 case "4":
-                    newHostingUnit.SubArea = Enum_s.SubArea.BeerSheba;
+                    newHostingUnit.SubArea = Enum_s.SubArea.באר_שבע;
                     break;
                 case "5":
-                    newHostingUnit.SubArea = Enum_s.SubArea.Eilat;
+                    newHostingUnit.SubArea = Enum_s.SubArea.אילת;
                     break;
                 case "6":
-                    newHostingUnit.SubArea = Enum_s.SubArea.Jerusalem;
+                    newHostingUnit.SubArea = Enum_s.SubArea.ירושלים;
                     break;
             }
             Console.WriteLine("Enter hosting unit type, chose the coreect number:\n1 - Hut, 2 - Apartment, 3 - Hotel, 4 - Tent");
@@ -290,16 +290,16 @@ namespace PL
             switch (tmp)
             {
                 case "1":
-                    newHostingUnit.Type = Enum_s.HostingUnitTypes.Hut;
+                    newHostingUnit.Type = Enum_s.HostingUnitTypes.בקתה;
                     break;
                 case "2":
-                    newHostingUnit.Type = Enum_s.HostingUnitTypes.Apartment;
+                    newHostingUnit.Type = Enum_s.HostingUnitTypes.דירה;
                     break;
                 case "3":
-                    newHostingUnit.Type = Enum_s.HostingUnitTypes.Hotel;
+                    newHostingUnit.Type = Enum_s.HostingUnitTypes.מלון;
                     break;
                 case "4":
-                    newHostingUnit.Type = Enum_s.HostingUnitTypes.Camping;
+                    newHostingUnit.Type = Enum_s.HostingUnitTypes.קמפינג;
                     break;
             }
             Console.Write("Enter number of adults which the hosting unit contains: ");
@@ -389,8 +389,8 @@ namespace PL
                     HostingUnitName = "Kalanit",
                     Diary = new bool[12,31],
                     Area = Enum_s.Areas.צפון,
-                    SubArea = Enum_s.SubArea.Galil,
-                    Type = Enum_s.HostingUnitTypes.Camping,
+                    SubArea = Enum_s.SubArea.גליל,
+                    Type = Enum_s.HostingUnitTypes.קמפינג,
                     Adults = 2,
                     Children = 4,
                     Pool = true,
@@ -423,8 +423,8 @@ namespace PL
                     HostingUnitName = "Antiques",
                     Diary = new bool[12,31],
                     Area = Enum_s.Areas.ירושלים,
-                    SubArea = Enum_s.SubArea.Jerusalem,
-                    Type = Enum_s.HostingUnitTypes.Apartment,
+                    SubArea = Enum_s.SubArea.ירושלים,
+                    Type = Enum_s.HostingUnitTypes.דירה,
                     Adults = 4,
                     Children = 2,
                     Pool = false,
@@ -457,8 +457,8 @@ namespace PL
                     HostingUnitName = "Flower",
                     Diary = new bool[12,31],
                     Area = Enum_s.Areas.דרום,
-                    SubArea = Enum_s.SubArea.BeerSheba,
-                    Type = Enum_s.HostingUnitTypes.Hut,
+                    SubArea = Enum_s.SubArea.באר_שבע,
+                    Type = Enum_s.HostingUnitTypes.בקתה,
                     Adults = 2,
                     Children = 0,
                     Pool = true,
@@ -491,8 +491,8 @@ namespace PL
                     HostingUnitName = "BlueSea",
                     Diary = new bool[12,31],
                     Area = Enum_s.Areas.דרום,
-                    SubArea = Enum_s.SubArea.Eilat,
-                    Type = Enum_s.HostingUnitTypes.Hotel,
+                    SubArea = Enum_s.SubArea.אילת,
+                    Type = Enum_s.HostingUnitTypes.מלון,
                     Adults = 2,
                     Children = 2,
                     Pool = true,
@@ -525,8 +525,8 @@ namespace PL
                     HostingUnitName = "Hordus",
                     Diary = new bool[12,31],
                     Area = Enum_s.Areas.ירושלים,
-                    SubArea = Enum_s.SubArea.Jerusalem,
-                    Type = Enum_s.HostingUnitTypes.Hut,
+                    SubArea = Enum_s.SubArea.ירושלים,
+                    Type = Enum_s.HostingUnitTypes.בקתה,
                     Adults = 4,
                     Children = 4,
                     Pool = false,
@@ -558,8 +558,8 @@ namespace PL
                     EntryDate = DateTime.Now.AddDays(1),
                     ReleaseDate = DateTime.Now.AddDays(5),
                     Area = Enum_s.Areas.צפון,
-                    SubArea = Enum_s.SubArea.Haifa,
-                    Type = Enum_s.HostingUnitTypes.Hotel,
+                    SubArea = Enum_s.SubArea.חיפה,
+                    Type = Enum_s.HostingUnitTypes.מלון,
                     Adults = 2,
                     Children = 3,
                     Pool = Enum_s.RequestOption.Necessary,
@@ -578,8 +578,8 @@ namespace PL
                     EntryDate = DateTime.Now.AddDays(8),
                     ReleaseDate = DateTime.Now.AddDays(15),
                     Area = Enum_s.Areas.מרכז,
-                    SubArea = Enum_s.SubArea.TelAviv,
-                    Type = Enum_s.HostingUnitTypes.Apartment,
+                    SubArea = Enum_s.SubArea.תל_אביב,
+                    Type = Enum_s.HostingUnitTypes.דירה,
                     Adults = 3,
                     Children = 0,
                     Pool = Enum_s.RequestOption.Possible,
@@ -598,8 +598,8 @@ namespace PL
                     EntryDate = DateTime.Now.AddDays(50),
                     ReleaseDate = DateTime.Now.AddDays(60),
                     Area = Enum_s.Areas.דרום,
-                    SubArea = Enum_s.SubArea.Eilat ,
-                    Type = Enum_s.HostingUnitTypes.Hotel,
+                    SubArea = Enum_s.SubArea.אילת ,
+                    Type = Enum_s.HostingUnitTypes.מלון,
                     Adults = 4,
                     Children = 4,
                     Pool = Enum_s.RequestOption.Necessary,
@@ -618,8 +618,8 @@ namespace PL
                     EntryDate = DateTime.Now.AddDays(12),
                     ReleaseDate = DateTime.Now.AddDays(19),
                     Area = Enum_s.Areas.צפון,
-                    SubArea = Enum_s.SubArea.Galil,
-                    Type = Enum_s.HostingUnitTypes.Hut,
+                    SubArea = Enum_s.SubArea.גליל,
+                    Type = Enum_s.HostingUnitTypes.בקתה,
                     Adults = 2,
                     Children = 0,
                     Pool = Enum_s.RequestOption.NotInterested,
@@ -638,8 +638,8 @@ namespace PL
                     EntryDate = DateTime.Now.AddDays(2),
                     ReleaseDate = DateTime.Now.AddDays(7),
                     Area = Enum_s.Areas.ירושלים,
-                    SubArea = Enum_s.SubArea.Jerusalem,
-                    Type = Enum_s.HostingUnitTypes.Hotel,
+                    SubArea = Enum_s.SubArea.ירושלים,
+                    Type = Enum_s.HostingUnitTypes.מלון,
                     Adults = 3,
                     Children = 2,
                     Pool = Enum_s.RequestOption.Necessary,
