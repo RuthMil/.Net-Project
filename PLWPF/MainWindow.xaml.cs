@@ -25,8 +25,18 @@ namespace PLWPF
         public MainWindow()
         {
             InitializeComponent();
+            List<Enum_s.SubArea> subAreasList = new List<Enum_s.SubArea>() { Enum_s.SubArea.ירושלים, Enum_s.SubArea.צפון, Enum_s.SubArea.חיפה, Enum_s.SubArea.גליל, Enum_s.SubArea.דרום, Enum_s.SubArea.באר_שבע, Enum_s.SubArea.אילת, Enum_s.SubArea.מרכז, Enum_s.SubArea.תל_אביב};
             List<Enum_s.Areas> areas = new List<Enum_s.Areas>() {Enum_s.Areas.דרום, Enum_s.Areas.ירושלים, Enum_s.Areas.מרכז, Enum_s.Areas.צפון};
-            areasComboBox.DataContext = areas;
+            List<Enum_s.HostingUnitTypes> types = new List<Enum_s.HostingUnitTypes>() { Enum_s.HostingUnitTypes.הכל, Enum_s.HostingUnitTypes.דירה, Enum_s.HostingUnitTypes.בקתה, Enum_s.HostingUnitTypes.מלון, Enum_s.HostingUnitTypes.קמפינג, Enum_s.HostingUnitTypes.וילה };
+            List<Enum_s.RequestOption> options = new List<Enum_s.RequestOption>() { Enum_s.RequestOption.אפשרי, Enum_s.RequestOption.כן, Enum_s.RequestOption.לא };
+            areasComboBox.ItemsSource = areas;
+            subAreaCMB.ItemsSource = subAreasList;
+            typeCMB.ItemsSource = types;
+            poolCMB.ItemsSource = options;
+            gardenCMB.ItemsSource = options;
+            jaccuziCMB.ItemsSource = options;
+            wifiCMB.ItemsSource = options;
+            childAtracCMB.ItemsSource = options;
             myGuestRequest = new GuestRequest();
             myCalendar.DisplayDateStart = DateTime.Now;
             myCalendar.DisplayDateEnd = DateTime.Now.AddMonths(11);
@@ -39,7 +49,29 @@ namespace PLWPF
 
         private void AreasComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+            List<Enum_s.SubArea> jerusalem = new List<Enum_s.SubArea>() { Enum_s.SubArea.ירושלים };
+            List<Enum_s.SubArea> north = new List<Enum_s.SubArea>() { Enum_s.SubArea.צפון, Enum_s.SubArea.חיפה, Enum_s.SubArea.גליל };
+            List<Enum_s.SubArea> south = new List<Enum_s.SubArea>() { Enum_s.SubArea.דרום, Enum_s.SubArea.באר_שבע, Enum_s.SubArea.אילת };
+            List<Enum_s.SubArea> central = new List<Enum_s.SubArea>() { Enum_s.SubArea.מרכז, Enum_s.SubArea.תל_אביב, };
+            switch((Enum_s.Areas)areasComboBox.SelectedItem)
+            {
+                case Enum_s.Areas.ירושלים:
+                    subAreaCMB.ItemsSource = jerusalem;
+                    subAreaCMB.Text = jerusalem[0].ToString();
+                    break;
+                case Enum_s.Areas.דרום:
+                    subAreaCMB.ItemsSource = south;
+                    subAreaCMB.Text = south[0].ToString();
+                    break;
+                case Enum_s.Areas.מרכז:
+                    subAreaCMB.ItemsSource = central;
+                    subAreaCMB.Text = central[0].ToString();
+                    break;
+                case Enum_s.Areas.צפון:
+                    subAreaCMB.ItemsSource = north;
+                    subAreaCMB.Text = north[0].ToString();
+                    break;
+            }
         }
 
         private void MyCalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -78,9 +110,17 @@ namespace PLWPF
             else
                 adultsMinus.IsEnabled = false;
             if (int.Parse(children.Text) > 0)
+            {
                 childMinus.IsEnabled = true;
+                childAtracText.Visibility = Visibility.Visible;
+                childAtracCMB.Visibility = Visibility.Visible;
+            }
             else
+            {
                 childMinus.IsEnabled = false;
+                childAtracText.Visibility = Visibility.Hidden;
+                childAtracCMB.Visibility = Visibility.Hidden;
+            }
         }
 
         private void Selected_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -96,8 +136,21 @@ namespace PLWPF
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
+            if (moreButtonGrid.Visibility == Visibility.Hidden)
+            {
+                moreButtonGrid.Visibility = Visibility.Visible;
+                moreButton.Content = "פחות";
+            }
+            else
+            {
+                moreButtonGrid.Visibility = Visibility.Hidden;
+                moreButton.Content = "...עוד";
+            }
+        }
 
-            moreButtonGrid.Background = Brushes.Red;
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

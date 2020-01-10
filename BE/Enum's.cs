@@ -14,7 +14,7 @@ namespace BE
         public enum OrderStatus {HasNotBeenTreated , MailSended, ClosedDueToUnresponsiveness,
             ClosedDueToResponsiveness, ClosedDueToClash, ClosedDueToOtherPurchase, ClosedDueToExpired }
         public enum GuestRequestStatus {Open, ClosedDueToResponsivenessByApp, ClosedDueToExpiry }
-        public enum RequestOption { Possible, Necessary, NotInterested }
+        public enum RequestOption { אפשרי, כן, לא }
         public enum SubArea { חיפה, תל_אביב, גליל, באר_שבע, אילת, ירושלים, צפון, דרום, מרכז }
     }
 }

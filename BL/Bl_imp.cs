@@ -313,18 +313,18 @@ namespace BL
             return myGuestRequest.Adults <= myHostingUnit.Adults &&
                                     myGuestRequest.Area == myHostingUnit.Area &&
                                     myGuestRequest.Children <= myHostingUnit.Children &&
-                                    ((myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.Necessary && myHostingUnit.ChildrenAttractions) ||
-                                    (myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.NotInterested && !myHostingUnit.ChildrenAttractions) ||
-                                    myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.Possible) &&
-                                    ((myGuestRequest.Garden == Enum_s.RequestOption.Necessary && myHostingUnit.Garden) ||
-                                    (myGuestRequest.Garden == Enum_s.RequestOption.NotInterested && !myHostingUnit.Garden) ||
-                                    myGuestRequest.Garden == Enum_s.RequestOption.Possible) &&
-                                    ((myGuestRequest.Jacuzzi == Enum_s.RequestOption.Necessary && myHostingUnit.Jacuzzi) ||
-                                    (myGuestRequest.Jacuzzi == Enum_s.RequestOption.NotInterested && !myHostingUnit.Jacuzzi) ||
-                                    myGuestRequest.Jacuzzi == Enum_s.RequestOption.Possible) &&
-                                    ((myGuestRequest.Pool == Enum_s.RequestOption.Necessary && myHostingUnit.Pool) ||
-                                    (myGuestRequest.Pool == Enum_s.RequestOption.NotInterested && !myHostingUnit.Pool) ||
-                                    myGuestRequest.Pool == Enum_s.RequestOption.Possible) &&
+                                    ((myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.כן && myHostingUnit.ChildrenAttractions) ||
+                                    (myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.לא && !myHostingUnit.ChildrenAttractions) ||
+                                    myGuestRequest.ChildrenAttractions == Enum_s.RequestOption.אפשרי) &&
+                                    ((myGuestRequest.Garden == Enum_s.RequestOption.כן && myHostingUnit.Garden) ||
+                                    (myGuestRequest.Garden == Enum_s.RequestOption.לא && !myHostingUnit.Garden) ||
+                                    myGuestRequest.Garden == Enum_s.RequestOption.אפשרי) &&
+                                    ((myGuestRequest.Jacuzzi == Enum_s.RequestOption.כן && myHostingUnit.Jacuzzi) ||
+                                    (myGuestRequest.Jacuzzi == Enum_s.RequestOption.לא && !myHostingUnit.Jacuzzi) ||
+                                    myGuestRequest.Jacuzzi == Enum_s.RequestOption.אפשרי) &&
+                                    ((myGuestRequest.Pool == Enum_s.RequestOption.כן && myHostingUnit.Pool) ||
+                                    (myGuestRequest.Pool == Enum_s.RequestOption.לא && !myHostingUnit.Pool) ||
+                                    myGuestRequest.Pool == Enum_s.RequestOption.אפשרי) &&
                                     (myGuestRequest.SubArea == myHostingUnit.SubArea ||
                                     myGuestRequest.SubArea.ToString() == myGuestRequest.Area.ToString()) &&
                                     (myGuestRequest.Type == myHostingUnit.Type ||

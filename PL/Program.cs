@@ -121,13 +121,13 @@ namespace PL
             switch (tmp)
             {
                 case "1":
-                    newGuestRequest.Pool = Enum_s.RequestOption.Necessary;
+                    newGuestRequest.Pool = Enum_s.RequestOption.כן;
                     break;
                 case "2":
-                    newGuestRequest.Pool = Enum_s.RequestOption.Possible;
+                    newGuestRequest.Pool = Enum_s.RequestOption.אפשרי;
                     break;
                 case "3":
-                    newGuestRequest.Pool = Enum_s.RequestOption.NotInterested;
+                    newGuestRequest.Pool = Enum_s.RequestOption.לא;
                     break;
             }
             Console.WriteLine("Do you want a jacuzzi in the hosting unit? chose the coreect number:\n 1 - neccessary, 2 - possible, 3 - not interested");
@@ -135,13 +135,13 @@ namespace PL
             switch (tmp)
             {
                 case "1":
-                    newGuestRequest.Jacuzzi = Enum_s.RequestOption.Necessary;
+                    newGuestRequest.Jacuzzi = Enum_s.RequestOption.כן;
                     break;
                 case "2":
-                    newGuestRequest.Jacuzzi = Enum_s.RequestOption.Possible;
+                    newGuestRequest.Jacuzzi = Enum_s.RequestOption.אפשרי;
                     break;
                 case "3":
-                    newGuestRequest.Jacuzzi = Enum_s.RequestOption.NotInterested;
+                    newGuestRequest.Jacuzzi = Enum_s.RequestOption.לא;
                     break;
             }
             Console.WriteLine("Do you want a garden in the hosting unit? chose the coreect number:\n 1 - neccessary, 2 - possible, 3 - not interested");
@@ -149,13 +149,13 @@ namespace PL
             switch (tmp)
             {
                 case "1":
-                    newGuestRequest.Garden = Enum_s.RequestOption.Necessary;
+                    newGuestRequest.Garden = Enum_s.RequestOption.כן;
                     break;
                 case "2":
-                    newGuestRequest.Garden = Enum_s.RequestOption.Possible;
+                    newGuestRequest.Garden = Enum_s.RequestOption.אפשרי;
                     break;
                 case "3":
-                    newGuestRequest.Garden = Enum_s.RequestOption.NotInterested;
+                    newGuestRequest.Garden = Enum_s.RequestOption.לא;
                     break;
             }
             if (newGuestRequest.Children != 0)
@@ -165,18 +165,18 @@ namespace PL
                 switch (tmp)
                 {
                     case "1":
-                        newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.Necessary;
+                        newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.כן;
                         break;
                     case "2":
-                        newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.Possible;
+                        newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.אפשרי;
                         break;
                     case "3":
-                        newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.NotInterested;
+                        newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.לא;
                         break;
                 }
             }
             else
-                newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.Possible;
+                newGuestRequest.ChildrenAttractions = Enum_s.RequestOption.אפשרי;
             return newGuestRequest;
         }
         #endregion
@@ -562,10 +562,10 @@ namespace PL
                     Type = Enum_s.HostingUnitTypes.מלון,
                     Adults = 2,
                     Children = 3,
-                    Pool = Enum_s.RequestOption.Necessary,
-                    Jacuzzi = Enum_s.RequestOption.Necessary,
-                    Garden = Enum_s.RequestOption.NotInterested ,
-                    ChildrenAttractions = Enum_s.RequestOption.Necessary
+                    Pool = Enum_s.RequestOption.כן,
+                    Jacuzzi = Enum_s.RequestOption.כן,
+                    Garden = Enum_s.RequestOption.לא ,
+                    ChildrenAttractions = Enum_s.RequestOption.כן
                 },
                 new GuestRequest()
                 {
@@ -582,10 +582,10 @@ namespace PL
                     Type = Enum_s.HostingUnitTypes.דירה,
                     Adults = 3,
                     Children = 0,
-                    Pool = Enum_s.RequestOption.Possible,
-                    Jacuzzi = Enum_s.RequestOption.Possible,
-                    Garden = Enum_s.RequestOption.Necessary,
-                    ChildrenAttractions = Enum_s.RequestOption.NotInterested
+                    Pool = Enum_s.RequestOption.אפשרי,
+                    Jacuzzi = Enum_s.RequestOption.אפשרי,
+                    Garden = Enum_s.RequestOption.כן,
+                    ChildrenAttractions = Enum_s.RequestOption.לא
                 },
                 new GuestRequest()
                 {
@@ -602,10 +602,10 @@ namespace PL
                     Type = Enum_s.HostingUnitTypes.מלון,
                     Adults = 4,
                     Children = 4,
-                    Pool = Enum_s.RequestOption.Necessary,
-                    Jacuzzi = Enum_s.RequestOption.Necessary,
-                    Garden = Enum_s.RequestOption.Possible ,
-                    ChildrenAttractions = Enum_s.RequestOption.Necessary
+                    Pool = Enum_s.RequestOption.כן,
+                    Jacuzzi = Enum_s.RequestOption.כן,
+                    Garden = Enum_s.RequestOption.אפשרי ,
+                    ChildrenAttractions = Enum_s.RequestOption.כן
                 },
                 new GuestRequest()
                 {
@@ -622,10 +622,10 @@ namespace PL
                     Type = Enum_s.HostingUnitTypes.בקתה,
                     Adults = 2,
                     Children = 0,
-                    Pool = Enum_s.RequestOption.NotInterested,
-                    Jacuzzi = Enum_s.RequestOption.Necessary,
-                    Garden = Enum_s.RequestOption.NotInterested ,
-                    ChildrenAttractions = Enum_s.RequestOption.NotInterested
+                    Pool = Enum_s.RequestOption.לא,
+                    Jacuzzi = Enum_s.RequestOption.כן,
+                    Garden = Enum_s.RequestOption.לא ,
+                    ChildrenAttractions = Enum_s.RequestOption.לא
                 },
                 new GuestRequest()
                 {
@@ -642,10 +642,10 @@ namespace PL
                     Type = Enum_s.HostingUnitTypes.מלון,
                     Adults = 3,
                     Children = 2,
-                    Pool = Enum_s.RequestOption.Necessary,
-                    Jacuzzi = Enum_s.RequestOption.Necessary,
-                    Garden = Enum_s.RequestOption.Necessary ,
-                    ChildrenAttractions = Enum_s.RequestOption.NotInterested
+                    Pool = Enum_s.RequestOption.כן,
+                    Jacuzzi = Enum_s.RequestOption.כן,
+                    Garden = Enum_s.RequestOption.כן ,
+                    ChildrenAttractions = Enum_s.RequestOption.כן
                 }
             };
             foreach (var item in guestRequestList)

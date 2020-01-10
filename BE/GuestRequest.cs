@@ -26,6 +26,7 @@ namespace BE
         public Enum_s.RequestOption Jacuzzi { get; set; }
         public Enum_s.RequestOption Garden { get; set; }
         public Enum_s.RequestOption ChildrenAttractions { get; set; }
+        public Enum_s.RequestOption Wifi { get; set; }
         public override string ToString()
         {
             string isSubArea = SubArea != default(Enum_s.SubArea) ? " Specific Area: " + SubArea.ToString("g") : ""; 
