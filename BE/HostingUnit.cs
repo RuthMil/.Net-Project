@@ -22,7 +22,7 @@ namespace BE
         public bool Jacuzzi { get; set; }
         public bool Garden { get; set; }
         public bool ChildrenAttractions { get; set; }
-        public Enum_s.RequestOption Wifi { get; set; }
+        public bool Wifi { get; set; }
         public float Price { get; set; }
         //לעשות טוסטרינג גנרי
         public override string ToString()

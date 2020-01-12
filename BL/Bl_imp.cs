@@ -176,12 +176,12 @@ namespace BL
 
         public void SendMailAboutCloseOrder(List<Order> orders)
         {
-            Console.WriteLine("Sending mail for all clashing orders: We are sory, your order was caught"); 
+            //Console.WriteLine("Sending mail for all clashing orders: We are sory, your order was caught"); 
         }
 
         public void SendMailToHostAboutCancelOrder(Order myOrder)
         {
-            Console.WriteLine("Sending mail about order cancelation. oreder details:\n" + myOrder.ToString());
+            //Console.WriteLine("Sending mail about order cancelation. oreder details:\n" + myOrder.ToString());
         }
 
         public List<Order> ReceiveOrdersForGuestRequest(long myGuestRequestKey)
@@ -296,9 +296,9 @@ namespace BL
         public void SendMailToGuestWithSuggest(Order myOrder)
         {
             HostingUnit myUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
-            Console.WriteLine("Sending Mail For Suggest: Hello, we found special " +
-                "hosting unit for you, according to your request number: {0}, order number: {1}\nHosting unit details:\n{2}",
-                myOrder.GuestRequestKey.ToString(), myOrder.OrderKey.ToString(), dal.GetHostingUnitByKey(myOrder.HostingUnitKey).ToString()); 
+            //Console.WriteLine("Sending Mail For Suggest: Hello, we found special " +
+              //  "hosting unit for you, according to your request number: {0}, order number: {1}\nHosting unit details:\n{2}",
+                //myOrder.GuestRequestKey.ToString(), myOrder.OrderKey.ToString(), dal.GetHostingUnitByKey(myOrder.HostingUnitKey).ToString()); 
         }
 
         public int SumDaysBetween(DateTime firstDate, DateTime? secondDate = null)
@@ -473,14 +473,13 @@ namespace BL
             List<HostingUnit> freeHostingUnits = FreeHostingUnitsByDates_List
                 (myGuestRequest.EntryDate, SumDaysBetween(myGuestRequest.EntryDate, myGuestRequest.ReleaseDate));
             if (freeHostingUnits.Count() == 0)
-                throw new ArgumentException("Sorry, there is no free hosting units for those dates");
+                throw new ArgumentException("מצטערים, לא קיימות יחידות אירוח פנויות בתאריכים שבחרת");
             var matchHostingUnits = from unit in freeHostingUnits
                                     where HostingUnitMatchToGuestRequest(myGuestRequest, unit)
                                     select unit;
             if (matchHostingUnits.Count() == 0)
-                throw new ArgumentException("Sorry, we did not found match hosting unit for your requests. " +
-                    "your request saved in the system, if we will found match hosting unit for you later, we" +
-                    "will send you an email.");
+                throw new ArgumentException("מצטערים, לא מצאנו יחידות אירוח מתאימות לבקשתך. " +
+                    "בקשתך נשמרה במערכת, אם נמצא יחידות אירוח מתאימות עבורך מאוחר יותר, נעדכן אותך באימייל");
             return matchHostingUnits.ToList();
         }
 
