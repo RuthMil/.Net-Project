@@ -29,7 +29,6 @@
         <Style x:Key="myComboBoxItem" TargetType="ComboBoxItem">
             <Setter Property="Height" Value="31"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Width" Value="142"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="White"/>
@@ -50,9 +49,9 @@
         </Style>
     </Window.Resources>
     <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True">
-        <Grid x:Name="mainGrid" HorizontalAlignment="Center" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" Width="768">
+        <Grid x:Name="mainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.CanContentScroll="True">
             <Grid.RowDefinitions>
-                <RowDefinition Height="90"/>
+                <RowDefinition Height="60"/>
                 <RowDefinition Height="41"/>
                 <RowDefinition Height="41"/>
                 <RowDefinition Height="200*"/>
@@ -63,7 +62,12 @@
                 <ColumnDefinition Width="142"/>
                 <ColumnDefinition Width="142"/>
             </Grid.ColumnDefinitions>
-            <Button Content="בעל האתר" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" HorizontalAlignment="Right" FontWeight="DemiBold" VerticalAlignment="Stretch" Width="142" Height="41" Grid.Column="3" Grid.Row="1"/>
+            <Label Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="CornflowerBlue">
+                <Label.Content>
+                    <Expander Header="צור קשר" FontWeight="Bold" Foreground="White" FontSize="11" Content ="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" VerticalAlignment="Top" Width="187" Height="60"/>
+                </Label.Content>
+            </Label>
+            <Button Content="בעל האתר" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" HorizontalAlignment="Stretch" FontWeight="DemiBold" VerticalAlignment="Stretch" Grid.Column="3" Grid.Row="1"/>
             <ComboBox Name="hostingCmb" Text="מקומות אירוח" FontWeight="Bold" Style="{StaticResource myComboBox}" SelectionChanged="HostingCmb_SelectionChanged" Grid.Column="2" Grid.Row="1">
                 <ComboBoxItem Content="הוספת מקום אירוח" Style="{StaticResource myComboBoxItem}" />
                 <ComboBoxItem Content="עדכון מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
@@ -72,9 +76,7 @@
             <ComboBox Text="הזמנות" FontWeight="Bold" Style="{StaticResource myComboBox}" Grid.Column="1" Grid.Row="1">
                 <ComboBoxItem Content="ביצוע עסקה" Style="{StaticResource myComboBoxItem}"/>
             </ComboBox>
-            <Expander Header="צור קשר" FontWeight="Bold" Content ="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" Height="96" VerticalAlignment="Top" Width="187" Grid.RowSpan="2">
-            </Expander>
-            <Grid x:Name="requestGrid" Grid.Row="3" Grid.ColumnSpan="4" Height="254">
+            <Grid x:Name="requestGrid" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Top" Height="254">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="25"/>
@@ -124,7 +126,7 @@
                 </ComboBox>
                 <Button x:Name="moreButton" Content="...עוד" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" Click="MoreButton_Click"/>
                 <Button x:Name="searchButton" Content="חיפוש" FontWeight="Bold" Foreground="White" BorderBrush="CornflowerBlue" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Click="SearchButton_Click"/>
-                <Grid x:Name="moreButtonGrid" Visibility="Hidden" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4">
+                <Grid x:Name="moreButtonGrid" Visibility="Visible" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="41*"/>
                         <RowDefinition Height="41*"/>

@@ -370,27 +370,25 @@ namespace PLWPF
 
         private void AreasComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<Enum_s.SubArea> jerusalem = new List<Enum_s.SubArea>() { Enum_s.SubArea.ירושלים };
-            List<Enum_s.SubArea> north = new List<Enum_s.SubArea>() { Enum_s.SubArea.צפון, Enum_s.SubArea.חיפה, Enum_s.SubArea.גליל };
-            List<Enum_s.SubArea> south = new List<Enum_s.SubArea>() { Enum_s.SubArea.דרום, Enum_s.SubArea.באר_שבע, Enum_s.SubArea.אילת };
-            List<Enum_s.SubArea> central = new List<Enum_s.SubArea>() { Enum_s.SubArea.מרכז, Enum_s.SubArea.תל_אביב, };
-            switch((Enum_s.Areas)areasCMB.SelectedValue)
+            if (areasCMB.SelectedValue == null)
+                return;
+            switch ((Enum_s.Areas)areasCMB.SelectedValue)
             {
                 case Enum_s.Areas.ירושלים:
-                    subAreaCMB.ItemsSource = jerusalem;
-                    subAreaCMB.Text = jerusalem[0].ToString();
+                    subAreaCMB.ItemsSource = new List<Enum_s.SubArea>() { Enum_s.SubArea.ירושלים };
+                    subAreaCMB.Text = Enum_s.SubArea.ירושלים.ToString();
                     break;
                 case Enum_s.Areas.דרום:
-                    subAreaCMB.ItemsSource = south;
-                    subAreaCMB.Text = south[0].ToString();
+                    subAreaCMB.ItemsSource = new List<Enum_s.SubArea>() { Enum_s.SubArea.דרום, Enum_s.SubArea.באר_שבע, Enum_s.SubArea.אילת };
+                    subAreaCMB.Text = Enum_s.SubArea.דרום.ToString();
                     break;
                 case Enum_s.Areas.מרכז:
-                    subAreaCMB.ItemsSource = central;
-                    subAreaCMB.Text = central[0].ToString();
+                    subAreaCMB.ItemsSource = new List<Enum_s.SubArea>() { Enum_s.SubArea.מרכז, Enum_s.SubArea.תל_אביב, }; 
+                    subAreaCMB.Text = Enum_s.SubArea.מרכז.ToString();
                     break;
                 case Enum_s.Areas.צפון:
-                    subAreaCMB.ItemsSource = north;
-                    subAreaCMB.Text = north[0].ToString();
+                    subAreaCMB.ItemsSource = new List<Enum_s.SubArea>() { Enum_s.SubArea.צפון, Enum_s.SubArea.חיפה, Enum_s.SubArea.גליל }; 
+                    subAreaCMB.Text = Enum_s.SubArea.צפון.ToString();
                     break;
             }
         }
@@ -491,7 +489,10 @@ namespace PLWPF
                 MessageBox.Show("בקשתך נקלטה בהצלחה");
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
-                //areasCMB.Text = "בחר אזור";
+                areasCMB.SelectedValue = null;
+                areasCMB.Text = "בחר אזור";
+                subAreaCMB.ItemsSource = new List<Enum_s.SubArea>() { Enum_s.SubArea.ירושלים, Enum_s.SubArea.צפון, Enum_s.SubArea.חיפה, Enum_s.SubArea.גליל, Enum_s.SubArea.דרום, Enum_s.SubArea.באר_שבע, Enum_s.SubArea.אילת, Enum_s.SubArea.מרכז, Enum_s.SubArea.תל_אביב };
+                subAreaCMB.SelectedValue = null;
                 dateCMB.Text = "צ'ק-אין - צ'ק-אאוט";
                 childrenAndAdultsCMB.Text = "מבוגרים: 2  ילדים: 0";
                 children.Text = "0";
