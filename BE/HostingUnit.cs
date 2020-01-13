@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Media;
+using System.Windows;
 
 namespace BE
 {
@@ -16,6 +19,7 @@ namespace BE
         public Enum_s.Areas Area { get; set; }
         public Enum_s.SubArea SubArea { get; set; }
         public Enum_s.HostingUnitTypes Type { get; set; }
+        public string Address { get; set; }
         public int Adults { get; set; }
         public int Children { get; set; }
         public bool Pool { get; set; }
@@ -24,7 +28,7 @@ namespace BE
         public bool ChildrenAttractions { get; set; }
         public bool Wifi { get; set; }
         public float Price { get; set; }
-        //לעשות טוסטרינג גנרי
+        public List<byte> Images { get; set; }
         public override string ToString()
         {
             string isSubArea = SubArea != default(Enum_s.SubArea) ? " Specific Area: " + SubArea.ToString("g") : "";
