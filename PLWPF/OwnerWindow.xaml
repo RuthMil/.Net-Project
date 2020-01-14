@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PLWPF"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
         mc:Ignorable="d"
-        Title="אימות פרטי בעל האתר" Height="375" Width="600">
+        Title="אימות פרטים" Height="340" Width="550">
     <Window.Resources>
         <Style x:Key="headerStyle">
             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -23,16 +23,15 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="!ברוכים הבאים" VerticalAlignment="Center" Grid.Row="0" Style="{StaticResource headerStyle}" />
-        <TextBox Name="txtUserFName" Grid.Row="1" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שמך הפרטי" />
-        <TextBox Name="txtUserLName" Grid.Row="2" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שם המשפחה שלך" />
-        <PasswordBox Grid.Row="4" Name="myPassword" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignPasswordBox}"/>
-        <TextBox Name="txtYourPassword" Grid.Row="3" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס סיסמא" />
-        <Button Margin="0 20" Grid.Row="5" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Enter_Button">
-            היכנס למערכת
+        <TextBlock Foreground="CornflowerBlue" Text="!ברוכים הבאים" VerticalAlignment="Center" Grid.Row="0" Style="{StaticResource headerStyle}" />
+        <TextBox Name="txtUserFName" Grid.Row="1" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שמך הפרטי" />
+        <TextBox Name="txtUserLName" Grid.Row="2" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שם המשפחה שלך" />
+        <PasswordBox materialDesign:HintAssist.Hint="הכנס סיסמא" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="txtYourPassword" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+        <!--<TextBox Name="txtYourPassword" Grid.Row="3" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס סיסמא" />-->
+        <Button Background="CornflowerBlue" Margin="0 20" Grid.Row="4" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Enter_Button">
+            היכנס
         </Button>
     </Grid>
 </Window>

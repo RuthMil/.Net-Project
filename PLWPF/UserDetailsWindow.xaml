@@ -36,15 +36,14 @@
         </Grid.RowDefinitions>
         <TextBlock Text="!ברוכים הבאים למערכת איתור והתאמת נופש" Foreground="CornflowerBlue" VerticalAlignment="Center" Grid.Row="0" Style="{StaticResource headerStyle}" />
         <TextBlock Text="אנא הכניסו את פרטיכם על מנת שנוכל לשלוח לכם הצעות אירוח מתאימות" FontSize="20" Foreground="CornflowerBlue" FontWeight="Normal" VerticalAlignment="Center" Grid.Row="1" Style="{StaticResource headerStyle}" />
-        <TextBox Name="txtUserFName" materialDesign:ValidationAssist.PopupPlacement="Left" materialDesign:ValidationAssist.UsePopup="True" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}" Grid.Row="2" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שמך הפרטי"/>
+        <TextBox Name="txtUserFName" materialDesign:ValidationAssist.PopupPlacement="Left" materialDesign:ValidationAssist.UsePopup="True" Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}" Grid.Row="2" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שמך הפרטי"/>
         <TextBox Name="errorUserFName" IsReadOnly="True" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="2" FontSize="13" Foreground="Red" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="אותיות בלבד"/>
-        <TextBox Name="txtUserLName" Grid.Row="3" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שם המשפחה שלך" />
+        <TextBox Name="txtUserLName" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שם המשפחה שלך" />
         <TextBox Name="errorUserLName" IsReadOnly="True" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="3" FontSize="13" Foreground="Red" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="אותיות בלבד"/>
-        <TextBox Name="txtYourMail" Grid.Row="4" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את כתובת האימייל שלך" />
+        <TextBox Name="txtYourMail" Grid.Row="4" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את כתובת האימייל שלך" />
         <TextBox Name="errorUserMail" IsReadOnly="True" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="4" FontSize="13" Foreground="Red" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="כתובת אימייל לא תקינה"/>
-        <Button Name="continueButton" Margin="0 20" Grid.Row="5" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Continue_Button_Click">
+        <Button Name="continueButton" Background="CornflowerBlue" Margin="0 20" Grid.Row="5" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Continue_Button_Click">
             המשך
-            
         </Button>
     </Grid>
 </Window>
