@@ -230,7 +230,7 @@ namespace DAL
             return myUnit.First().Clone();
         }
 
-        public Host getHostByKey(long key)
+        public Host GetHostByKey(long key)
         {
             var myHost = from unit in DS.DataSource.HostingUnitList
                          where unit.Owner.HostKey == key
@@ -245,7 +245,16 @@ namespace DAL
                 throw ex;
             }
             return myHost.First().Clone();
+        }
 
+        public string GetOwnerPassword()
+        {
+            return Owner.Password;
+        }
+
+        public void SetOwnerPassword(string newPassword)
+        {
+            Owner.Password = newPassword;
         }
     }
 }

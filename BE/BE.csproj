@@ -48,6 +48,7 @@
     <Compile Include="Host.cs" />
     <Compile Include="HostingUnit.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="Owner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

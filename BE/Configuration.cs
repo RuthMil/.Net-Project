@@ -8,11 +8,11 @@ namespace BE
 {
     public class Configuration
     {
-        static public long GuestRequestID = 0;
-        static public long HostID = 0;
-        static public long HostingUnitID = 0;
-        static public long OrderID = 0;
-        static public int commission = 10;
-        static public int invitationValidTime = 30;
+        public static long GuestRequestID = 0;
+        public static long HostID = 0;
+        public static long HostingUnitID = 0;
+        public static long OrderID = 0;
+        public static int commission = 10;
+        public static int invitationValidTime = 30;
     }
 }

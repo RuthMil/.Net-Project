@@ -472,6 +472,11 @@ namespace PLWPF
             errordate.Visibility = myCalendar.SelectedDates.Count() == 0 ? Visibility.Visible : Visibility.Hidden;
             if (errordate.Visibility == Visibility.Visible || errorArea.Visibility == Visibility.Visible)
                 return;
+            UserDetailsWindow newDetails = new UserDetailsWindow();
+            newDetails.ShowDialog();
+            myGuestRequest.FirstName = newDetails.FirstName;
+            myGuestRequest.LastName = newDetails.LastName;
+            myGuestRequest.MailAddress = newDetails.UserMail;
             myGuestRequest.Pool = poolCMB.SelectedValue == null? Enum_s.RequestOption.אפשרי : (Enum_s.RequestOption)poolCMB.SelectedValue; 
             myGuestRequest.Jacuzzi = jaccuziCMB.SelectedValue == null ? Enum_s.RequestOption.אפשרי : (Enum_s.RequestOption)jaccuziCMB.SelectedValue; 
             myGuestRequest.Garden = gardenCMB.SelectedValue == null ? Enum_s.RequestOption.אפשרי : (Enum_s.RequestOption)gardenCMB.SelectedValue;
@@ -486,7 +491,7 @@ namespace PLWPF
             try
             {
                 bl.AddGuestRequest(myGuestRequest);
-                MessageBox.Show("בקשתך נקלטה בהצלחה");
+                MessageBox.Show("שלום " + myGuestRequest.FirstName + "! בקשתך נקלטה בהצלחה");
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
                 areasCMB.SelectedValue = null;
@@ -506,7 +511,7 @@ namespace PLWPF
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.RightAlign);
+                MessageBox.Show("שלום " + myGuestRequest.FirstName + "!\n" + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.RightAlign);
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
             }
@@ -515,6 +520,12 @@ namespace PLWPF
         private void ChildAdult_DropDownClosed(object sender, EventArgs e)
         {
             childrenAndAdultsCMB.Text = "מבוגרים: " + adults.Text + "  ילדים: " + children.Text;
+        }
+
+        private void Owner_Button_Click(object sender, RoutedEventArgs e)
+        {
+            OwnerWindow newOwnerWindow = new OwnerWindow();
+            newOwnerWindow.Show();
         }
     }
 }

@@ -229,7 +229,7 @@ namespace BL
         {
             try
             {
-                return dal.getHostByKey(key);
+                return dal.GetHostByKey(key);
             }
             catch (Exception ex)
             {
@@ -457,7 +457,7 @@ namespace BL
         {
             var groupByNumberOfHostingUnit = from unit in dal.ReceiveHostingUnitList()
                                              group unit by unit.Owner.HostKey into groupByHost
-                                             group dal.getHostByKey(groupByHost.Key) by groupByHost.Count();
+                                             group dal.GetHostByKey(groupByHost.Key) by groupByHost.Count();
             return groupByNumberOfHostingUnit;
         }
 
@@ -503,6 +503,23 @@ namespace BL
         public float CalcPriceByDays(int days, float price)
         {
             return days * price;
+        }
+
+        public string GetOwnerPassword()
+        {
+            return dal.GetOwnerPassword();
+        }
+
+        public void SetOwnerPassword(string newPassword, string oldPassword)
+        {
+            if (dal.GetOwnerPassword() == oldPassword)
+            {
+                if (newPassword.Length < 8)
+                    throw new ArgumentException("סיסמא חייבת לכלול לפחות 8 תווים");
+                dal.SetOwnerPassword(newPassword);
+            }
+            else
+                throw new ArgumentException("סיסמא שגויה");
         }
     }
 }

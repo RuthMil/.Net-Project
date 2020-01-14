@@ -110,5 +110,7 @@ namespace BL
         List<Order> ReceiveOrdersForHostingUnit(long hostingUnitKey);
         List<Order> ReceiveOrdersForHost(long hostKey);
         float CalcPriceByDays(int days, float price);
+        string GetOwnerPassword();
+        void SetOwnerPassword(string newPassword, string oldPassword);
     }
 }

@@ -54,7 +54,7 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="41"/>
                 <RowDefinition Height="41"/>
-                <RowDefinition Height="280"/>
+                <RowDefinition Height="400"/>
                 <RowDefinition Height="200"/>
                 <RowDefinition Height="200"/>
             </Grid.RowDefinitions>
@@ -66,10 +66,10 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="CornflowerBlue">
                 <Label.Content>
-                    <Expander Header="צור קשר" FontWeight="Bold" Foreground="White" FontSize="11" Content ="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" VerticalAlignment="Top" Width="187" Height="60"/>
+                    <Expander Header="צור קשר" FontWeight="Normal" Foreground="Black" FontSize="11" Content="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Background="Transparent"/>
                 </Label.Content>
             </Label>
-            <Button Content="בעל האתר" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" HorizontalAlignment="Stretch" FontWeight="DemiBold" VerticalAlignment="Stretch" Grid.Column="3" Grid.Row="1"/>
+            <Button Content="בעל האתר" Foreground="Black" FontSize="14" Height="{Binding}" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" HorizontalAlignment="Stretch" FontWeight="DemiBold" VerticalAlignment="Stretch" Grid.Column="3" Grid.Row="1" Click="Owner_Button_Click"/>
             <ComboBox Name="hostingCmb" Text="מקומות אירוח" FontWeight="Bold" Style="{StaticResource myComboBox}" SelectionChanged="HostingCmb_SelectionChanged" Grid.Column="2" Grid.Row="1">
                 <ComboBoxItem Content="הוספת מקום אירוח" Style="{StaticResource myComboBoxItem}" />
                 <ComboBoxItem Content="עדכון מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
@@ -84,7 +84,7 @@
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="41"/>
                     <RowDefinition Height="41"/>
-                    <RowDefinition Height="123"/>
+                    <RowDefinition Height="123*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100*"/>
@@ -98,8 +98,12 @@
                 <ComboBox x:Name="areasCMB" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="4" SelectionChanged="AreasComboBox_SelectionChanged"/>
                 <TextBlock x:Name="errordate" Grid.Row="1" Grid.Column="3" Text="אנא הכניסו תאריך כדי להתחיל בחיפוש" Style="{StaticResource errorMessage}"/>
                 <ComboBox x:Name="dateCMB" Text="צ'ק-אין - צ'ק-אאוט" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="3" BorderBrush="DodgerBlue" BorderThickness="2" DropDownClosed="DateComboBox_DropDownClosed">
-                    <ComboBoxItem>
-                        <Calendar x:Name="myCalendar" SelectionMode="SingleRange" IsTodayHighlighted="True" SelectedDatesChanged="MyCalendar_SelectedDatesChanged"/>
+                    <ComboBoxItem Padding="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                        <Calendar x:Name="myCalendar" Language="He" SelectionMode="SingleRange" IsTodayHighlighted="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDatesChanged="MyCalendar_SelectedDatesChanged">
+                            <Calendar.Resources>
+                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Gray"/>
+                            </Calendar.Resources>
+                        </Calendar>
                     </ComboBoxItem>
                 </ComboBox>
                 <ComboBox x:Name="childrenAndAdultsCMB" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="2" Text="מבוגרים: 2  ילדים: 0" SelectionChanged="Selected_SelectionChanged" DropDownClosed="ChildAdult_DropDownClosed">
@@ -126,8 +130,8 @@
                         </Grid>
                     </ComboBoxItem>
                 </ComboBox>
-                <Button x:Name="moreButton" Content="...עוד" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" Click="MoreButton_Click"/>
-                <Button x:Name="searchButton" Content="חיפוש" FontWeight="Bold" Foreground="White" BorderBrush="CornflowerBlue" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Click="SearchButton_Click"/>
+                <Button x:Name="moreButton" Content="...עוד" Height="{Binding}" Foreground="Black" FontWeight="Normal" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" Click="MoreButton_Click"/>
+                <Button x:Name="searchButton" Content="חיפוש" Height="{Binding}" FontWeight="Bold" Foreground="White" BorderBrush="CornflowerBlue" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SearchButton_Click"/>
                 <Grid x:Name="moreButtonGrid" Visibility="Hidden" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="41"/>
