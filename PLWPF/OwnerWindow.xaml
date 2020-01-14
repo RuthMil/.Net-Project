@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PLWPF"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
         mc:Ignorable="d"
-        Title="אימות פרטים" Height="340" Width="550">
+        Title="אימות פרטים" Height="340" Width="550" Name="ownerWindow" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="headerStyle">
             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -17,7 +17,7 @@
             <Setter Property="TextBlock.Foreground" Value="#666666" />
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Name="ownerGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="50"/>

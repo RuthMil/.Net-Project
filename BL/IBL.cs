@@ -112,5 +112,6 @@ namespace BL
         float CalcPriceByDays(int days, float price);
         string GetOwnerPassword();
         void SetOwnerPassword(string newPassword, string oldPassword);
+        List<BankBranch> ReceiveBankBranchesByBank(string myBankName);
     }
 }

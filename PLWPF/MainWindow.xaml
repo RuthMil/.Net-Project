@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLWPF"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Name="mainWindow" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="errorMessage" TargetType="TextBlock">
             <Setter Property="FontSize" Value="9"/>
@@ -33,7 +34,6 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="White"/>
-            <EventSetter Event="MouseLeave" Handler="ComboBoxItem_MouseLeave"/>
         </Style>
         <Style x:Key="myComboBox" TargetType="ComboBox">
             <Setter Property="BorderThickness" Value="2"/>
@@ -64,20 +64,31 @@
                 <ColumnDefinition Width="142"/>
                 <ColumnDefinition Width="142"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="CornflowerBlue">
-                <Label.Content>
-                    <Expander Header="צור קשר" FontWeight="Normal" Foreground="Black" FontSize="11" Content="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Background="Transparent"/>
-                </Label.Content>
-            </Label>
-            <Button Content="בעל האתר" Foreground="Black" FontSize="14" Height="{Binding}" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" HorizontalAlignment="Stretch" FontWeight="DemiBold" VerticalAlignment="Stretch" Grid.Column="3" Grid.Row="1" Click="Owner_Button_Click"/>
-            <ComboBox Name="hostingCmb" Text="מקומות אירוח" FontWeight="Bold" Style="{StaticResource myComboBox}" SelectionChanged="HostingCmb_SelectionChanged" Grid.Column="2" Grid.Row="1">
-                <ComboBoxItem Content="הוספת מקום אירוח" Style="{StaticResource myComboBoxItem}" />
-                <ComboBoxItem Content="עדכון מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
-                <ComboBoxItem Content="הסרת מקום אירוח" Style="{StaticResource myComboBoxItem}"/>
-            </ComboBox>
-            <ComboBox Text="הזמנות" FontWeight="Bold" Style="{StaticResource myComboBox}" Grid.Column="1" Grid.Row="1">
-                <ComboBoxItem Content="ביצוע עסקה" Style="{StaticResource myComboBoxItem}"/>
-            </ComboBox>
+            <Grid x:Name="mainLineGrid" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="CornflowerBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="homePage" Grid.Column="2" HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent" Click="HomePage_Click">
+                    <materialDesign:PackIcon Kind="Home"/>
+                </Button>
+                <Expander Header="צור קשר" Grid.Column="1" FontWeight="Normal" Foreground="Black" FontSize="11" Content="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Background="Transparent"/>
+                <Button x:Name="backButton" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#B0BEC5" BorderBrush="#B0BEC5" Height="63" Click="BackButton_Click">
+                    <materialDesign:PackIcon Kind="ArrowBack" Foreground="White"/>
+                </Button>
+            </Grid>
+            <Menu x:Name="mainMenu" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
+                <MenuItem x:Name="ownerHeader" Header="בעל האתר" BorderBrush="#FFD54F" BorderThickness="2" Click="OwnerHeader_Click" Height="{Binding ElementName=mainMenu, Path=ActualHeight}"/>
+                <MenuItem x:Name="hostingUnitHeader" Header="מקומות אירוח" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft">
+                    <MenuItem x:Name="addHostingUnitHeader" Header="הוספת מקום אירוח" Click="AddHostingUnitHeader_Click"/>
+                    <MenuItem x:Name="updateHostingUnitHeader" Header="עדכון מקום אירוח"/>
+                    <MenuItem x:Name="deleteHostingUnitHeader" Header="מחיקת מקום אירוח"/>
+                </MenuItem>
+                <MenuItem x:Name="ordersHesder" Header="הזמנות" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft">
+                    <MenuItem x:Name="dealHeader" Header="ביצוע עסקה"/>
+                </MenuItem>
+            </Menu>
             <Grid x:Name="requestGrid" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
@@ -106,7 +117,7 @@
                         </Calendar>
                     </ComboBoxItem>
                 </ComboBox>
-                <ComboBox x:Name="childrenAndAdultsCMB" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="2" Text="מבוגרים: 2  ילדים: 0" SelectionChanged="Selected_SelectionChanged" DropDownClosed="ChildAdult_DropDownClosed">
+                <ComboBox x:Name="childrenAndAdultsCMB" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="2" Text="מבוגרים: 2  ילדים: 0" DropDownClosed="ChildAdult_DropDownClosed">
                     <ComboBoxItem>
                         <Grid Height="100" Width="165" FlowDirection="LeftToRight">
                             <Grid.RowDefinitions>
@@ -125,8 +136,8 @@
                             <Button x:Name="adultsMinus" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2" Grid.Row="0"/>
                             <Button x:Name="childPlus" Content="+" Style="{StaticResource plusMinusButton}" Grid.Column="0" Grid.Row="1"/>
                             <Button x:Name="childMinus" IsEnabled="False" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2" Grid.Row="1"/>
-                            <TextBox x:Name="adults" Text="2" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="0"/>
-                            <TextBox x:Name="children" Text="0" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="1"/>
+                            <TextBox x:Name="adults" Text="2" BorderBrush="Gray" BorderThickness="0.5" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="0"/>
+                            <TextBox x:Name="children" Text="0" BorderBrush="Gray" BorderThickness="0.5" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="1"/>
                         </Grid>
                     </ComboBoxItem>
                 </ComboBox>

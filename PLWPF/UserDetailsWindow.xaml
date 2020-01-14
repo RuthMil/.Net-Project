@@ -6,8 +6,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
-        Title="פרטי משתמש" Height="400" Width="800">
+        Title="פרטי משתמש" Height="400" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
+        <Style x:Key="continueButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="TextBox.Text" Value=""/>
+                    </MultiTrigger.Conditions>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="headerStyle">
             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
             <Setter Property="TextBlock.TextAlignment" Value="Center" />

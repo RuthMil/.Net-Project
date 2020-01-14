@@ -80,42 +80,42 @@ namespace DAL
                 new BankBranch()
                 {
                     BankNumber = 11,
-                    BankName = "Discount",
+                    BankName = "בנק דיסקונט לישראל",
                     BranchNumber = 41,
-                    BranchAddress = "Jafa 220",
-                    BranchCity = "Jerusalem"
+                    BranchAddress = "יפו 220",
+                    BranchCity = "ירושלים"
                 },
                 new BankBranch()
                 {
                     BankNumber = 13,
-                    BankName = "Egood",
+                    BankName = "בנק אגוד לישראל",
                     BranchNumber = 159,
-                    BranchAddress = "Jabotinsky 20",
-                    BranchCity = "Rishon Le'zion"
+                    BranchAddress = "ג'בוטיסקי 20",
+                    BranchCity = "ראשון לציון"
                 },
                 new BankBranch()
                 {
-                    BankNumber = 10,
-                    BankName = "Leumi",
+                    BankNumber = 13,
+                    BankName = "בנק אגוד לישראל",
                     BranchNumber = 840,
-                    BranchAddress = "Hagalil 16",
-                    BranchCity = "Nazrat"
+                    BranchAddress = "הגליל 16",
+                    BranchCity = "נצרת"
                 },
                 new BankBranch()
                 {
                     BankNumber = 20,
-                    BankName = "Mizrahi-tefahot",
+                    BankName = "בנק מזרחי טפחות",
                     BranchNumber = 653,
-                    BranchAddress = "Efal 25",
-                    BranchCity = "Petach Tikva"
+                    BranchAddress = "אפעל 25",
+                    BranchCity = "פתח תקווה"
                 },
                 new BankBranch()
                 {
                     BankNumber = 17,
-                    BankName = "Mercantile",
+                    BankName = "בנק מרכנתיל דיסקונט",
                     BranchNumber = 725,
-                    BranchAddress = "Yesha'ayaho Hanavi 4",
-                    BranchCity = "Beit Shemesh"
+                    BranchAddress = "ישעיהו הנביא 4",
+                    BranchCity = "בית שמש"
                 },
 
             };

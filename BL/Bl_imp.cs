@@ -521,5 +521,13 @@ namespace BL
             else
                 throw new ArgumentException("סיסמא שגויה");
         }
+
+        public List<BankBranch> ReceiveBankBranchesByBank(string myBankName)
+        {
+            var branchesList = from branch in dal.ReceiveBankBranchesList()
+                               where branch.BankName == myBankName
+                               select branch;
+            return branchesList.ToList();
+        }
     }
 }

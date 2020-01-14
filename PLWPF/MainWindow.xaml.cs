@@ -22,6 +22,7 @@ namespace PLWPF
     public partial class MainWindow : Window
     {
         readonly BL.IBL bl = BL.BlFactory.GetBL();
+        public Window prevWindow;
         GuestRequest myGuestRequest;
         #region hosting units initializing
         private void initHostingUnit()
@@ -352,21 +353,25 @@ namespace PLWPF
             myGuestRequest = new GuestRequest();
             myCalendar.DisplayDateStart = DateTime.Now;
             myCalendar.DisplayDateEnd = DateTime.Now.AddMonths(11);
+            prevWindow = new Window();
+            prevWindow = this;
         }
 
-        private void HostingCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox myItem = sender as ComboBox;
-            switch (myItem.SelectedIndex)
-            {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-            }
-        }
+        //private void HostingCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    ComboBox myItem = sender as ComboBox;
+        //    switch (myItem.SelectedIndex)
+        //    {
+        //        case 0:
+        //            AddHostingUnitWindow newHostingUnitWindow = new AddHostingUnitWindow();
+        //            newHostingUnitWindow.ShowDialog();
+        //            break;
+        //        case 1:
+        //            break;
+        //        case 2:
+        //            break;
+        //    }
+        //}
 
         private void AreasComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -441,16 +446,16 @@ namespace PLWPF
             }
         }
 
-        private void Selected_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        //private void Selected_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void ComboBoxItem_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ComboBoxItem myComboBoxItem = sender as ComboBoxItem;
-            myComboBoxItem.Background = Brushes.BlueViolet;
-        }
+        //private void ComboBoxItem_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    ComboBoxItem myComboBoxItem = sender as ComboBoxItem;
+        //    myComboBoxItem.Background = Brushes.BlueViolet;
+        //}
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
@@ -522,10 +527,40 @@ namespace PLWPF
             childrenAndAdultsCMB.Text = "מבוגרים: " + adults.Text + "  ילדים: " + children.Text;
         }
 
-        private void Owner_Button_Click(object sender, RoutedEventArgs e)
+        private void OwnerHeader_Click(object sender, RoutedEventArgs e)
         {
             OwnerWindow newOwnerWindow = new OwnerWindow();
-            newOwnerWindow.Show();
+            newOwnerWindow.ShowDialog();
         }
+
+        private void AddHostingUnitHeader_Click(object sender, RoutedEventArgs e)
+        {
+            //this.Hide();
+            AddHostingUnitWindow addHostingUnitWin = new AddHostingUnitWindow();
+            MainWindow newMainWin = new MainWindow();
+            addHostingUnitWin.myPrevWindow = newMainWin;
+            addHostingUnitWin.myMainWindow = newMainWin;
+            mainWindow.Content = addHostingUnitWin.Content;
+        }
+
+        private void HomePage_Click(object sender, RoutedEventArgs e)
+        {
+            prevWindow = this;
+            this.Content = this.Content;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = prevWindow.Content;
+        }
+
+        //private void Owner_Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OwnerWindow newOwnerWindow = new OwnerWindow();
+        //    //Grid newGrid = newOwnerWindow.ownerGrid;
+        //    //mainGrid.Children.Add(newOwnerWindow.ownerGrid);
+        //    //Grid.SetRow(newOwnerWindow.ownerGrid, 0);
+        //    //newOwnerWindow.Show();
+        //}
     }
 }
