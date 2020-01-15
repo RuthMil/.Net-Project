@@ -1,0 +1,162 @@
+﻿<Page x:Class="PLWPF.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:PLWPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainPage">
+    <Page.Resources>
+        <Style x:Key="errorMessage" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Visibility" Value="Hidden"/>
+        </Style>
+        <Style x:Key="plusMinusButton" TargetType="Button">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="30"/>
+            <EventSetter Event="Click" Handler="Button_Click"/>
+        </Style>
+        <Style x:Key="myComboBoxItem" TargetType="ComboBoxItem">
+            <Setter Property="Height" Value="31"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+        </Style>
+        <Style x:Key="myComboBox" TargetType="ComboBox">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="CornflowerBlue"/>
+            <Setter Property="FlowDirection" Value="RightToLeft"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="IsEditable" Value="True"/>
+            <Setter Property="IsSynchronizedWithCurrentItem" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+    </Page.Resources>
+    <Grid x:Name="mainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="367*"/>
+            <ColumnDefinition Width="142"/>
+            <ColumnDefinition Width="142"/>
+            <ColumnDefinition Width="142"/>
+        </Grid.ColumnDefinitions>
+        <Menu x:Name="mainMenu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" FlowDirection="RightToLeft">
+            <MenuItem x:Name="ownerHeader" Header="בעל האתר" BorderBrush="#FFD54F" BorderThickness="2" Click="OwnerHeader_Click" Height="{Binding ElementName=mainMenu, Path=ActualHeight}"/>
+            <MenuItem x:Name="hostingUnitHeader" Header="מקומות אירוח" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
+                <MenuItem x:Name="addHostingUnitHeader" Header="הוספת מקום אירוח" Click="AddHostingUnitHeader_Click"/>
+                <MenuItem x:Name="updateHostingUnitHeader" Header="עדכון מקום אירוח"/>
+                <MenuItem x:Name="deleteHostingUnitHeader" Header="מחיקת מקום אירוח"/>
+            </MenuItem>
+            <MenuItem x:Name="ordersHesder" Header="הזמנות" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
+                <MenuItem x:Name="dealHeader" Header="ביצוע עסקה"/>
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="requestGrid" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Name="row3" Height="41"/>
+                <RowDefinition Height="41"/>
+                <RowDefinition Height="123*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="165"/>
+                <ColumnDefinition Width="191"/>
+                <ColumnDefinition Width="142"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" Grid.Row="0" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20" Foreground="Black" Grid.ColumnSpan="2" Grid.Column="3"/>
+            <TextBlock x:Name="errorArea" Grid.Row="1" Grid.Column="4" Text="אנא הכניסו יעד כדי להתחיל בחיפוש" Style="{StaticResource errorMessage}"/>
+            <ComboBox x:Name="areasCMB" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="4" SelectionChanged="AreasComboBox_SelectionChanged"/>
+            <TextBlock x:Name="errordate" Grid.Row="1" Grid.Column="3" Text="אנא הכניסו תאריך כדי להתחיל בחיפוש" Style="{StaticResource errorMessage}"/>
+            <ComboBox x:Name="dateCMB" Text="צ'ק-אין - צ'ק-אאוט" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="3" DropDownClosed="DateComboBox_DropDownClosed">
+                <ComboBoxItem Padding="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Stretch">
+                    <Calendar x:Name="myCalendar" Language="He" SelectionMode="SingleRange" IsTodayHighlighted="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDatesChanged="MyCalendar_SelectedDatesChanged">
+                        <Calendar.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Gray"/>
+                        </Calendar.Resources>
+                    </Calendar>
+                </ComboBoxItem>
+            </ComboBox>
+            <ComboBox x:Name="childrenAndAdultsCMB" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="2" Text="מבוגרים: 2  ילדים: 0" DropDownClosed="ChildAdult_DropDownClosed">
+                <ComboBoxItem>
+                    <Grid Height="100" Width="165" FlowDirection="LeftToRight">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="50*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="מבוגרים" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Height="30" Width="50" Grid.Row="0" Grid.Column="3"/>
+                        <TextBlock Text="ילדים" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Height="30" Width="50" Grid.Row="1" Grid.Column="3"/>
+                        <Button x:Name="adultsPlus" Content="+" Style="{StaticResource plusMinusButton}" Grid.Column="0" Grid.Row="0"/>
+                        <Button x:Name="adultsMinus" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2" Grid.Row="0"/>
+                        <Button x:Name="childPlus" Content="+" Style="{StaticResource plusMinusButton}" Grid.Column="0" Grid.Row="1"/>
+                        <Button x:Name="childMinus" IsEnabled="False" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2" Grid.Row="1"/>
+                        <TextBox x:Name="adults" Text="2" BorderBrush="Gray" BorderThickness="0.5" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="0"/>
+                        <TextBox x:Name="children" Text="0" BorderBrush="Gray" BorderThickness="0.5" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="1"/>
+                    </Grid>
+                </ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="moreButton" Content="...עוד" Height="{Binding}" Foreground="Black" FontWeight="Normal" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" Click="MoreButton_Click"/>
+            <Button x:Name="searchButton" Content="חיפוש" Height="{Binding}" FontWeight="Bold" Foreground="White" BorderBrush="CornflowerBlue" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SearchButton_Click"/>
+            <Grid x:Name="moreButtonGrid" Visibility="Hidden" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="41"/>
+                    <RowDefinition Height="41"/>
+                    <RowDefinition Height="41"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="83*"/>
+                    <ColumnDefinition Width="83*"/>
+                    <ColumnDefinition Width="83*"/>
+                    <ColumnDefinition Width="83*"/>
+                    <ColumnDefinition Width="83*"/>
+                    <ColumnDefinition Width="83*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text=":תת אזור" Grid.Row="0" Grid.Column="5" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text=":סוג היחידה" Grid.Row="0" Grid.Column="3" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text=":בריכה" Grid.Row="0" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text=":Wifi" Grid.Row="1" Grid.Column="5" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text=":גינה" Grid.Row="1" Grid.Column="3" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text=":ג'קוזי" Grid.Row="1" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="childAtracText" Text=":פעילויות לילדים" Visibility="Hidden" Grid.Row="2" Grid.Column="5" TextAlignment="Center" VerticalAlignment="Center"/>
+                <ComboBox x:Name="subAreaCMB" Grid.Column="4" Grid.Row="0" Style="{StaticResource myComboBox}"/>
+                <ComboBox x:Name="typeCMB" Grid.Row="0" Grid.Column="2" Style="{StaticResource myComboBox}"/>
+                <ComboBox x:Name="poolCMB" Grid.Row="0" Grid.Column="0" Style="{StaticResource myComboBox}"/>
+                <ComboBox x:Name="wifiCMB" Grid.Row="1" Grid.Column="4" Style="{StaticResource myComboBox}"/>
+                <ComboBox x:Name="gardenCMB" Grid.Row="1" Grid.Column="2" Style="{StaticResource myComboBox}"/>
+                <ComboBox x:Name="jaccuziCMB" Grid.Row="1" Grid.Column="0" Style="{StaticResource myComboBox}"/>
+                <ComboBox x:Name="childAtracCMB" Visibility="Hidden" Grid.Row="2" Grid.Column="4" Style="{StaticResource myComboBox}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

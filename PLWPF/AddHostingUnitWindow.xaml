@@ -42,7 +42,7 @@
             <Setter Property="Foreground" Value="Red"/>
         </Style>
     </Window.Resources>
-    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True">
+    <!--<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True">
         <Grid x:Name="addHostUnitGrid" ShowGridLines="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
@@ -187,5 +187,5 @@
             <TextBox x:Name="pricePerNight" Grid.Column="1" Grid.Row="21" Style="{StaticResource myTextBox}"/>
             <Button x:Name="addButton" Content="הוספת היחידה" FontWeight="Bold" Foreground="White" BorderBrush="CornflowerBlue" Background="CornflowerBlue" Grid.Column="1" Grid.Row="23" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         </Grid>
-    </ScrollViewer>
+    </ScrollViewer>-->
 </Window>

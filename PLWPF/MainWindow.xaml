@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:PLWPF"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
         Title="MainWindow" Height="450" Width="800" Name="mainWindow" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="errorMessage" TargetType="TextBlock">
@@ -25,7 +31,7 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="25"/>
             <Setter Property="Height" Value="30"/>
-            <EventSetter Event="Click" Handler="Button_Click"/>
+            <!--<EventSetter Event="Click" Handler="Button_Click"/>-->
         </Style>
         <Style x:Key="myComboBoxItem" TargetType="ComboBoxItem">
             <Setter Property="Height" Value="31"/>
@@ -48,23 +54,13 @@
             <Setter Property="VerticalAlignment" Value="Stretch"/>
         </Style>
     </Window.Resources>
-    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True">
+    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True" Style="{StaticResource MaterialDesignScrollViewer}">
         <Grid x:Name="mainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.CanContentScroll="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="41"/>
-                <RowDefinition Height="41"/>
-                <RowDefinition Height="400"/>
-                <RowDefinition Height="200"/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="367*"/>
-                <ColumnDefinition Width="142"/>
-                <ColumnDefinition Width="142"/>
-                <ColumnDefinition Width="142"/>
-            </Grid.ColumnDefinitions>
-            <Grid x:Name="mainLineGrid" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="CornflowerBlue">
+            <Grid x:Name="mainLineGrid" Grid.Row="0" HorizontalAlignment="Stretch" Background="CornflowerBlue">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
                     <ColumnDefinition Width="*"/>
@@ -73,106 +69,13 @@
                 <Button x:Name="homePage" Grid.Column="2" HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent" Click="HomePage_Click">
                     <materialDesign:PackIcon Kind="Home"/>
                 </Button>
-                <Expander Header="צור קשר" Grid.Column="1" FontWeight="Normal" Foreground="Black" FontSize="11" Content="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Background="Transparent"/>
+                <Expander Header="צור קשר" Grid.Column="1" FontWeight="Normal" Foreground="Black" FontSize="11" Content="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="100" Background="Transparent"/>
                 <Button x:Name="backButton" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#B0BEC5" BorderBrush="#B0BEC5" Height="63" Click="BackButton_Click">
                     <materialDesign:PackIcon Kind="ArrowBack" Foreground="White"/>
                 </Button>
             </Grid>
-            <Menu x:Name="mainMenu" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
-                <MenuItem x:Name="ownerHeader" Header="בעל האתר" BorderBrush="#FFD54F" BorderThickness="2" Click="OwnerHeader_Click" Height="{Binding ElementName=mainMenu, Path=ActualHeight}"/>
-                <MenuItem x:Name="hostingUnitHeader" Header="מקומות אירוח" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft">
-                    <MenuItem x:Name="addHostingUnitHeader" Header="הוספת מקום אירוח" Click="AddHostingUnitHeader_Click"/>
-                    <MenuItem x:Name="updateHostingUnitHeader" Header="עדכון מקום אירוח"/>
-                    <MenuItem x:Name="deleteHostingUnitHeader" Header="מחיקת מקום אירוח"/>
-                </MenuItem>
-                <MenuItem x:Name="ordersHesder" Header="הזמנות" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft">
-                    <MenuItem x:Name="dealHeader" Header="ביצוע עסקה"/>
-                </MenuItem>
-            </Menu>
-            <Grid x:Name="requestGrid" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Stretch">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="41"/>
-                    <RowDefinition Height="41"/>
-                    <RowDefinition Height="123*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100*"/>
-                    <ColumnDefinition Width="90"/>
-                    <ColumnDefinition Width="165"/>
-                    <ColumnDefinition Width="191"/>
-                    <ColumnDefinition Width="142"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" Grid.Row="0" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20" Foreground="Black" Grid.ColumnSpan="2" Grid.Column="3"/>
-                <TextBlock x:Name="errorArea" Grid.Row="1" Grid.Column="4" Text="אנא הכניסו יעד כדי להתחיל בחיפוש" Style="{StaticResource errorMessage}"/>
-                <ComboBox x:Name="areasCMB" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="4" SelectionChanged="AreasComboBox_SelectionChanged"/>
-                <TextBlock x:Name="errordate" Grid.Row="1" Grid.Column="3" Text="אנא הכניסו תאריך כדי להתחיל בחיפוש" Style="{StaticResource errorMessage}"/>
-                <ComboBox x:Name="dateCMB" Text="צ'ק-אין - צ'ק-אאוט" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="3" BorderBrush="DodgerBlue" BorderThickness="2" DropDownClosed="DateComboBox_DropDownClosed">
-                    <ComboBoxItem Padding="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                        <Calendar x:Name="myCalendar" Language="He" SelectionMode="SingleRange" IsTodayHighlighted="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDatesChanged="MyCalendar_SelectedDatesChanged">
-                            <Calendar.Resources>
-                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Gray"/>
-                            </Calendar.Resources>
-                        </Calendar>
-                    </ComboBoxItem>
-                </ComboBox>
-                <ComboBox x:Name="childrenAndAdultsCMB" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="2" Text="מבוגרים: 2  ילדים: 0" DropDownClosed="ChildAdult_DropDownClosed">
-                    <ComboBoxItem>
-                        <Grid Height="100" Width="165" FlowDirection="LeftToRight">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50*"/>
-                                <RowDefinition Height="50*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30*"/>
-                                <ColumnDefinition Width="30*"/>
-                                <ColumnDefinition Width="30*"/>
-                                <ColumnDefinition Width="50*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="מבוגרים" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Height="30" Width="50" Grid.Row="0" Grid.Column="3"/>
-                            <TextBlock Text="ילדים" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Height="30" Width="50" Grid.Row="1" Grid.Column="3"/>
-                            <Button x:Name="adultsPlus" Content="+" Style="{StaticResource plusMinusButton}" Grid.Column="0" Grid.Row="0"/>
-                            <Button x:Name="adultsMinus" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2" Grid.Row="0"/>
-                            <Button x:Name="childPlus" Content="+" Style="{StaticResource plusMinusButton}" Grid.Column="0" Grid.Row="1"/>
-                            <Button x:Name="childMinus" IsEnabled="False" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2" Grid.Row="1"/>
-                            <TextBox x:Name="adults" Text="2" BorderBrush="Gray" BorderThickness="0.5" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="0"/>
-                            <TextBox x:Name="children" Text="0" BorderBrush="Gray" BorderThickness="0.5" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="1"/>
-                        </Grid>
-                    </ComboBoxItem>
-                </ComboBox>
-                <Button x:Name="moreButton" Content="...עוד" Height="{Binding}" Foreground="Black" FontWeight="Normal" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" Click="MoreButton_Click"/>
-                <Button x:Name="searchButton" Content="חיפוש" Height="{Binding}" FontWeight="Bold" Foreground="White" BorderBrush="CornflowerBlue" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SearchButton_Click"/>
-                <Grid x:Name="moreButtonGrid" Visibility="Hidden" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="41"/>
-                        <RowDefinition Height="41"/>
-                        <RowDefinition Height="41"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="83*"/>
-                        <ColumnDefinition Width="83*"/>
-                        <ColumnDefinition Width="83*"/>
-                        <ColumnDefinition Width="83*"/>
-                        <ColumnDefinition Width="83*"/>
-                        <ColumnDefinition Width="83*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text=":תת אזור" Grid.Row="0" Grid.Column="5" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text=":סוג היחידה" Grid.Row="0" Grid.Column="3" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text=":בריכה" Grid.Row="0" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text=":Wifi" Grid.Row="1" Grid.Column="5" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text=":גינה" Grid.Row="1" Grid.Column="3" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Text=":ג'קוזי" Grid.Row="1" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock x:Name="childAtracText" Text=":פעילויות לילדים" Visibility="Hidden" Grid.Row="2" Grid.Column="5" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="subAreaCMB" Grid.Column="4" Grid.Row="0" Style="{StaticResource myComboBox}"/>
-                    <ComboBox x:Name="typeCMB" Grid.Row="0" Grid.Column="2" Style="{StaticResource myComboBox}"/>
-                    <ComboBox x:Name="poolCMB" Grid.Row="0" Grid.Column="0" Style="{StaticResource myComboBox}"/>
-                    <ComboBox x:Name="wifiCMB" Grid.Row="1" Grid.Column="4" Style="{StaticResource myComboBox}"/>
-                    <ComboBox x:Name="gardenCMB" Grid.Row="1" Grid.Column="2" Style="{StaticResource myComboBox}"/>
-                    <ComboBox x:Name="jaccuziCMB" Grid.Row="1" Grid.Column="0" Style="{StaticResource myComboBox}"/>
-                    <ComboBox x:Name="childAtracCMB" Visibility="Hidden" Grid.Row="2" Grid.Column="4" Style="{StaticResource myComboBox}"/>
-                </Grid>
-            </Grid>
+            <Frame x:Name="navigationFrame" Grid.Row="1" NavigationUIVisibility="Hidden">
+            </Frame>
         </Grid>
     </ScrollViewer>
 </Window>
