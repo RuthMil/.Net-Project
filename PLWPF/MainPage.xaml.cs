@@ -477,6 +477,8 @@ namespace PLWPF
                 return;
             UserDetailsWindow newDetails = new UserDetailsWindow();
             newDetails.ShowDialog();
+            if (newDetails.txtUserFName.Text == "" || newDetails.txtUserLName.Text == "" || newDetails.txtYourMail.Text == "")
+                return;
             myGuestRequest.FirstName = newDetails.FirstName;
             myGuestRequest.LastName = newDetails.LastName;
             myGuestRequest.MailAddress = newDetails.UserMail;
@@ -535,6 +537,7 @@ namespace PLWPF
         {
             //this.Hide();
             //AddHostingUnitWindow addHostingUnitWin = new AddHostingUnitWindow();
+            MainWindow.prevPage = this;
             this.NavigationService.Navigate(new Uri("AddHostingUnitPage.xaml", UriKind.Relative));
         }
 

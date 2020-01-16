@@ -14,7 +14,7 @@
             <Setter Property="TextAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
         </Style>
-        <Style x:Key="myTextBox" TargetType="TextBox">
+        <Style x:Key="myTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFilledTextFieldTextBox}">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="TextWrapping" Value="wrap"/>
             <Setter Property="Text" Value=""/>
@@ -22,7 +22,7 @@
             <Setter Property="FlowDirection" Value="RightToLeft"/>
             <Setter Property="TextAlignment" Value="Right"/>
         </Style>
-        <Style x:Key="myCheckBox" TargetType="CheckBox">
+        <Style x:Key="myCheckBox" TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignDarkCheckBox}">
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
         </Style>

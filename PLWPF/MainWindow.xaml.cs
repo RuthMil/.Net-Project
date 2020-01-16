@@ -332,7 +332,7 @@ namespace PLWPF
         //}
         //#endregion
 
-        public Window prevWindow;
+        public static Page prevPage = new MainPage();
         public MainWindow()
         {
             //initHostingUnit();
@@ -564,6 +564,7 @@ namespace PLWPF
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            navigationFrame.NavigationService.Navigate(prevPage);
             //root.Content = prevWindow.Content;
         }
     }

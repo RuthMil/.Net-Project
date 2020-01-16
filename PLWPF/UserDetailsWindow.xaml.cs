@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using MaterialDesignThemes;
 namespace PLWPF
 {
     /// <summary>
@@ -29,6 +29,16 @@ namespace PLWPF
 
         private void Continue_Button_Click(object sender, RoutedEventArgs e)
         {
+            errorUserMailEmpty.Visibility = txtYourMail.Text == "" ? Visibility.Visible : Visibility.Hidden;
+            errorUserFnameEmpty.Visibility = txtUserFName.Text == "" ? Visibility.Visible : Visibility.Hidden;
+            errorUserLNameEmpty.Visibility = txtUserLName.Text == "" ? Visibility.Visible : Visibility.Hidden;
+            if (errorUserFnameEmpty.Visibility == Visibility.Visible || errorUserLNameEmpty.Visibility == Visibility.Visible || errorUserMailEmpty.Visibility == Visibility.Visible)
+                return;
+            errorUserFName.Visibility = int.TryParse(txtUserFName.Text, out int checkF) ? Visibility.Visible : Visibility.Hidden;
+            errorUserLName.Visibility = int.TryParse(txtUserLName.Text, out int checkL) ? Visibility.Visible : Visibility.Hidden;
+            errorUserMail.Visibility = txtYourMail.Text.Length < 8 ? Visibility.Visible : Visibility.Hidden;
+            if (errorUserFName.Visibility == Visibility.Visible || errorUserLName.Visibility == Visibility.Visible || errorUserMail.Visibility == Visibility.Visible)
+                return;
             FirstName = txtUserFName.Text;
             LastName = txtUserLName.Text;
             UserMail = txtYourMail.Text;
