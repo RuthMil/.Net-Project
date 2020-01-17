@@ -355,22 +355,6 @@ namespace PLWPF
             myCalendar.DisplayDateEnd = DateTime.Now.AddMonths(11);
         }
 
-        //private void HostingCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    ComboBox myItem = sender as ComboBox;
-        //    switch (myItem.SelectedIndex)
-        //    {
-        //        case 0:
-        //            AddHostingUnitWindow newHostingUnitWindow = new AddHostingUnitWindow();
-        //            newHostingUnitWindow.ShowDialog();
-        //            break;
-        //        case 1:
-        //            break;
-        //        case 2:
-        //            break;
-        //    }
-        //}
-
         private void AreasComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (areasCMB.SelectedValue == null)
@@ -444,17 +428,6 @@ namespace PLWPF
             }
         }
 
-        //private void Selected_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-
-        //}
-
-        //private void ComboBoxItem_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    ComboBoxItem myComboBoxItem = sender as ComboBoxItem;
-        //    myComboBoxItem.Background = Brushes.BlueViolet;
-        //}
-
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
             if (moreButtonGrid.Visibility == Visibility.Hidden)
@@ -512,14 +485,30 @@ namespace PLWPF
                 gardenCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
                 jaccuziCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
                 childAtracCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
-                wifiCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
+                wifiCMB.SelectedValue = Enum_s.RequestOption.אפשרי;              
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show("שלום " + myGuestRequest.FirstName + "!\n" + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.RightAlign);
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
             }
+        }
+
+        private Calendar CreateCalendar()
+        {
+            Calendar newCalendar = new Calendar()
+            {
+                SelectionMode = CalendarSelectionMode.SingleRange,
+                IsTodayHighlighted = true,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                DisplayDateStart = DateTime.Now,
+                DisplayDateEnd = DateTime.Now.AddMonths(11),
+                Name = "myCalendar"
+            };
+            return newCalendar;
         }
 
         private void ChildAdult_DropDownClosed(object sender, EventArgs e)
@@ -535,8 +524,6 @@ namespace PLWPF
 
         private void AddHostingUnitHeader_Click(object sender, RoutedEventArgs e)
         {
-            //this.Hide();
-            //AddHostingUnitWindow addHostingUnitWin = new AddHostingUnitWindow();
             MainWindow.prevPage = this;
             this.NavigationService.Navigate(new Uri("AddHostingUnitPage.xaml", UriKind.Relative));
         }
@@ -544,12 +531,17 @@ namespace PLWPF
         private void HomePage_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new Uri("MainPage.xaml", UriKind.Relative));
-            //Root.Content = this.Content;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             //root.Content = prevWindow.Content;
+        }
+
+        private void DealHeader_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.prevPage = this;
+            this.NavigationService.Navigate(new Uri("MakingDealPage.xaml", UriKind.Relative));
         }
 
         //private void Owner_Button_Click(object sender, RoutedEventArgs e)

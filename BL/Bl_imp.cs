@@ -507,16 +507,16 @@ namespace BL
 
         public string GetOwnerPassword()
         {
-            return dal.GetOwnerPassword();
+            return Owner.Password;
         }
 
         public void SetOwnerPassword(string newPassword, string oldPassword)
         {
-            if (dal.GetOwnerPassword() == oldPassword)
+            if (Owner.Password == oldPassword)
             {
                 if (newPassword.Length < 8)
                     throw new ArgumentException("סיסמא חייבת לכלול לפחות 8 תווים");
-                dal.SetOwnerPassword(newPassword);
+                Owner.Password = newPassword;
             }
             else
                 throw new ArgumentException("סיסמא שגויה");
@@ -528,6 +528,41 @@ namespace BL
                                where branch.BankName == myBankName
                                select branch;
             return branchesList.ToList();
+        }
+
+        public List<string> ReceiveHostMail()
+        {
+            var emails = from unit in dal.ReceiveHostingUnitList()
+                         select unit.Owner.MailAddress;
+            return emails.ToList();
+        }
+
+        public bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public long GetHostKeyByMail(string email)
+        {
+            var hostKey = from host in ReceiveHosts()
+                          where host.MailAddress == email
+                          select host.HostKey;
+            return hostKey.Count() == 0 ? -1 : hostKey.First();
+        }
+
+        public List<Host> ReceiveHosts()
+        {
+            var hosts = from unit in dal.ReceiveHostingUnitList()
+                        select unit.Owner;
+            return hosts.ToList();
         }
     }
 }

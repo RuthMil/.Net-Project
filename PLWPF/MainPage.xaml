@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:PLWPF"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainPage">
+      Title="MainPage" x:Name="mainPage">
     <Page.Resources>
         <Style x:Key="errorMessage" TargetType="TextBlock">
             <Setter Property="FontSize" Value="9"/>
@@ -65,13 +65,13 @@
         </Grid.ColumnDefinitions>
         <Menu x:Name="mainMenu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" FlowDirection="RightToLeft">
             <MenuItem x:Name="ownerHeader" Header="בעל האתר" BorderBrush="#FFD54F" BorderThickness="2" Click="OwnerHeader_Click" Height="{Binding ElementName=mainMenu, Path=ActualHeight}"/>
-            <MenuItem x:Name="hostingUnitHeader" Header="מקומות אירוח" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
+            <MenuItem x:Name="hostingUnitHeader" Header="מארחים" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
                 <MenuItem x:Name="addHostingUnitHeader" Header="הוספת מקום אירוח" Click="AddHostingUnitHeader_Click"/>
                 <MenuItem x:Name="updateHostingUnitHeader" Header="עדכון מקום אירוח"/>
                 <MenuItem x:Name="deleteHostingUnitHeader" Header="מחיקת מקום אירוח"/>
             </MenuItem>
             <MenuItem x:Name="ordersHesder" Header="הזמנות" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
-                <MenuItem x:Name="dealHeader" Header="ביצוע עסקה"/>
+                <MenuItem x:Name="dealHeader" Header="ביצוע עסקה" Click="DealHeader_Click"/>
             </MenuItem>
         </Menu>
         <Grid x:Name="requestGrid" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Stretch">

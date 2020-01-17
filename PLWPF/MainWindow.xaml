@@ -12,7 +12,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Title="MainWindow" Height="450" Width="800" Name="mainWindow" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="650" Width="1000" Name="mainWindow" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="errorMessage" TargetType="TextBlock">
             <Setter Property="FontSize" Value="9"/>

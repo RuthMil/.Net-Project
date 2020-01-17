@@ -247,14 +247,5 @@ namespace DAL
             return myHost.First().Clone();
         }
 
-        public string GetOwnerPassword()
-        {
-            return Owner.Password;
-        }
-
-        public void SetOwnerPassword(string newPassword)
-        {
-            Owner.Password = newPassword;
-        }
     }
 }

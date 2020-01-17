@@ -24,7 +24,5 @@ namespace DAL
         BE.Order GetOrderByKey(long key);
         BE.HostingUnit GetHostingUnitByKey(long key);
         BE.Host GetHostByKey(long key);
-        string GetOwnerPassword();
-        void SetOwnerPassword(string newPassword);
     }
 }

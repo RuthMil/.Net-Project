@@ -113,5 +113,14 @@ namespace BL
         string GetOwnerPassword();
         void SetOwnerPassword(string newPassword, string oldPassword);
         List<BankBranch> ReceiveBankBranchesByBank(string myBankName);
+        List<string> ReceiveHostMail();
+        bool IsValidEmail(string email);
+        /// <summary>
+        /// return host's mail by his key, if the mail is not in the system - return -1
+        /// </summary>
+        /// <param name="email">email address of host</param>
+        /// <returns>host's mail by his key</returns>
+        long GetHostKeyByMail(string email);
+        List<Host> ReceiveHosts();
     }
 }
