@@ -305,7 +305,7 @@ namespace BL
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
-            smtp.Credentials = new System.Net.NetworkCredential("ruthmiller2000@gmail.com", "ru6183383");            smtp.EnableSsl = true;            try
+            smtp.Credentials = new System.Net.NetworkCredential("hufshonet.com", "tiru1234");            smtp.EnableSsl = true;            try
             {
                 smtp.Send(mail);
             }            catch(Exception ex)            {
