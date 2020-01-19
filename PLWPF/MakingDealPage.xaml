@@ -6,57 +6,75 @@
       xmlns:local="clr-namespace:PLWPF"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="1000"
       Title="MakingDealPage">
-    <Page.Resources>
+    <!--<Page.Resources>
         <DataTemplate x:Key="ordersTemplate" DataType="local:Order" >
-            <Grid FlowDirection="RightToLeft">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="מספר יחידת אירוח:" Grid.Column="0" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
-                <TextBlock Text="{Binding Path=HostingUnitID}" Grid.Column="1" Style="{StaticResource MaterialDesignOverlineTextBlock}" />
-                <TextBlock Text="מספר בקשת לקוח:" Grid.Column="2" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
-                <TextBlock Text="{Binding Path=GuestRequestID}" Grid.Column="3" Style="{StaticResource MaterialDesignTextBlock}" />
-                <TextBlock Text="מספר הזמנה:" Grid.Column="4" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
-                <TextBlock Text="{Binding Path=OrderID}" Grid.Column="5" Style="{StaticResource MaterialDesignTextBlock}" />
-                <TextBlock Text="סטטוס הזמנה:" Grid.Column="6" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
-                <TextBlock Text="{Binding Path=Status}" Grid.Column="7" Style="{StaticResource MaterialDesignTextBlock}" />
-                <TextBlock Text="תאריך יצירת הזמנה:" Grid.Column="8" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
-                <TextBlock Text="{Binding Path=CreateDate}" Grid.Column="9" Style="{StaticResource MaterialDesignTextBlock}" />
-                <TextBlock Text="תאריך ביצוע הזמנה:" Grid.Column="10" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black"/>
-                <TextBlock Text="{Binding Path=OrderDate}" Grid.Column="11" Style="{StaticResource MaterialDesignTextBlock}" />
-            </Grid>
+            <Border Background="#FFECB3" FlowDirection="RightToLeft">
+                <Grid FlowDirection="RightToLeft" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="מספר יחידת אירוח:  " Grid.Column="0" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
+                    <TextBlock Text="{Binding Path=HostingUnitID}" Grid.Column="1" Style="{StaticResource MaterialDesignOverlineTextBlock}" />
+                    <GridSplitter Grid.Column="2" Background="#424242" Width="3" IsEnabled="False" HorizontalAlignment="Stretch" />
+                    <TextBlock Text="מספר בקשת לקוח:  " Grid.Column="3" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
+                    <TextBlock Text="{Binding Path=GuestRequestID}" Grid.Column="4" Style="{StaticResource MaterialDesignTextBlock}" />
+                    <GridSplitter Grid.Column="5" Background="#424242" Width="3" IsEnabled="False" HorizontalAlignment="Stretch" />
+                    <TextBlock Text="מספר הזמנה:  " Grid.Column="6" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
+                    <TextBlock Text="{Binding Path=OrderID}" Grid.Column="7" Style="{StaticResource MaterialDesignTextBlock}" />
+                    <GridSplitter Grid.Column="8" Background="#424242" Width="3" IsEnabled="False" HorizontalAlignment="Stretch" />
+                    <TextBlock Text="סטטוס הזמנה:  " Grid.Column="9" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
+                    <TextBlock Text="{Binding Path=Status}" Grid.Column="10" Style="{StaticResource MaterialDesignTextBlock}" />
+                    <GridSplitter Grid.Column="11" Background="#424242" Width="3" IsEnabled="False" HorizontalAlignment="Stretch" />
+                    <TextBlock Text="תאריך יצירת הזמנה:  " Grid.Column="12" Style="{StaticResource MaterialDesignTextBlock}" Foreground="Black" />
+                    <TextBlock Text="{Binding Path=CreateDate}" Grid.Column="13" Style="{StaticResource MaterialDesignTextBlock}" />
+                </Grid>
+            </Border>
         </DataTemplate>
-    </Page.Resources>
-    <Grid>
+    </Page.Resources>-->
+    <Grid HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
-            <RowDefinition x:Name="row1" Height="70" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="60" />
+            <RowDefinition Height="70" />
+            <RowDefinition x:Name="row2" Height="20" />
+            <RowDefinition x:Name="row3" Height="60" />
         </Grid.RowDefinitions>
         <TextBlock Text="ביצוע עסקה" Grid.Row="0" Foreground="CornflowerBlue" FontWeight="DemiBold" FontSize="20" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
         <TextBlock x:Name="titleOfOrdrs" Text="רשימת ההזמנות עבור יחידת האירוח שלך" Visibility="Hidden" Grid.Row="1" Foreground="DimGray" FontWeight="DemiBold" FontSize="20" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
         <TextBox x:Name="mailBox" KeyDown="MailBox_KeyDown" Grid.Row="1" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" materialDesign:HintAssist.Hint="הכנס את כתובת האימייל שלך" Width="250" MaxWidth="250"/>
         <TextBlock x:Name="errMessage" Visibility="Visible" Grid.Row="2" Foreground="Red" FontSize="11" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignTextBlock}" />
         <Button x:Name="nextButton" VerticalAlignment="Center" Content="הבא" Grid.Row="3" Width="59" Background="CornflowerBlue" Margin="276,7.2,464,21.6" Click="NextButton_Click"/>
-        <ListView x:Name="ordersListView" ItemsSource="{Binding}" ItemTemplate="{DynamicResource ordersTemplate}" Grid.Row="2" Visibility="Hidden">
-            
-        </ListView>
+        <TextBlock x:Name="infoTextBlock" Text="הקש על ההזמנה אשר ברצונך לבצע עסקה עבורה" Grid.Row="2" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="DimGray" FontSize="14" Style="{StaticResource MaterialDesignHeadline2TextBlock}"/>
+        <Border x:Name="orderListBorder" Grid.Row="3" Background="#FFECB3" BorderBrush="#FFD54F" BorderThickness="2" Visibility="Hidden">
+            <ListView x:Name="ordersListView" FlowDirection="RightToLeft" ItemsSource="{Binding}" Grid.Row="3" Visibility="Hidden" SelectionChanged="OrdersListView_SelectionChanged" >
+                <ListView.View >
+                    <GridView >
+                        <GridViewColumn Header="מספר הזמנה" DisplayMemberBinding="{Binding OrderKey}" Width="120" />
+                        <GridViewColumn Header="מספר יחידת אירוח" DisplayMemberBinding="{Binding HostingUnitKey}" Width="150" />
+                        <GridViewColumn Header="מספר בקשת אירוח" DisplayMemberBinding="{Binding GuestRequestKey}" Width="160" />
+                        <GridViewColumn Header="שם לקוח" DisplayMemberBinding="{Binding GuestName}" Width="160" />
+                        <GridViewColumn Header="סטטוס הזמנה" DisplayMemberBinding="{Binding Status}" Width="160"/>
+                        <GridViewColumn Header="תאריך יצירת הזמנה" DisplayMemberBinding="{Binding CreateDate, StringFormat=d}" Width="160" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
     </Grid>
 </Page>

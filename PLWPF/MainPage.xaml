@@ -64,7 +64,7 @@
             <ColumnDefinition Width="142"/>
         </Grid.ColumnDefinitions>
         <Menu x:Name="mainMenu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" FlowDirection="RightToLeft">
-            <MenuItem x:Name="ownerHeader" Header="בעל האתר" BorderBrush="#FFD54F" BorderThickness="2" Click="OwnerHeader_Click" Height="{Binding ElementName=mainMenu, Path=ActualHeight}"/>
+            <MenuItem x:Name="ownerHeader" Header="מנהל מערכת" BorderBrush="#FFD54F" BorderThickness="2" Click="OwnerHeader_Click" Height="{Binding ElementName=mainMenu, Path=ActualHeight}"/>
             <MenuItem x:Name="hostingUnitHeader" Header="מארחים" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
                 <MenuItem x:Name="addHostingUnitHeader" Header="הוספת מקום אירוח" Click="AddHostingUnitHeader_Click"/>
                 <MenuItem x:Name="updateHostingUnitHeader" Header="עדכון מקום אירוח"/>
@@ -72,6 +72,7 @@
             </MenuItem>
             <MenuItem x:Name="ordersHesder" Header="הזמנות" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
                 <MenuItem x:Name="dealHeader" Header="ביצוע עסקה" Click="DealHeader_Click"/>
+                <MenuItem x:Name="cancelDealHeader" Header="ביטול עסקה" Click="DealHeader_Click"/>
             </MenuItem>
         </Menu>
         <Grid x:Name="requestGrid" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Stretch">
@@ -91,9 +92,9 @@
             </Grid.ColumnDefinitions>
             <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" Grid.Row="0" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20" Foreground="Black" Grid.ColumnSpan="2" Grid.Column="3"/>
             <TextBlock x:Name="errorArea" Grid.Row="1" Grid.Column="4" Text="אנא הכניסו יעד כדי להתחיל בחיפוש" Style="{StaticResource errorMessage}"/>
-            <ComboBox x:Name="areasCMB" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="4" SelectionChanged="AreasComboBox_SelectionChanged"/>
+            <ComboBox x:Name="areasCMB" IsEditable="True" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="4" ToolTip="בחרו את האזור בו תרצו לנפוש" SelectionChanged="AreasComboBox_SelectionChanged"/>
             <TextBlock x:Name="errordate" Grid.Row="1" Grid.Column="3" Text="אנא הכניסו תאריך כדי להתחיל בחיפוש" Style="{StaticResource errorMessage}"/>
-            <ComboBox x:Name="dateCMB" Text="צ'ק-אין - צ'ק-אאוט" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="3" DropDownClosed="DateComboBox_DropDownClosed">
+            <ComboBox x:Name="dateCMB" Text="צ'ק-אין - צ'ק-אאוט" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="3" ToolTip="בחרו טווח תאריכים עבור הנופש שלכם" DropDownClosed="DateComboBox_DropDownClosed">
                 <ComboBoxItem Padding="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Stretch">
                     <Calendar x:Name="myCalendar" Language="He" SelectionMode="SingleRange" IsTodayHighlighted="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDatesChanged="MyCalendar_SelectedDatesChanged">
                         <Calendar.Resources>
@@ -126,7 +127,7 @@
                     </Grid>
                 </ComboBoxItem>
             </ComboBox>
-            <Button x:Name="moreButton" Content="...עוד" Height="{Binding}" Foreground="Black" FontWeight="Normal" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" Click="MoreButton_Click"/>
+            <Button x:Name="moreButton" Content="...עוד" Height="{Binding}" Foreground="Black" FontWeight="Normal" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Background="White" BorderBrush="CornflowerBlue" BorderThickness="2" ToolTip="לחץ כדי לסנן הצעות אירוח באמצעות דרישות נוספות" Click="MoreButton_Click" />
             <Button x:Name="searchButton" Content="חיפוש" Height="{Binding}" FontWeight="Bold" Foreground="White" BorderBrush="CornflowerBlue" Background="CornflowerBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SearchButton_Click"/>
             <Grid x:Name="moreButtonGrid" Visibility="Hidden" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4">
                 <Grid.RowDefinitions>

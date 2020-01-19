@@ -186,6 +186,7 @@ namespace PL
             HostingUnit newHostingUnit = new HostingUnit();
             newHostingUnit.Owner = new Host();
             newHostingUnit.Owner.BankBranchDetails = new BankBranch();
+            newHostingUnit.Diary = new bool[12,31]; 
             Console.Write("Enter name of your hosting unit: ");
             string tmp = Console.ReadLine();
             newHostingUnit.HostingUnitName = tmp;
@@ -756,7 +757,7 @@ namespace PL
                             try
                             {
                                 Order updateOrder = bl.GetOrderByKey(long.Parse(orderKey));
-                                updateOrder.Status = tmp == "1" ? Enum_s.OrderStatus.ClosedDueToResponsiveness : Enum_s.OrderStatus.ClosedDueToUnresponsiveness;
+                                updateOrder.Status = tmp == "1" ? Enum_s.OrderStatus.נסגר_בשל_הענות : Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות;
                                 bl.UpdateOrder(updateOrder);
                                 Console.WriteLine("Order status updates successfully!");
                             }
@@ -843,7 +844,7 @@ namespace PL
                         try
                         {
                             HostingUnit newHostingUnit1 = bl.GetHostingUnitByKey(long.Parse(tmp));
-                            Console.WriteLine("Sum of responded or sended orders: " + bl.SumOrdersSendedOrResponded(newHostingUnit1, x => x.Status == Enum_s.OrderStatus.MailSended));
+                            Console.WriteLine("Sum of responded or sended orders: " + bl.SumOrdersSendedOrResponded(newHostingUnit1, x => x.Status == Enum_s.OrderStatus.נשלח_מייל));
                         }
                         catch (Exception ex)
                         {

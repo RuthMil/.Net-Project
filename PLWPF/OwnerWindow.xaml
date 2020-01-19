@@ -26,7 +26,7 @@
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <TextBlock Foreground="CornflowerBlue" Text="!ברוכים הבאים" VerticalAlignment="Center" Grid.Row="0" Style="{StaticResource headerStyle}" />
-        <TextBox Name="txtUserFName" Grid.Row="1" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שמך הפרטי" />
+        <TextBox Name="txtUserFName" Grid.Row="1" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שמך הפרטי" KeyDown="TxtUserFName_KeyDown" />
         <TextBox Name="txtUserLName" Grid.Row="2" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שם המשפחה שלך" />
         <PasswordBox materialDesign:HintAssist.Hint="הכנס סיסמא" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="txtYourPassword" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
         <!--<TextBox Name="txtYourPassword" Grid.Row="3" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס סיסמא" />-->

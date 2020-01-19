@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BE;
 
 namespace PLWPF
 {
@@ -22,12 +23,12 @@ namespace PLWPF
     public partial class MakingDealPage : Page
     {
         readonly BL.IBL bl = BL.BlFactory.GetBL();
-        private ObservableCollection<BE.Order> ordersForList;
+        private ObservableCollection<Order> ordersForList;
 
         public MakingDealPage()
         {
             InitializeComponent();
-            ordersForList = new ObservableCollection<BE.Order>();
+            ordersForList = new ObservableCollection<Order>();
             ordersListView.DataContext = ordersForList;
         }
 
@@ -56,12 +57,16 @@ namespace PLWPF
             return true;
         }
 
-        private void enterToOrderList(string email)
+        private void EnterToOrderList(string email)
         {
             mailBox.Visibility = Visibility.Hidden;
             nextButton.Visibility = Visibility.Hidden;
             foreach (var item in bl.ReceiveOrdersForHost(bl.GetHostKeyByMail(email)))
                 ordersForList.Add(item);
+            row2.Height = GridLength.Auto;
+            row3.Height = GridLength.Auto;
+            infoTextBlock.Visibility = Visibility.Visible;
+            orderListBorder.Visibility = Visibility.Visible;
             titleOfOrdrs.Visibility = Visibility.Visible;
             ordersListView.Visibility = Visibility.Visible;
         }
@@ -71,14 +76,38 @@ namespace PLWPF
             if (e.Key == Key.Enter)
             {
                 if (checkEmailVaildity())
-                    enterToOrderList(mailBox.Text);
+                    EnterToOrderList(mailBox.Text);
             }
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
             if (checkEmailVaildity())
-                enterToOrderList(mailBox.Text);
+                EnterToOrderList(mailBox.Text);
+        }
+        
+        private void OrdersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ordersListView.SelectedValue == null)
+                return;
+            if (MessageBox.Show("?האם אתה מעוניין לבצע עסקה עבור הזמנה זו", "ביצוע עסקה", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
+            {
+                Order selectedOrder = (Order)ordersListView.SelectedValue;
+                try
+                {
+                    selectedOrder.Status = Enum_s.OrderStatus.נסגר_בשל_הענות;
+                    bl.UpdateOrder(selectedOrder);
+                    MessageBox.Show("!העסקה בוצעה בהצלחה\nמספר הזמנה:  " + selectedOrder.OrderKey.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign);
+                    ordersForList.Clear();
+                    foreach (var item in bl.ReceiveOrdersForHost(bl.GetHostKeyByMail(mailBox.Text)))
+                        ordersForList.Add(item);
+                    //ordersForList = (ObservableCollection<BE.Order>)ordersForList.OrderBy(x => x.OrderKey); 
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign);
+                }
+            }
         }
     }
 }

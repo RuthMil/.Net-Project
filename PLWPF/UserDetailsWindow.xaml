@@ -8,6 +8,9 @@
         mc:Ignorable="d"
         Title="" Height="400" Width="650" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" >
     <Window.Resources>
+        <Style x:Key="textBoxStyle" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <EventSetter Event="KeyDown" Handler="TextBox_KeyDown" />
+        </Style>
         <Style x:Key="headerStyle">
             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
             <Setter Property="TextBlock.TextAlignment" Value="Center" />
@@ -36,16 +39,16 @@
         </Grid.RowDefinitions>
         <TextBlock Text="!ברוכים הבאים למערכת איתור והתאמת נופש" Foreground="CornflowerBlue" VerticalAlignment="Center" Grid.Row="0" Style="{StaticResource headerStyle}" />
         <TextBlock Text="אנא הכניסו את פרטיכם על מנת שנוכל לשלוח לכם הצעות אירוח מתאימות" FontSize="20" Foreground="CornflowerBlue" FontWeight="Normal" VerticalAlignment="Center" Grid.Row="1" Style="{StaticResource headerStyle}" />
-        <TextBox Name="txtUserFName" Grid.Row="2" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שמך הפרטי" />
+        <TextBox Name="txtUserFName" Grid.Row="2" FontSize="18" HorizontalContentAlignment="Center" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שמך הפרטי" Style="{StaticResource textBoxStyle}" />
         <TextBlock Name="errorUserFName" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="2" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="אותיות בלבד"/>
-        <TextBox Name="txtUserLName" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שם המשפחה שלך" />
+        <TextBox Name="txtUserLName" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Center" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שם המשפחה שלך" Style="{StaticResource textBoxStyle}" />
         <TextBlock Name="errorUserLName" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="3" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="אותיות בלבד"/>
-        <TextBox Name="txtYourMail" Grid.Row="4" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את כתובת האימייל שלך" />
+        <TextBox Name="txtYourMail" Grid.Row="4" FontSize="18" HorizontalContentAlignment="Center" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את כתובת האימייל שלך" Style="{StaticResource textBoxStyle}" />
         <TextBlock Name="errorUserMailEmpty" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="4" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="שדה זה הינו הכרחי" />
         <TextBlock Name="errorUserFnameEmpty" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="2" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="שדה זה הינו הכרחי" />
         <TextBlock Name="errorUserLNameEmpty" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="3" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="שדה זה הינו הכרחי" />
         <TextBlock Name="errorUserMail" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="4" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="כתובת אימייל לא תקינה" />
-        <Button Name="continueButton" Background="CornflowerBlue" Margin="0 20" Grid.Row="5" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Continue_Button_Click">
+        <Button Name="continueButton" Background="CornflowerBlue" Margin="0 20" Grid.Row="5" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Continue_Button_Click" >
             המשך
         </Button>
     </Grid>

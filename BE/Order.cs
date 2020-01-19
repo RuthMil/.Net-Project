@@ -15,6 +15,7 @@ namespace BE
         public Enum_s.OrderStatus Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime OrderDate { get; set; }
+        public string GuestName { get; set; }
         public override string ToString()
         {
             return "Hosting Unit ID: " + HostingUnitKey.ToString() + " Hosting Request ID: " + GuestRequestKey.ToString() +

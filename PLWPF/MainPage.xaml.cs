@@ -473,24 +473,25 @@ namespace PLWPF
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
                 areasCMB.SelectedValue = null;
-                areasCMB.Text = "בחר אזור";
-                subAreaCMB.ItemsSource = new List<Enum_s.SubArea>() { Enum_s.SubArea.ירושלים, Enum_s.SubArea.צפון, Enum_s.SubArea.חיפה, Enum_s.SubArea.גליל, Enum_s.SubArea.דרום, Enum_s.SubArea.באר_שבע, Enum_s.SubArea.אילת, Enum_s.SubArea.מרכז, Enum_s.SubArea.תל_אביב };
-                subAreaCMB.SelectedValue = null;
-                dateCMB.Text = "צ'ק-אין - צ'ק-אאוט";
-                childrenAndAdultsCMB.Text = "מבוגרים: 2  ילדים: 0";
-                children.Text = "0";
-                adults.Text = "2";
-                typeCMB.SelectedValue = Enum_s.HostingUnitTypes.הכל;
-                poolCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
-                gardenCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
-                jaccuziCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
-                childAtracCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
-                wifiCMB.SelectedValue = Enum_s.RequestOption.אפשרי;              
+                //areasCMB.Text = "בחר אזור";
+                //subAreaCMB.ItemsSource = new List<Enum_s.SubArea>() { Enum_s.SubArea.ירושלים, Enum_s.SubArea.צפון, Enum_s.SubArea.חיפה, Enum_s.SubArea.גליל, Enum_s.SubArea.דרום, Enum_s.SubArea.באר_שבע, Enum_s.SubArea.אילת, Enum_s.SubArea.מרכז, Enum_s.SubArea.תל_אביב };
+                //subAreaCMB.SelectedValue = null;
+                //dateCMB.Text = "צ'ק-אין - צ'ק-אאוט";
+                //childrenAndAdultsCMB.Text = "מבוגרים: 2  ילדים: 0";
+                //children.Text = "0";
+                //adults.Text = "2";
+                //typeCMB.SelectedValue = Enum_s.HostingUnitTypes.הכל;
+                //poolCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
+                //gardenCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
+                //jaccuziCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
+                //childAtracCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
+                //wifiCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
+                this.NavigationService.Navigate(new Uri("MainPage.xaml", UriKind.RelativeOrAbsolute));
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show("שלום " + myGuestRequest.FirstName + "!\n" + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.RightAlign);
+                MessageBox.Show("שלום " + myGuestRequest.FirstName + "!\n" + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.None, MessageBoxOptions.RightAlign);
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
             }
@@ -543,6 +544,7 @@ namespace PLWPF
             MainWindow.prevPage = this;
             this.NavigationService.Navigate(new Uri("MakingDealPage.xaml", UriKind.Relative));
         }
+
 
         //private void Owner_Button_Click(object sender, RoutedEventArgs e)
         //{

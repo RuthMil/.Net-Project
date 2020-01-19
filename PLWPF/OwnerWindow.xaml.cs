@@ -32,5 +32,10 @@ namespace PLWPF
             FirstName = txtUserFName.Text;
             LastName = txtUserLName.Text;
         }
+
+        private void TxtUserFName_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

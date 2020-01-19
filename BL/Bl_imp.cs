@@ -69,8 +69,8 @@ namespace BL
                 var openOrdersByUnit = from order in dal.ReceiveOrderList()
                                        let unitKey = myHostingUnit.HostingUnitKey
                                        where order.HostingUnitKey == unitKey &&
-                                       (order.Status == Enum_s.OrderStatus.HasNotBeenTreated ||
-                                       order.Status == Enum_s.OrderStatus.MailSended)
+                                       (order.Status == Enum_s.OrderStatus.לא_בטיפול ||
+                                       order.Status == Enum_s.OrderStatus.נשלח_מייל)
                                        select order;
                 if (openOrdersByUnit.Count() != 0)
                     throw new DeleteUnitWithOpenOrdersException("sorry, there are open orders for this " +
@@ -143,7 +143,7 @@ namespace BL
                 {
                     var openOrders = from order in dal.ReceiveOrderList()
                                      where dal.GetHostingUnitByKey(order.HostingUnitKey).Owner.HostKey == myHostingUnit.Owner.HostKey &&
-                                     (order.Status == Enum_s.OrderStatus.HasNotBeenTreated || order.Status == Enum_s.OrderStatus.MailSended)
+                                     (order.Status == Enum_s.OrderStatus.לא_בטיפול || order.Status == Enum_s.OrderStatus.נשלח_מייל)
                                      select order;
                     if (openOrders.Count() != 0)
                         throw new StatusChangeException("sorry, you cannot cancel your collection clearance, " +
@@ -242,15 +242,15 @@ namespace BL
             try
             {
                 Order oldOrder = dal.GetOrderByKey(myOrder.OrderKey);
-                if (oldOrder.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness ||
-                    oldOrder.Status == Enum_s.OrderStatus.ClosedDueToClash ||
-                    oldOrder.Status == Enum_s.OrderStatus.ClosedDueToOtherPurchase ||
-                    oldOrder.Status == Enum_s.OrderStatus.ClosedDueToUnresponsiveness ||
-                    (myOrder.Status == Enum_s.OrderStatus.ClosedDueToResponsiveness &&
-                    oldOrder.Status == Enum_s.OrderStatus.HasNotBeenTreated) ||
-                    (myOrder.Status == Enum_s.OrderStatus.MailSended &&
+                if (oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_הענות ||
+                    oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_התנגשות ||
+                    oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_רכישה_אחרת ||
+                    oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות ||
+                    (myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות &&
+                    oldOrder.Status == Enum_s.OrderStatus.לא_בטיפול) ||
+                    (myOrder.Status == Enum_s.OrderStatus.נשלח_מייל &&
                     !dal.GetHostingUnitByKey(myOrder.HostingUnitKey).Owner.CollectionClearance)) 
-                    throw new StatusChangeException("You cannot change status.");
+                    throw new StatusChangeException("לא ניתן לשנות הזמנה זו.");
             }
             catch (Exception ex)
             {
@@ -258,21 +258,21 @@ namespace BL
             }
             switch(myOrder.Status)
             {
-                case Enum_s.OrderStatus.ClosedDueToResponsiveness:
+                case Enum_s.OrderStatus.נסגר_בשל_הענות:
                     List<Order> sameOrders = ReceiveClashOrders(myOrder);
                     sameOrders.RemoveAt(sameOrders.FindIndex(x => x.OrderKey == myOrder.OrderKey));
                     if (sameOrders.Count != 0)
                         SendMailAboutCloseOrder(sameOrders);
                     foreach (var item in sameOrders)
                     {
-                        item.Status = Enum_s.OrderStatus.ClosedDueToClash;
+                        item.Status = Enum_s.OrderStatus.נסגר_בשל_התנגשות;
                         dal.UpdateOrder(item);
                     }
                     List<Order> OrdersForGuestRequest = ReceiveOrdersForGuestRequest(myOrder.GuestRequestKey);
                     OrdersForGuestRequest.RemoveAt(OrdersForGuestRequest.FindIndex(x => x.OrderKey == myOrder.OrderKey));
                     foreach (var item in OrdersForGuestRequest)
                     {
-                        item.Status = Enum_s.OrderStatus.ClosedDueToOtherPurchase;
+                        item.Status = Enum_s.OrderStatus.נסגר_בשל_רכישה_אחרת;
                         dal.UpdateOrder(item);
                     }
                     GuestRequest orderGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
@@ -285,7 +285,7 @@ namespace BL
                     myHostingUnit.Owner.Commission += Configuration.commission * SumDaysBetween(orderGuestRequest.EntryDate, orderGuestRequest.RegistrationDate);
                     dal.UpdateHostingUnit(myHostingUnit);
                     break;
-                case Enum_s.OrderStatus.MailSended:
+                case Enum_s.OrderStatus.נשלח_מייל:
                     SendMailToGuestWithSuggest(myOrder);
                     break;
             }
@@ -356,12 +356,13 @@ namespace BL
                 OrderKey = 0,
                 HostingUnitKey = myHostingUnit.HostingUnitKey,
                 GuestRequestKey = myGuestRequest.GuestRequestKey,
-                Status = Enum_s.OrderStatus.HasNotBeenTreated,
+                Status = Enum_s.OrderStatus.לא_בטיפול,
                 CreateDate = DateTime.Now,
-                OrderDate = default(DateTime)
+                OrderDate = default(DateTime),
+                GuestName = myGuestRequest.FirstName + ' ' + myGuestRequest.LastName
             };
             dal.AddOrder(myOrder);
-            myOrder.Status = Enum_s.OrderStatus.MailSended;
+            myOrder.Status = Enum_s.OrderStatus.נשלח_מייל;
             try
             {
                 UpdateOrder(myOrder);
