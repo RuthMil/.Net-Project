@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="1000"
-      Title="MakingDealPage">
+      Title="MakingDealPage" >
     <!--<Page.Resources>
         <DataTemplate x:Key="ordersTemplate" DataType="local:Order" >
             <Border Background="#FFECB3" FlowDirection="RightToLeft">
@@ -55,13 +55,14 @@
             <RowDefinition Height="70" />
             <RowDefinition x:Name="row2" Height="20" />
             <RowDefinition x:Name="row3" Height="60" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         <TextBlock Text="ביצוע עסקה" Grid.Row="0" Foreground="CornflowerBlue" FontWeight="DemiBold" FontSize="20" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
         <TextBlock x:Name="titleOfOrdrs" Text="רשימת ההזמנות עבור יחידת האירוח שלך" Visibility="Hidden" Grid.Row="1" Foreground="DimGray" FontWeight="DemiBold" FontSize="20" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
         <TextBox x:Name="mailBox" KeyDown="MailBox_KeyDown" Grid.Row="1" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" materialDesign:HintAssist.Hint="הכנס את כתובת האימייל שלך" Width="250" MaxWidth="250"/>
         <TextBlock x:Name="errMessage" Visibility="Visible" Grid.Row="2" Foreground="Red" FontSize="11" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignTextBlock}" />
         <Button x:Name="nextButton" VerticalAlignment="Center" Content="הבא" Grid.Row="3" Width="59" Background="CornflowerBlue" Margin="276,7.2,464,21.6" Click="NextButton_Click"/>
-        <TextBlock x:Name="infoTextBlock" Text="הקש על ההזמנה אשר ברצונך לבצע עסקה עבורה" Grid.Row="2" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="DimGray" FontSize="14" Style="{StaticResource MaterialDesignHeadline2TextBlock}"/>
+        <TextBlock x:Name="infoTextBlock" Text="הקש על ההזמנה אשר ברצונך לבצע" Grid.Row="2" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="DimGray" FontSize="14" Style="{StaticResource MaterialDesignHeadline2TextBlock}"/>
         <Border x:Name="orderListBorder" Grid.Row="3" Background="#FFECB3" BorderBrush="#FFD54F" BorderThickness="2" Visibility="Hidden">
             <ListView x:Name="ordersListView" FlowDirection="RightToLeft" ItemsSource="{Binding}" Grid.Row="3" Visibility="Hidden" SelectionChanged="OrdersListView_SelectionChanged" >
                 <ListView.View >
@@ -76,5 +77,6 @@
                 </ListView.View>
             </ListView>
         </Border>
+        <TextBlock x:Name="noOrdersTxt" Text=".אין כרגע הזמנות עבור יחידות האירוח שלך" Grid.Row="4" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="DimGray" FontSize="14" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
     </Grid>
 </Page>

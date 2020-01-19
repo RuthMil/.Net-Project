@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,14 +18,14 @@ using BE;
 namespace PLWPF
 {
     /// <summary>
-    /// Interaction logic for MakingDealPage.xaml
+    /// Interaction logic for CancelDealPage.xaml
     /// </summary>
-    public partial class MakingDealPage : Page
+    public partial class CancelDealPage : Page
     {
         readonly BL.IBL bl = BL.BlFactory.GetBL();
         private ObservableCollection<Order> ordersForList;
 
-        public MakingDealPage()
+        public CancelDealPage()
         {
             InitializeComponent();
             ordersForList = new ObservableCollection<Order>();
@@ -87,25 +87,25 @@ namespace PLWPF
             if (checkEmailVaildity())
                 EnterToOrderList(mailBox.Text);
         }
-        
+
         private void OrdersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ordersListView.SelectedValue == null)
                 return;
-            if (MessageBox.Show("?האם אתה מעוניין לבצע עסקה עבור הזמנה זו", "ביצוע עסקה", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
+            if (MessageBox.Show("?האם אתה מעוניין למחוק הזמנה זו", "ביטול עסקה", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
             {
                 Order selectedOrder = (Order)ordersListView.SelectedValue;
                 try
                 {
-                    selectedOrder.Status = Enum_s.OrderStatus.נסגר_בשל_הענות;
-                    bl.UpdateOrder(selectedOrder);
-                    MessageBox.Show("!העסקה בוצעה בהצלחה\nמספר הזמנה:  " + selectedOrder.OrderKey.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign);
+                    bl.DeleteOrder(selectedOrder);
+                    MessageBox.Show("!העסקה בוטלה בהצלחה\nמספר הזמנה:  " + selectedOrder.OrderKey.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign);
                     ordersForList.Clear();
-                    foreach (var item in bl.ReceiveOrdersForHost(bl.GetHostKeyByMail(mailBox.Text)).OrderBy(x => x.OrderKey)) 
+                    foreach (var item in bl.ReceiveOrdersForHost(bl.GetHostKeyByMail(mailBox.Text)).OrderBy(x => x.OrderKey))
                         ordersForList.Add(item);
-                    //ordersForList = (ObservableCollection<BE.Order>)ordersForList.OrderBy(x => x.OrderKey); 
+                    noOrdersTxt.Visibility = ordersForList.Count == 0 ? Visibility.Visible : Visibility.Hidden;
+
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign);
                 }

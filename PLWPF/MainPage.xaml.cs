@@ -469,7 +469,7 @@ namespace PLWPF
             try
             {
                 bl.AddGuestRequest(myGuestRequest);
-                MessageBox.Show("שלום " + myGuestRequest.FirstName + "! בקשתך נקלטה בהצלחה");
+                MessageBox.Show(" שלום" + myGuestRequest.FirstName + " בקשתך נקלטה בהצלחה! בדקות הקרובות יישלח אלייך אימייל עם הצעות אירוח מתאימות", "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign); 
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
                 areasCMB.SelectedValue = null;
@@ -488,28 +488,13 @@ namespace PLWPF
                 //wifiCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
                 this.NavigationService.Content = new MainPage();
             }
-
+             
             catch (Exception ex)
             {
                 MessageBox.Show("שלום " + myGuestRequest.FirstName + "!\n" + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.None, MessageBoxOptions.RightAlign);
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
             }
-        }
-
-        private Calendar CreateCalendar()
-        {
-            Calendar newCalendar = new Calendar()
-            {
-                SelectionMode = CalendarSelectionMode.SingleRange,
-                IsTodayHighlighted = true,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch,
-                DisplayDateStart = DateTime.Now,
-                DisplayDateEnd = DateTime.Now.AddMonths(11),
-                Name = "myCalendar"
-            };
-            return newCalendar;
         }
 
         private void ChildAdult_DropDownClosed(object sender, EventArgs e)
@@ -536,7 +521,7 @@ namespace PLWPF
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            //root.Content = prevWindow.Content;
+            
         }
 
         private void DealHeader_Click(object sender, RoutedEventArgs e)
@@ -545,14 +530,11 @@ namespace PLWPF
             this.NavigationService.Navigate(new Uri("MakingDealPage.xaml", UriKind.Relative));
         }
 
+        private void CancelDealHeader_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.prevPage = this;
+            this.NavigationService.Navigate(new Uri("CancelDealPage.xaml", UriKind.Relative));
+        }
 
-        //private void Owner_Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    OwnerWindow newOwnerWindow = new OwnerWindow();
-        //    //Grid newGrid = newOwnerWindow.ownerGrid;
-        //    //mainGrid.Children.Add(newOwnerWindow.ownerGrid);
-        //    //Grid.SetRow(newOwnerWindow.ownerGrid, 0);
-        //    //newOwnerWindow.Show();
-        //}
     }
 }

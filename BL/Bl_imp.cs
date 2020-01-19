@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BE;
 using System.Data;
-
+using System.Net.Mail;
 namespace BL
 {
     public class Bl_imp : IBL
@@ -89,8 +89,8 @@ namespace BL
         public void DeleteOrder(Order myOrder)
         {
             GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
-            if (DateTime.Now > myGuestRequest.EntryDate.AddDays(14))
-                throw new TimeoutException(".מצטערים, זמן הביטול עבר, אינך יכול לבטל הזמנה זו");
+            if (DateTime.Now > myGuestRequest.EntryDate.AddDays(-14)) 
+                throw new TimeoutException(".מצטערים, זמן הביטול עבר. אינך יכול לבטל הזמנה זו");
             try
             {
                 dal.DeleteOrder(myOrder);
@@ -299,9 +299,18 @@ namespace BL
         public void SendMailToGuestWithSuggest(Order myOrder)
         {
             HostingUnit myUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
-            //Console.WriteLine("Sending Mail For Suggest: Hello, we found special " +
-              //  "hosting unit for you, according to your request number: {0}, order number: {1}\nHosting unit details:\n{2}",
-                //myOrder.GuestRequestKey.ToString(), myOrder.OrderKey.ToString(), dal.GetHostingUnitByKey(myOrder.HostingUnitKey).ToString()); 
+            GuestRequest myGuestRequest = GetGuestRequestByKey(myOrder.GuestRequestKey);
+            MailMessage mail = new MailMessage();            mail.To.Add(myGuestRequest.MailAddress);            mail.From = new MailAddress("ruthmiller2000@gmail.com");            mail.Subject = "שלום" + myGuestRequest.FirstName + "מצאנו עבורך יחידות אירוח מדהימות  ";
+            mail.Body = "";
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Credentials = new System.Net.NetworkCredential("ruthmiller2000@gmail.com", "ru6183383");            smtp.EnableSsl = true;            try
+            {
+                smtp.Send(mail);
+            }            catch(Exception ex)            {
+               
+            }
         }
 
         public int SumDaysBetween(DateTime firstDate, DateTime? secondDate = null)

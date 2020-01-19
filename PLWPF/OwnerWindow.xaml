@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PLWPF"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
         mc:Ignorable="d"
-        Title="אימות פרטים" Height="340" Width="550" Name="ownerWindow" WindowStartupLocation="CenterScreen">
+        Title="אימות פרטים" Height="235" Width="450" Name="ownerWindow" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="headerStyle">
             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -21,15 +21,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <TextBlock Foreground="CornflowerBlue" Text="!ברוכים הבאים" VerticalAlignment="Center" Grid.Row="0" Style="{StaticResource headerStyle}" />
-        <TextBox Name="txtUserFName" Grid.Row="1" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שמך הפרטי" KeyDown="TxtUserFName_KeyDown" />
-        <TextBox Name="txtUserLName" Grid.Row="2" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שם המשפחה שלך" />
-        <PasswordBox materialDesign:HintAssist.Hint="הכנס סיסמא" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="txtYourPassword" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
-        <!--<TextBox Name="txtYourPassword" Grid.Row="3" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="הכנס סיסמא" />-->
+        <PasswordBox Name="txtYourPassword" materialDesign:HintAssist.Hint="הכנס סיסמא" Grid.Row="1" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" KeyDown="TxtYourPassword_KeyDown" />
         <Button Background="CornflowerBlue" Margin="0 20" Grid.Row="4" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Enter_Button">
             היכנס
         </Button>

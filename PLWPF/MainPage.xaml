@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainPage" x:Name="mainPage">
     <Page.Resources>
-        <Style x:Key="errorMessage" TargetType="TextBlock">
+        <Style x:Key="errorMessage" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
             <Setter Property="FontSize" Value="9"/>
             <Setter Property="Foreground" Value="Red"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
@@ -53,7 +53,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="41"/>
             <RowDefinition Height="41"/>
-            <RowDefinition Height="400"/>
+            <RowDefinition Height="600"/>
             <RowDefinition Height="200"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
@@ -65,14 +65,14 @@
         </Grid.ColumnDefinitions>
         <Menu x:Name="mainMenu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" FlowDirection="RightToLeft">
             <MenuItem x:Name="ownerHeader" Header="מנהל מערכת" BorderBrush="#FFD54F" BorderThickness="2" Click="OwnerHeader_Click" Height="{Binding ElementName=mainMenu, Path=ActualHeight}"/>
-            <MenuItem x:Name="hostingUnitHeader" Header="מארחים" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
+            <MenuItem x:Name="hostingUnitHeader" Header="מארחים" ToolTip="הוסיפו את מקום האירוח שלכם, עדכנו או מחקו" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
                 <MenuItem x:Name="addHostingUnitHeader" Header="הוספת מקום אירוח" Click="AddHostingUnitHeader_Click"/>
                 <MenuItem x:Name="updateHostingUnitHeader" Header="עדכון מקום אירוח"/>
                 <MenuItem x:Name="deleteHostingUnitHeader" Header="מחיקת מקום אירוח"/>
             </MenuItem>
-            <MenuItem x:Name="ordersHesder" Header="הזמנות" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
+            <MenuItem x:Name="ordersHesder" Header="הזמנות" ToolTip="בעל יחידות אירוח! נהל את ההזמנות שלך בכרטיסיה זו" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
                 <MenuItem x:Name="dealHeader" Header="ביצוע עסקה" Click="DealHeader_Click"/>
-                <MenuItem x:Name="cancelDealHeader" Header="ביטול עסקה" Click="DealHeader_Click"/>
+                <MenuItem x:Name="cancelDealHeader" Header="ביטול עסקה" Click="CancelDealHeader_Click" />
             </MenuItem>
         </Menu>
         <Grid x:Name="requestGrid" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Stretch">

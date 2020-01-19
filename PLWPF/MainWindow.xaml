@@ -14,45 +14,6 @@
         TextOptions.TextRenderingMode="Auto"
         Title="MainWindow" Height="650" Width="1000" Name="mainWindow" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style x:Key="errorMessage" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="9"/>
-            <Setter Property="Foreground" Value="Red"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="TextAlignment" Value="Center"/>
-            <Setter Property="Visibility" Value="Hidden"/>
-        </Style>
-        <Style x:Key="plusMinusButton" TargetType="Button">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Width" Value="25"/>
-            <Setter Property="Height" Value="30"/>
-            <!--<EventSetter Event="Click" Handler="Button_Click"/>-->
-        </Style>
-        <Style x:Key="myComboBoxItem" TargetType="ComboBoxItem">
-            <Setter Property="Height" Value="31"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="White"/>
-        </Style>
-        <Style x:Key="myComboBox" TargetType="ComboBox">
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="DodgerBlue"/>
-            <Setter Property="FlowDirection" Value="RightToLeft"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="IsEditable" Value="True"/>
-            <Setter Property="IsSynchronizedWithCurrentItem" Value="False"/>
-            <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-        </Style>
     </Window.Resources>
     <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True" Style="{StaticResource MaterialDesignScrollViewer}">
         <Grid x:Name="mainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.CanContentScroll="True">

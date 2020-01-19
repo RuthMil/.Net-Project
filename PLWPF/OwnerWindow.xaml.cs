@@ -29,13 +29,20 @@ namespace PLWPF
 
         private void Enter_Button(object sender, RoutedEventArgs e)
         {
-            FirstName = txtUserFName.Text;
-            LastName = txtUserLName.Text;
+
         }
 
         private void TxtUserFName_KeyDown(object sender, KeyEventArgs e)
         {
 
+        }
+
+        private void TxtYourPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+            }
         }
     }
 }

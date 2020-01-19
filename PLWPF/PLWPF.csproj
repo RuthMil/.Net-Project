@@ -66,6 +66,9 @@
     <Compile Include="AddHostingUnitPage.xaml.cs">
       <DependentUpon>AddHostingUnitPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CancelDealPage.xaml.cs">
+      <DependentUpon>CancelDealPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -76,6 +79,10 @@
       <DependentUpon>UserDetailsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AddHostingUnitPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CancelDealPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
