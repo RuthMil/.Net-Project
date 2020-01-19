@@ -486,7 +486,7 @@ namespace PLWPF
                 //jaccuziCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
                 //childAtracCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
                 //wifiCMB.SelectedValue = Enum_s.RequestOption.אפשרי;
-                this.NavigationService.Navigate(new Uri("MainPage.xaml", UriKind.RelativeOrAbsolute));
+                this.NavigationService.Content = new MainPage();
             }
 
             catch (Exception ex)

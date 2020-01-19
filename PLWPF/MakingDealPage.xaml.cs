@@ -107,6 +107,7 @@ namespace PLWPF
                 {
                     MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign);
                 }
+                ordersListView.SelectedItem = null;
             }
         }
     }

@@ -24,10 +24,14 @@ namespace BL
             try
             {
                 dal.AddGuestRequest(myGuestRequest);
-                foreach (var item in ReceiveMatchHostingUnitForRequest(myGuestRequest))
+                List<HostingUnit> matchHostingUnitsToRequest = ReceiveMatchHostingUnitForRequest(myGuestRequest);
+                foreach (var item in matchHostingUnitsToRequest)
                 {
                     CreateOrderAndSendMailForHostingUnit(item, myGuestRequest);
                 }
+                if (matchHostingUnitsToRequest.FindIndex(x => x.Owner.CollectionClearance) == -1)
+                    throw new ArgumentException("מצטערים, לא מצאנו יחידות אירוח מתאימות לבקשתך. " +
+                    "בקשתך נשמרה במערכת, אם נמצא יחידות אירוח מתאימות עבורך מאוחר יותר, נעדכן אותך באימייל");
             }
             catch (Exception ex) 
             {
@@ -73,8 +77,7 @@ namespace BL
                                        order.Status == Enum_s.OrderStatus.נשלח_מייל)
                                        select order;
                 if (openOrdersByUnit.Count() != 0)
-                    throw new DeleteUnitWithOpenOrdersException("sorry, there are open orders for this " +
-                        "hosting unit, you cannot change it."); 
+                    throw new DeleteUnitWithOpenOrdersException(".מצטערים, אינך יכול למחוק יחידת אירוח זו. קיימות הזמנות פתוחות עבור היחידה"); 
                 dal.DeleteHostingUnit(myHostingUnit);
             }
             catch (Exception ex)
@@ -87,7 +90,7 @@ namespace BL
         {
             GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
             if (DateTime.Now > myGuestRequest.EntryDate.AddDays(14))
-                throw new TimeoutException("sorry, cancelation time passed, you cannot cancel your order.");
+                throw new TimeoutException(".מצטערים, זמן הביטול עבר, אינך יכול לבטל הזמנה זו");
             try
             {
                 dal.DeleteOrder(myOrder);
@@ -146,8 +149,7 @@ namespace BL
                                      (order.Status == Enum_s.OrderStatus.לא_בטיפול || order.Status == Enum_s.OrderStatus.נשלח_מייל)
                                      select order;
                     if (openOrders.Count() != 0)
-                        throw new StatusChangeException("sorry, you cannot cancel your collection clearance, " +
-                            "because there are open orders for your hosting unit.");
+                        throw new StatusChangeException(".מצטערים, אינך יכול לבטל את הרשאת החיוב שלך. קיימות הזמנות פתוחות עבור יחידת אירוח השייכת לך");
                 }
                 catch (Exception ex)
                 {
@@ -248,7 +250,8 @@ namespace BL
                     oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות ||
                     (myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות &&
                     oldOrder.Status == Enum_s.OrderStatus.לא_בטיפול) ||
-                    (myOrder.Status == Enum_s.OrderStatus.נשלח_מייל &&
+                    ((myOrder.Status == Enum_s.OrderStatus.נשלח_מייל ||
+                    myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_הענות) &&
                     !dal.GetHostingUnitByKey(myOrder.HostingUnitKey).Owner.CollectionClearance)) 
                     throw new StatusChangeException("לא ניתן לשנות הזמנה זו.");
             }
@@ -375,7 +378,7 @@ namespace BL
             try
             {
                 if (hostingDays < 0)
-                    throw new ArgumentOutOfRangeException("has to be a positive number", "hosting Days");
+                    throw new ArgumentOutOfRangeException("מספר ימים חייב להיות מספר חיובי", "hosting Days");
                 var freeHostingUnits = from unit in dal.ReceiveHostingUnitList()
                                        let releaseDate = entryDate.AddDays(hostingDays)
                                        where HostingUnitIsFree(unit, entryDate, releaseDate)
@@ -403,7 +406,7 @@ namespace BL
             try
             {
                 if (days < 0)
-                    throw new ArgumentOutOfRangeException("number of days must be positive number", days, "days"); 
+                    throw new ArgumentOutOfRangeException("מספר ימים חייב להיות מספר חיובי", days, "days"); 
                 return dal.ReceiveOrderList().FindAll(x => (DateTime.Now - x.OrderDate).Days >= days ||
                 (DateTime.Now - x.CreateDate).Days >=days);
             }
@@ -478,7 +481,7 @@ namespace BL
             var matchHostingUnits = from unit in freeHostingUnits
                                     where HostingUnitMatchToGuestRequest(myGuestRequest, unit)
                                     select unit;
-            if (matchHostingUnits.Count() == 0)
+            if (matchHostingUnits.Count() == 0)  
                 throw new ArgumentException("מצטערים, לא מצאנו יחידות אירוח מתאימות לבקשתך. " +
                     "בקשתך נשמרה במערכת, אם נמצא יחידות אירוח מתאימות עבורך מאוחר יותר, נעדכן אותך באימייל");
             return matchHostingUnits.ToList();
