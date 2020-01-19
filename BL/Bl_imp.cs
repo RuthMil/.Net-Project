@@ -300,7 +300,7 @@ namespace BL
         {
             HostingUnit myUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
             GuestRequest myGuestRequest = GetGuestRequestByKey(myOrder.GuestRequestKey);
-            MailMessage mail = new MailMessage();            mail.To.Add(myGuestRequest.MailAddress);            mail.From = new MailAddress("ruthmiller2000@gmail.com");            mail.Subject = "שלום" + myGuestRequest.FirstName + "מצאנו עבורך יחידות אירוח מדהימות  ";
+            MailMessage mail = new MailMessage();            mail.To.Add(myGuestRequest.MailAddress);            mail.From = new MailAddress("hufshonet@gmail.com");            mail.Subject = "שלום" + myGuestRequest.FirstName + "מצאנו עבורך יחידות אירוח מדהימות  ";
             mail.Body = "";
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();

@@ -469,7 +469,7 @@ namespace PLWPF
             try
             {
                 bl.AddGuestRequest(myGuestRequest);
-                MessageBox.Show(" שלום" + myGuestRequest.FirstName + " בקשתך נקלטה בהצלחה! בדקות הקרובות יישלח אלייך אימייל עם הצעות אירוח מתאימות", "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign); 
+                MessageBox.Show(" שלום" + myGuestRequest.FirstName + "\n בקשתך נקלטה בהצלחה! בדקות הקרובות יישלח אלייך אימייל עם הצעות אירוח מתאימות", "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign); 
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
                 areasCMB.SelectedValue = null;
