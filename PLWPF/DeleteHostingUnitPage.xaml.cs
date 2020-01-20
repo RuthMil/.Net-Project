@@ -35,9 +35,15 @@ namespace PLWPF
                 errKey.Visibility = Visibility.Visible;
                 return false;
             }
+            if (!long.TryParse(KeyBox.Text, out long key))
+            {
+                errKey.Text = "הכנס ספרות בלבד";
+                errKey.Visibility = Visibility.Visible;
+                return false;
+            }
             try
             {
-                bl.GetHostingUnitByKey(long.Parse(KeyBox.Text));
+                bl.GetHostingUnitByKey(key);
                 errKey.Visibility = Visibility.Hidden;
                 return true;
             }
@@ -48,26 +54,36 @@ namespace PLWPF
                 return false;
             }
         }
+
+        private void DeleteHostingUnit(long key)
+        {
+            try
+            {
+                if (MessageBox.Show("?האם תאה בטוח שברצונך למחוק מקום אירוח זה", "", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No, MessageBoxOptions.RightAlign) == MessageBoxResult.Yes) 
+                {
+                    bl.DeleteHostingUnit(bl.GetHostingUnitByKey(key));
+                    MessageBox.Show("מקום האירוח שמספרו: " + KeyBox.Text + " !הוסר בהצלחה מהמאגר", "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign);
+                    this.NavigationService.Navigate(new Uri("MainPage.xaml", UriKind.Relative));
+                }
+                else
+                    this.NavigationService.Content = new DeleteHostingUnitPage();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign);
+            }
+        }
         private void KeyBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
                 if (KeyIsValid())
-                {
-                    try
-                    {
-                        bl.DeleteHostingUnit(bl.GetHostingUnitByKey(long.Parse(KeyBox.Text)));
-                        
-                    }
-                    catch(Exception ex)
-                    {
-
-                    }
-                }
+                    DeleteHostingUnit(long.Parse(KeyBox.Text)); 
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (KeyIsValid())
+                DeleteHostingUnit(long.Parse(KeyBox.Text));
         }
     }
 }

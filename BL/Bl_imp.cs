@@ -253,8 +253,7 @@ namespace BL
                     oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_התנגשות ||
                     oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_רכישה_אחרת ||
                     oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות ||
-                    (myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות &&
-                    oldOrder.Status == Enum_s.OrderStatus.לא_בטיפול) ||
+                    oldOrder.Status == Enum_s.OrderStatus.לא_בטיפול ||
                     ((myOrder.Status == Enum_s.OrderStatus.נשלח_מייל ||
                     myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_הענות) &&
                     !dal.GetHostingUnitByKey(myOrder.HostingUnitKey).Owner.CollectionClearance)) 

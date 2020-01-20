@@ -67,8 +67,8 @@
             <MenuItem x:Name="ownerHeader" Header="מנהל מערכת" BorderBrush="#FFD54F" BorderThickness="2" Click="OwnerHeader_Click" Height="{Binding ElementName=mainMenu, Path=ActualHeight}"/>
             <MenuItem x:Name="hostingUnitHeader" Header="מארחים" ToolTip="הוסיפו את מקום האירוח שלכם, עדכנו או מחקו" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
                 <MenuItem x:Name="addHostingUnitHeader" Header="הוספת מקום אירוח" Click="AddHostingUnitHeader_Click"/>
-                <MenuItem x:Name="updateHostingUnitHeader" Header="עדכון מקום אירוח"/>
-                <MenuItem x:Name="deleteHostingUnitHeader" Header="מחיקת מקום אירוח"/>
+                <MenuItem x:Name="updateHostingUnitHeader" Header="עדכון מקום אירוח" Click="UpdateHostingUnitHeader_Click" />
+                <MenuItem x:Name="deleteHostingUnitHeader" Header="הסרת מקום אירוח" Click="DeleteHostingUnitHeader_Click" />
             </MenuItem>
             <MenuItem x:Name="ordersHesder" Header="הזמנות" ToolTip="בעל יחידות אירוח! נהל את ההזמנות שלך בכרטיסיה זו" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
                 <MenuItem x:Name="dealHeader" Header="ביצוע עסקה" Click="DealHeader_Click"/>
