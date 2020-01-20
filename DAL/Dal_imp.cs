@@ -226,7 +226,7 @@ namespace DAL
             catch (KeyNotFoundException ex)
             {
                 throw ex;
-            }
+            }  
             return myUnit.First().Clone();
         }
 

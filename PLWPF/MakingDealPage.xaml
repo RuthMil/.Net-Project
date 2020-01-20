@@ -60,7 +60,7 @@
         <TextBlock Text="ביצוע עסקה" Grid.Row="0" Foreground="CornflowerBlue" FontWeight="DemiBold" FontSize="20" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
         <TextBlock x:Name="titleOfOrdrs" Text="רשימת ההזמנות עבור יחידת האירוח שלך" Visibility="Hidden" Grid.Row="1" Foreground="DimGray" FontWeight="DemiBold" FontSize="20" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
         <TextBox x:Name="mailBox" KeyDown="MailBox_KeyDown" Grid.Row="1" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" materialDesign:HintAssist.Hint="הכנס את כתובת האימייל שלך" Width="250" MaxWidth="250"/>
-        <TextBlock x:Name="errMessage" Visibility="Visible" Grid.Row="2" Foreground="Red" FontSize="11" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignTextBlock}" />
+        <TextBlock x:Name="errMessage" Visibility="Hidden" Grid.Row="2" Foreground="Red" FontSize="11" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignTextBlock}" />
         <Button x:Name="nextButton" VerticalAlignment="Center" Content="הבא" Grid.Row="3" Width="59" Background="CornflowerBlue" Margin="276,7.2,464,21.6" Click="NextButton_Click"/>
         <TextBlock x:Name="infoTextBlock" Text="הקש על ההזמנה אשר ברצונך לבצע" Grid.Row="2" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="DimGray" FontSize="14" Style="{StaticResource MaterialDesignHeadline2TextBlock}"/>
         <Border x:Name="orderListBorder" Grid.Row="3" Background="#FFECB3" BorderBrush="#FFD54F" BorderThickness="2" Visibility="Hidden">

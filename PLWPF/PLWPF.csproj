@@ -69,6 +69,9 @@
     <Compile Include="CancelDealPage.xaml.cs">
       <DependentUpon>CancelDealPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DeleteHostingUnitPage.xaml.cs">
+      <DependentUpon>DeleteHostingUnitPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -83,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CancelDealPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeleteHostingUnitPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

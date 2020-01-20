@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BE;
 using System.Data;
-using System.Net.Mail;
+using System.Net.Mail;
+
 namespace BL
 {
     public class Bl_imp : IBL
@@ -89,8 +90,12 @@ namespace BL
         public void DeleteOrder(Order myOrder)
         {
             GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
-            if (DateTime.Now > myGuestRequest.EntryDate.AddDays(-14)) 
+            if (myOrder.Status == Enum_s.OrderStatus.נשלח_מייל && DateTime.Now > myGuestRequest.EntryDate.AddDays(-14)) 
                 throw new TimeoutException(".מצטערים, זמן הביטול עבר. אינך יכול לבטל הזמנה זו");
+            if (myOrder.Status == Enum_s.OrderStatus.לא_בטיפול || myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_התנגשות ||
+                myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות || myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_פגות_תוקף ||
+                myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_רכישה_אחרת)
+                throw new ArgumentException("!לא ניתן לבטל הזמנה שאינה בוצעה");
             try
             {
                 dal.DeleteOrder(myOrder);
@@ -300,15 +305,22 @@ namespace BL
         {
             HostingUnit myUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
             GuestRequest myGuestRequest = GetGuestRequestByKey(myOrder.GuestRequestKey);
-            MailMessage mail = new MailMessage();            mail.To.Add(myGuestRequest.MailAddress);            mail.From = new MailAddress("hufshonet@gmail.com");            mail.Subject = "שלום" + myGuestRequest.FirstName + "מצאנו עבורך יחידות אירוח מדהימות  ";
+            MailMessage mail = new MailMessage();
+            mail.To.Add(myGuestRequest.MailAddress);
+            mail.From = new MailAddress("hufshonet@gmail.com");
+            mail.Subject = "שלום" + myGuestRequest.FirstName + "מצאנו עבורך יחידות אירוח מדהימות  ";
             mail.Body = "";
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
-            smtp.Credentials = new System.Net.NetworkCredential("hufshonet.com", "tiru1234");            smtp.EnableSsl = true;            try
+            smtp.Credentials = new System.Net.NetworkCredential("hufshonet.com", "tiru1234");
+            smtp.EnableSsl = true;
+            try
             {
                 smtp.Send(mail);
-            }            catch(Exception ex)            {
+            }
+            catch(Exception ex)
+            {
                
             }
         }

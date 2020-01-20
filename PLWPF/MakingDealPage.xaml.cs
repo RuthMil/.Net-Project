@@ -103,7 +103,6 @@ namespace PLWPF
                     ordersForList.Clear();
                     foreach (var item in bl.ReceiveOrdersForHost(bl.GetHostKeyByMail(mailBox.Text)).OrderBy(x => x.OrderKey)) 
                         ordersForList.Add(item);
-                    //ordersForList = (ObservableCollection<BE.Order>)ordersForList.OrderBy(x => x.OrderKey); 
                 }
                 catch(Exception ex)
                 {
