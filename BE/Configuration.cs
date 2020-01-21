@@ -15,6 +15,5 @@ namespace BE
         public static int commission = 10;
         public static int orderValidTime = 30;
         public static int orderCancelationDays = 14;
-        public static string jerImg = "Resources/jerusalem.jpg";
     }
 }

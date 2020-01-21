@@ -44,7 +44,6 @@ namespace PLWPF
             myGuestRequest = new GuestRequest();
             myCalendar.DisplayDateStart = DateTime.Now;
             myCalendar.DisplayDateEnd = DateTime.Now.AddMonths(11);
-            jerusalemImg.DataContext = new Configuration(); 
         }
 
         private void AreasComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

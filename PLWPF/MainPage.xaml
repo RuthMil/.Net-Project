@@ -171,7 +171,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="ירושלים" Grid.Row="0" Grid.Column="0" Margin="16 38 0 0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="18" />
             <Button x:Name="jerusalemImgButton" Grid.Row="0" Grid.Column="0" Height="Auto" Width="Auto" BorderBrush="Transparent" Background="Transparent" Click="JerusalemImgButton_Click" >
-                <Image x:Name="jerusalemImg" Source="{Binding jerImg, Converter={StaticResource ImageConverter}}" />
+                <Image x:Name="jerusalemImg" Source="Resources/jerusalem.jpg" />
             </Button>
         </Grid>
     </Grid>
