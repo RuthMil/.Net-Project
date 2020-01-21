@@ -90,12 +90,6 @@ namespace BL
         public void DeleteOrder(Order myOrder)
         {
             GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
-            if (myOrder.Status == Enum_s.OrderStatus.נשלח_מייל && DateTime.Now > myGuestRequest.EntryDate.AddDays(-14)) 
-                throw new TimeoutException(".מצטערים, זמן הביטול עבר. אינך יכול לבטל הזמנה זו");
-            if (myOrder.Status == Enum_s.OrderStatus.לא_בטיפול || myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_התנגשות ||
-                myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות || myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_פגות_תוקף ||
-                myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_רכישה_אחרת)
-                throw new ArgumentException("!לא ניתן לבטל הזמנה שאינה בוצעה");
             try
             {
                 dal.DeleteOrder(myOrder);
@@ -253,7 +247,8 @@ namespace BL
                     oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_התנגשות ||
                     oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_רכישה_אחרת ||
                     oldOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות ||
-                    oldOrder.Status == Enum_s.OrderStatus.לא_בטיפול ||
+                    (oldOrder.Status == Enum_s.OrderStatus.לא_בטיפול &&
+                    myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_הענות) ||
                     ((myOrder.Status == Enum_s.OrderStatus.נשלח_מייל ||
                     myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_הענות) &&
                     !dal.GetHostingUnitByKey(myOrder.HostingUnitKey).Owner.CollectionClearance)) 
@@ -307,12 +302,12 @@ namespace BL
             MailMessage mail = new MailMessage();
             mail.To.Add(myGuestRequest.MailAddress);
             mail.From = new MailAddress("hufshonet@gmail.com");
-            mail.Subject = "שלום" + myGuestRequest.FirstName + "מצאנו עבורך יחידות אירוח מדהימות  ";
+            mail.Subject = "שלום " + myGuestRequest.FirstName + ", מצאנו עבורך יחידות אירוח מדהימות";
             mail.Body = "";
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
-            smtp.Credentials = new System.Net.NetworkCredential("hufshonet.com", "tiru1234");
+            smtp.Credentials = new System.Net.NetworkCredential("hufshonet@gmail.com", "tiru1234");
             smtp.EnableSsl = true;
             try
             {
@@ -421,14 +416,12 @@ namespace BL
             return true;
         }
 
-        public List<Order> ExpiredOrders(int days)
+        public List<Order> ExpiredOrders()
         {
             try
             {
-                if (days < 0)
-                    throw new ArgumentOutOfRangeException("מספר ימים חייב להיות מספר חיובי", days, "days"); 
-                return dal.ReceiveOrderList().FindAll(x => (DateTime.Now - x.OrderDate).Days >= days ||
-                (DateTime.Now - x.CreateDate).Days >=days);
+                return dal.ReceiveOrderList().FindAll(x => (DateTime.Now - x.OrderDate).Days >= Configuration.orderCancelationDays  ||
+                (DateTime.Now - x.CreateDate).Days >= Configuration.orderCancelationDays); 
             }
             catch(Exception ex)
             {
@@ -561,7 +554,7 @@ namespace BL
             return emails.ToList();
         }
 
-        public bool IsValidEmail(string email)
+        public bool IsValidMail(string email)
         {
             try
             {
@@ -587,6 +580,18 @@ namespace BL
             var hosts = from unit in dal.ReceiveHostingUnitList()
                         select unit.Owner;
             return hosts.ToList();
+        }
+
+        public void CancelOrder(Order myOrder)
+        {
+            if (myOrder.Status == Enum_s.OrderStatus.לא_בטיפול || myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_התנגשות ||
+                myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות || myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_פגות_תוקף ||
+                myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_רכישה_אחרת || myOrder.Status == Enum_s.OrderStatus.נשלח_מייל) 
+                throw new ArgumentException("!לא ניתן לבטל הזמנה שלא בוצעה");
+            GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
+            if (myOrder.Status == Enum_s.OrderStatus.נסגר_בשל_הענות && DateTime.Now > myGuestRequest.EntryDate.AddDays(-Configuration.orderCancelationDays))
+                throw new TimeoutException(".מצטערים, זמן הביטול עבר. אינך יכול לבטל הזמנה זו");
+            DeleteOrder(myOrder);
         }
     }
 }

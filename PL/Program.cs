@@ -822,7 +822,7 @@ namespace PL
                         }
                         break;
                     case "L":
-                        foreach (var item in bl.ExpiredOrders(30))
+                        foreach (var item in bl.ExpiredOrders())
                             Console.WriteLine(item);
                         break;
                     case "M":

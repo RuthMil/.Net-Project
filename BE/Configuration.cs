@@ -13,6 +13,8 @@ namespace BE
         public static long HostingUnitID = 0;
         public static long OrderID = 0;
         public static int commission = 10;
-        public static int invitationValidTime = 30;
+        public static int orderValidTime = 30;
+        public static int orderCancelationDays = 14;
+        public static string jerImg = "Resources/jerusalem.jpg";
     }
 }

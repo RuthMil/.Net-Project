@@ -23,6 +23,7 @@ namespace PLWPF
     public partial class MakingDealPage : Page
     {
         readonly BL.IBL bl = BL.BlFactory.GetBL();
+
         private ObservableCollection<Order> ordersForList;
 
         public MakingDealPage()
@@ -40,7 +41,7 @@ namespace PLWPF
                 errMessage.Visibility = Visibility.Visible;
                 return false;
             }
-            if (!bl.IsValidEmail(mailBox.Text))
+            if (!bl.IsValidMail(mailBox.Text))
             {
                 errMessage.Text = "כתובת אימייל אינה תקינה";
                 errMessage.Visibility = Visibility.Visible;
@@ -108,7 +109,10 @@ namespace PLWPF
                 {
                     MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign);
                 }
-                ordersListView.SelectedItem = null;
+                finally
+                {
+                    ordersListView.SelectedItem = null;
+                }
             }
         }
     }

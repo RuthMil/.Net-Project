@@ -6,9 +6,10 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:PLWPF"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1200" d:DesignWidth="800"
       Title="MainPage" x:Name="mainPage">
     <Page.Resources>
+        <local:ImageConverter x:Key="ImageConverter" />
         <Style x:Key="errorMessage" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
             <Setter Property="FontSize" Value="9"/>
             <Setter Property="Foreground" Value="Red"/>
@@ -53,8 +54,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="41"/>
             <RowDefinition Height="41"/>
+            <RowDefinition Height="280"/>
             <RowDefinition Height="600"/>
-            <RowDefinition Height="200"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -65,13 +66,13 @@
         </Grid.ColumnDefinitions>
         <Menu x:Name="mainMenu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" FlowDirection="RightToLeft">
             <MenuItem x:Name="ownerHeader" Header="מנהל מערכת" BorderBrush="#FFD54F" BorderThickness="2" Click="OwnerHeader_Click" Height="{Binding ElementName=mainMenu, Path=ActualHeight}"/>
-            <MenuItem x:Name="hostingUnitHeader" Header="מארחים" ToolTip="הוסיפו את מקום האירוח שלכם, עדכנו או מחקו" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
+            <MenuItem x:Name="hostingUnitHeader" Header="מקומות אירוח" ToolTip="הוסיפו את מקום האירוח שלכם, עדכנו או מחקו" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
                 <MenuItem x:Name="addHostingUnitHeader" Header="הוספת מקום אירוח" Click="AddHostingUnitHeader_Click"/>
                 <MenuItem x:Name="updateHostingUnitHeader" Header="עדכון מקום אירוח" Click="UpdateHostingUnitHeader_Click" />
                 <MenuItem x:Name="deleteHostingUnitHeader" Header="הסרת מקום אירוח" Click="DeleteHostingUnitHeader_Click" />
             </MenuItem>
             <MenuItem x:Name="ordersHesder" Header="הזמנות" ToolTip="בעל יחידות אירוח! נהל את ההזמנות שלך בכרטיסיה זו" BorderBrush="#FFD54F" BorderThickness="2" FlowDirection="RightToLeft" Height="{Binding ElementName=mainMenu, Path=ActualHeight}">
-                <MenuItem x:Name="dealHeader" Header="ביצוע עסקה" Click="DealHeader_Click"/>
+                <MenuItem x:Name="dealHeader" Header="ביצוע עסקה" Click="DealHeader_Click" />
                 <MenuItem x:Name="cancelDealHeader" Header="ביטול עסקה" Click="CancelDealHeader_Click" />
             </MenuItem>
         </Menu>
@@ -158,6 +159,20 @@
                 <ComboBox x:Name="jaccuziCMB" Grid.Row="1" Grid.Column="0" Style="{StaticResource myComboBox}"/>
                 <ComboBox x:Name="childAtracCMB" Visibility="Hidden" Grid.Row="2" Grid.Column="4" Style="{StaticResource myComboBox}"/>
             </Grid>
+        </Grid>
+        <Grid FlowDirection="RightToLeft" Grid.Row="3" HorizontalAlignment="Center" Grid.ColumnSpan="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300" />
+                <RowDefinition Height="300" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="ירושלים" Grid.Row="0" Grid.Column="0" Margin="16 38 0 0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="18" />
+            <Button x:Name="jerusalemImgButton" Grid.Row="0" Grid.Column="0" Height="Auto" Width="Auto" BorderBrush="Transparent" Background="Transparent" Click="JerusalemImgButton_Click" >
+                <Image x:Name="jerusalemImg" Source="{Binding jerImg, Converter={StaticResource ImageConverter}}" />
+            </Button>
         </Grid>
     </Grid>
 </Page>

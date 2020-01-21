@@ -40,7 +40,7 @@ namespace PLWPF
                 errMessage.Visibility = Visibility.Visible;
                 return false;
             }
-            if (!bl.IsValidEmail(mailBox.Text))
+            if (!bl.IsValidMail(mailBox.Text))
             {
                 errMessage.Text = "כתובת אימייל אינה תקינה";
                 errMessage.Visibility = Visibility.Visible;
@@ -92,24 +92,26 @@ namespace PLWPF
         {
             if (ordersListView.SelectedValue == null)
                 return;
-            if (MessageBox.Show("?האם אתה מעוניין למחוק הזמנה זו", "ביטול עסקה", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
+            if (MessageBox.Show("?האם אתה בטוח שברצונך לבטל הזמנה זו", "ביטול עסקה", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.None, MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
             {
                 Order selectedOrder = (Order)ordersListView.SelectedValue;
                 try
                 {
-                    bl.DeleteOrder(selectedOrder);
+                    bl.CancelOrder(selectedOrder); 
                     MessageBox.Show("!העסקה בוטלה בהצלחה\nמספר הזמנה:  " + selectedOrder.OrderKey.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign);
                     ordersForList.Clear();
                     foreach (var item in bl.ReceiveOrdersForHost(bl.GetHostKeyByMail(mailBox.Text)).OrderBy(x => x.OrderKey))
                         ordersForList.Add(item);
                     noOrdersTxt.Visibility = ordersForList.Count == 0 ? Visibility.Visible : Visibility.Hidden;
-
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "שגיאה", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None, MessageBoxOptions.RightAlign);
                 }
-                ordersListView.SelectedItem = null;
+                finally
+                {
+                    ordersListView.SelectedItem = null;
+                }
             }
         }
     }

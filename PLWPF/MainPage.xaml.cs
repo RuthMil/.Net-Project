@@ -44,6 +44,7 @@ namespace PLWPF
             myGuestRequest = new GuestRequest();
             myCalendar.DisplayDateStart = DateTime.Now;
             myCalendar.DisplayDateEnd = DateTime.Now.AddMonths(11);
+            jerusalemImg.DataContext = new Configuration(); 
         }
 
         private void AreasComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,7 +161,7 @@ namespace PLWPF
             try
             {
                 bl.AddGuestRequest(myGuestRequest);
-                MessageBox.Show(" שלום" + myGuestRequest.FirstName + "\n בקשתך נקלטה בהצלחה! בדקות הקרובות יישלח אלייך אימייל עם הצעות אירוח מתאימות", "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign); 
+                MessageBox.Show("שלום " + myGuestRequest.FirstName + "\n בקשתך נקלטה בהצלחה! בדקות הקרובות יישלח אלייך אימייל עם הצעות אירוח מתאימות", "", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.None, MessageBoxOptions.RightAlign); 
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
                 areasCMB.SelectedValue = null;
@@ -184,6 +185,11 @@ namespace PLWPF
         {
             OwnerWindow newOwnerWindow = new OwnerWindow();
             newOwnerWindow.ShowDialog();
+            if (newOwnerWindow.PasswordIsValid)
+            {
+                MainWindow.prevPage = this;
+                this.NavigationService.Navigate(new Uri("OwnerPage.xaml", UriKind.Relative)); 
+            }
         }
 
         private void AddHostingUnitHeader_Click(object sender, RoutedEventArgs e)
@@ -224,6 +230,18 @@ namespace PLWPF
         {
             MainWindow.prevPage = this;
             this.NavigationService.Navigate(new Uri("DeleteHostingUnitPage.xaml", UriKind.Relative));
+        }
+
+        private void JerusalemImgButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.prevPage = this;
+            List<HostingUnit> hostingUnits = new List<HostingUnit>();
+            foreach (var item1 in bl.GroupHostingUnitByAreas())
+                if (item1.Key == Enum_s.Areas.ירושלים)
+                    foreach (var item2 in item1)
+                        hostingUnits.Add(item2);
+            ViewHostingUnitsPage hostingUnitsPage = new ViewHostingUnitsPage(hostingUnits);  
+            this.NavigationService.Navigate(hostingUnitsPage); 
         }
     }
 }

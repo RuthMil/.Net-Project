@@ -47,7 +47,7 @@ namespace BL
         /// </summary>
         /// <param name="days">maximum days for validity of order</param>
         /// <returns>list of expired orders</returns>
-        List<Order> ExpiredOrders(int days);
+        List<Order> ExpiredOrders();
         /// <summary>
         /// return list of guest requests which realizes specific condition
         /// </summary>
@@ -114,7 +114,7 @@ namespace BL
         void SetOwnerPassword(string newPassword, string oldPassword);
         List<BankBranch> ReceiveBankBranchesByBank(string myBankName);
         List<string> ReceiveHostMail();
-        bool IsValidEmail(string email);
+        bool IsValidMail(string email);
         /// <summary>
         /// return host's mail by his key, if the mail is not in the system - return -1
         /// </summary>
@@ -122,5 +122,6 @@ namespace BL
         /// <returns>host's mail by his key</returns>
         long GetHostKeyByMail(string email);
         List<Host> ReceiveHosts();
+        void CancelOrder(Order myOrder);
     }
 }

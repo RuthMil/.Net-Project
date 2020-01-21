@@ -19,6 +19,7 @@ namespace PLWPF
     /// </summary>
     public partial class UserDetailsWindow : Window
     {
+        readonly BL.IBL bl = BL.BlFactory.GetBL();
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserMail { get; set; }
@@ -36,9 +37,9 @@ namespace PLWPF
                 return false;
             errorUserFName.Visibility = int.TryParse(txtUserFName.Text, out int checkF) ? Visibility.Visible : Visibility.Hidden;
             errorUserLName.Visibility = int.TryParse(txtUserLName.Text, out int checkL) ? Visibility.Visible : Visibility.Hidden;
-            errorUserMail.Visibility = txtYourMail.Text.Length < 8 ? Visibility.Visible : Visibility.Hidden;
+            errorUserMail.Visibility = bl.IsValidMail(txtYourMail.Text) ? Visibility.Hidden : Visibility.Visible; 
             if (errorUserFName.Visibility == Visibility.Visible || errorUserLName.Visibility == Visibility.Visible || errorUserMail.Visibility == Visibility.Visible)
-                return false;
+                return false;    
             return true;
         }
 

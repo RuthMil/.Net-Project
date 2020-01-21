@@ -44,9 +44,9 @@
         <TextBox Name="txtUserLName" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Center" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את שם המשפחה שלך" Style="{StaticResource textBoxStyle}" />
         <TextBlock Name="errorUserLName" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="3" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="אותיות בלבד"/>
         <TextBox Name="txtYourMail" Grid.Row="4" FontSize="18" HorizontalContentAlignment="Center" MaxLength="28" materialDesign:HintAssist.Hint="הכנס את כתובת האימייל שלך" Style="{StaticResource textBoxStyle}" />
-        <TextBlock Name="errorUserMailEmpty" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="4" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="שדה זה הינו הכרחי" />
-        <TextBlock Name="errorUserFnameEmpty" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="2" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="שדה זה הינו הכרחי" />
-        <TextBlock Name="errorUserLNameEmpty" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="3" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="שדה זה הינו הכרחי" />
+        <TextBlock Name="errorUserMailEmpty" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="4" FontSize="11" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="שדה זה הינו הכרחי" />
+        <TextBlock Name="errorUserFnameEmpty" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="2" FontSize="11" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="שדה זה הינו הכרחי" />
+        <TextBlock Name="errorUserLNameEmpty" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="3" FontSize="11" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="שדה זה הינו הכרחי" />
         <TextBlock Name="errorUserMail" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="4" FontSize="12" Foreground="Red" Style="{StaticResource MaterialDesignTextBlock}" Text="כתובת אימייל לא תקינה" />
         <Button Name="continueButton" Background="CornflowerBlue" Margin="0 20" Grid.Row="5" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Continue_Button_Click" >
             המשך

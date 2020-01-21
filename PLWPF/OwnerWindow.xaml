@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PLWPF"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
         mc:Ignorable="d"
-        Title="אימות פרטים" Height="235" Width="450" Name="ownerWindow" WindowStartupLocation="CenterScreen">
+        Title="אימות פרטים" Height="235" Width="450" Name="ownerWindow" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" >
     <Window.Resources>
         <Style x:Key="headerStyle">
             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -25,6 +25,7 @@
         </Grid.RowDefinitions>
         <TextBlock Foreground="CornflowerBlue" Text="!ברוכים הבאים" VerticalAlignment="Center" Grid.Row="0" Style="{StaticResource headerStyle}" />
         <PasswordBox Name="txtYourPassword" materialDesign:HintAssist.Hint="הכנס סיסמא" Grid.Row="1" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" KeyDown="TxtYourPassword_KeyDown" />
+        <TextBlock x:Name="errMessage" Text="סיסמא אינה נכונה" Visibility="Hidden" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" FontSize="11" />
         <Button Background="CornflowerBlue" Margin="0 20" Grid.Row="4" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Enter_Button">
             היכנס
         </Button>
