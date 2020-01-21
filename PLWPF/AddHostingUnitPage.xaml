@@ -2,10 +2,11 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:PLWPF"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="1000"
       Title="AddHostingUnitPage">
     <Page.Resources>
         <Style x:Key="myTextBlock" TargetType="TextBlock">
@@ -14,17 +15,19 @@
             <Setter Property="TextAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
         </Style>
-        <Style x:Key="myTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFilledTextFieldTextBox}">
+        <Style x:Key="myTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="TextWrapping" Value="wrap"/>
-            <Setter Property="Text" Value=""/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="FlowDirection" Value="RightToLeft"/>
-            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#FFD54F"/>
+            <Setter Property="BorderThickness" Value="2"/>
         </Style>
-        <Style x:Key="myCheckBox" TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignDarkCheckBox}">
+        <Style x:Key="myCheckBox" TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignLightCheckBox}">
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Background" Value="#FFD54F"/>
         </Style>
         <Style x:Key="myComboBox" TargetType="ComboBox">
             <Setter Property="FlowDirection" Value="RightToLeft"/>
@@ -36,10 +39,12 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
         </Style>
-        <Style x:Key="warningTextBlock" TargetType="TextBlock" BasedOn="{StaticResource myTextBlock}">
-            <Setter Property="Text" Value="חובה למלא את השדה הנוכחי*"/>
-            <Setter Property="Visibility" Value="Visible"/>
+        <Style x:Key="errorTextBlock" TargetType="TextBlock" BasedOn="{StaticResource myTextBlock}">
             <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+
         </Style>
         <Style x:Key="plusMinusButton" TargetType="Button">
             <Setter Property="FontSize" Value="20"/>
@@ -60,12 +65,21 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="White"/>
-            <EventSetter Event="MouseLeave" Handler="ComboBoxItem_MouseLeave"/>
         </Style>
     </Page.Resources>
     <Grid ShowGridLines="False" HorizontalAlignment="Center" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="50" />
             <RowDefinition Height="20" />
             <RowDefinition Height="50" />
@@ -73,159 +87,256 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="20" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="20" />
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="128" />
-            <ColumnDefinition Width="228" />
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="160" />
-            <ColumnDefinition Width="208" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="5" Grid.Row="1" Text="הכנס את פרטיך ואת פרטי היחידה" Style="{StaticResource myTextBlock}"/>
-        <TextBlock x:Name="firstNameWarning" Grid.Column="5" Grid.Row="2" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="3" Text=":שם פרטי" Style="{StaticResource myTextBlock}"/>
-        <TextBox x:Name="firstName" Grid.Column="4" Grid.Row="3" Style="{StaticResource myTextBox}"/>
-        <TextBlock x:Name="lastNameWarning" Grid.Column="2" Grid.Row="2" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="2" Grid.Row="3" Text=":שם משפחה" Style="{StaticResource myTextBlock}"/>
-        <TextBox x:Name="lastName" Grid.Column="1" Grid.Row="3" Style="{StaticResource myTextBox}"/>
-        <TextBlock x:Name="phoneNumberWarning" Grid.Column="5" Grid.Row="4" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="5" Text=":מספר טלפון" Style="{StaticResource myTextBlock}"/>
-        <TextBox x:Name="phoneNumber" Grid.Column="4" Grid.Row="5" Style="{StaticResource myTextBox}"/>
-        <TextBlock x:Name="emailAddressWarning" Grid.Column="2" Grid.Row="4" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="2" Grid.Row="5" Text=":כתובת אימייל" Style="{StaticResource myTextBlock}"/>
-        <TextBox x:Name="emailAddress" Grid.Column="1" Grid.Row="5" Style="{StaticResource myTextBox}"/>
-        <TextBlock x:Name="bankNameCMBWarning" Grid.Column="5" Grid.Row="6" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="7" Text=":שם הבנק ומספרו" Style="{StaticResource myTextBlock}"/>
-        <ComboBox x:Name="bankNameCMB" Grid.Column="4" Grid.Row="7" Text="בחר בנק"  Style="{StaticResource myComboBox}" SelectionChanged="bankNameCMB_SelectionChanged">
-            <!--<ComboBoxItem Style="{StaticResource myComboBoxItem}"/>-->
-        </ComboBox>
-        <TextBlock x:Name="branchNumberCMBWarning" Grid.Column="2" Grid.Row="6" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="2" Grid.Row="7" Text=":סניף הבנק" Style="{StaticResource myTextBlock}"/>
-        <ComboBox x:Name="branchNumberCMB" Grid.Column="1" Grid.Row="7" Text="בחר סניף" Style="{StaticResource myComboBox}">
-            <!--<ComboBoxItem Style="{StaticResource myComboBoxItem}"/>-->
-        </ComboBox>
-        <TextBlock x:Name="bankAccountNumberWarning" Grid.Column="5" Grid.Row="8" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="9" Text=":מספר חשבון בנק" Style="{StaticResource myTextBlock}"/>
-        <TextBox x:Name="bankAccountNumber" Grid.Column="4" Grid.Row="9" Style="{StaticResource myTextBox}"/>
-        <TextBlock x:Name="collectionClearanceWarning" Grid.Column="2" Grid.Row="8" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="2" Grid.Row="9" Text=":סמן האם קיימת הרשאה לחיוב חשבון בנק" Style="{StaticResource myTextBlock}"/>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <!--<CheckBox x:Name="NoCollectionClearance" Style="{StaticResource myCheckBox}" Click="{Binding NoCollectionClearance_IsChecked, Mode=TwoWay}"/>
-            <TextBlock Text="   :לא        "/>
-            <CheckBox x:Name="YesCollectionClearance" Style="{StaticResource myCheckBox}" Click="{Binding YesCollectionClearance_IsChecked, Mode=TwoWay}"/>
-            <TextBlock Text="   :כן"/>-->
-        </StackPanel>
-        <TextBlock x:Name="hostingUnitNameWarning" Grid.Column="5" Grid.Row="10" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="11" Text=":שם יחידת האירוח" Style="{StaticResource myTextBlock}"/>
-        <TextBox x:Name="hostingUnitName" Grid.Column="4" Grid.Row="11" Style="{StaticResource myTextBox}"/>
-        <TextBlock x:Name="unitAreasCMBWarning" Grid.Column="2" Grid.Row="10" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="2" Grid.Row="11" Text=":אזור יחידת האירוח" Style="{StaticResource myTextBlock}"/>
-        <ComboBox x:Name="unitAreasCMB" Grid.Column="1" Grid.Row="11" Text="בחר אזור" Style="{StaticResource myComboBox}" >
-            <!--<ComboBoxItem Style="{StaticResource myComboBoxItem}"/>-->
-        </ComboBox>
-        <TextBlock x:Name="unitSubAreasCMBWarning" Grid.Column="5" Grid.Row="12" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="13" Text=":תת אזור יחידת האירוח" Style="{StaticResource myTextBlock}"/>
-        <ComboBox x:Name="unitSubAreasCMB" Grid.Column="4" Grid.Row="13" Text="בחר תת אזור" Style="{StaticResource myComboBox}">
-            <!--<ComboBoxItem Style="{StaticResource myComboBoxItem}"/>-->
-        </ComboBox>
-        <TextBlock x:Name="unitTypesCMBWarning" Grid.Column="2" Grid.Row="12" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="2" Grid.Row="13" Text=":סוג יחידת האירוח" Style="{StaticResource myTextBlock}"/>
-        <ComboBox x:Name="unitTypesCMB" Grid.Column="1" Grid.Row="13" Text="בחר סוג" Style="{StaticResource myComboBox}">
-            <!--<ComboBoxItem Style="{StaticResource myComboBoxItem}"/>-->
-        </ComboBox>
-        <TextBlock x:Name="maxAdultsWarning" Grid.Column="5" Grid.Row="14" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="15" Text=":מספר מבוגרים מקסימלי" Style="{StaticResource myTextBlock}"/>
-        <ComboBox x:Name="maxAdultsCMB" Text="סמן מספר" Grid.Column="4" Grid.Row="15" Style="{StaticResource myComboBox}">
-            <ComboBoxItem Style="{StaticResource myComboBoxItem}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*"/>
-                        <ColumnDefinition Width="30*"/>
-                        <ColumnDefinition Width="30*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="adultsPlus" Content="+" Style="{StaticResource plusMinusButton}" Grid.Column="0" Grid.Row="0"/>
-                    <Button x:Name="adultsMinus" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2" Grid.Row="0"/>
-                    <TextBox x:Name="adults" Text="2" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="0"/>
-                </Grid>
-            </ComboBoxItem>
-        </ComboBox>
-        <TextBlock x:Name="maxChildrenWarning" Grid.Column="2" Grid.Row="14" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="2" Grid.Row="15" Text=":מספר ילדים מקסימלי" Style="{StaticResource myTextBlock}"/>
-        <ComboBox x:Name="maxChildrenCMB" Text="סמן מספר" Grid.Column="1" Grid.Row="15" Style="{StaticResource myComboBox}">
-            <ComboBoxItem Style="{StaticResource myComboBoxItem}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*"/>
-                        <ColumnDefinition Width="30*"/>
-                        <ColumnDefinition Width="30*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="childPlus" Content="+" Style="{StaticResource plusMinusButton}" Grid.Column="0" Grid.Row="1"/>
-                    <Button x:Name="childMinus" IsEnabled="False" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2" Grid.Row="1"/>
-                    <TextBox x:Name="children" Text="0" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Width="25" Grid.Column="1" Grid.Row="1"/>
-                </Grid>
-            </ComboBoxItem>
-        </ComboBox>
-        <TextBlock x:Name="poolWarning" Grid.Column="5" Grid.Row="16" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="17" Text=":סמן האם קיימת בריכה ליחידת האירוח" Style="{StaticResource myTextBlock}"/>
-        <StackPanel Orientation="Horizontal" Grid.Column="4" Grid.Row="17" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <CheckBox x:Name="NoPool" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :לא        "/>
-            <CheckBox x:Name="YesPool" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :כן"/>
-        </StackPanel>
-        <TextBlock x:Name="jacuzziWarning" Grid.Column="2" Grid.Row="16" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="2" Grid.Row="17" Text=":סמן האם קיים ג'קוזי ביחידת האירוח" Style="{StaticResource myTextBlock}"/>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="17" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <CheckBox x:Name="NoJacuzzi" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :לא        "/>
-            <CheckBox x:Name="YesJacuzzi" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :כן"/>
-        </StackPanel>
-        <TextBlock x:Name="gardenWarning" Grid.Column="5" Grid.Row="18" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="19" Text=":סמן האם קיימת גינה ליחידת האירוח" Style="{StaticResource myTextBlock}"/>
-        <StackPanel Orientation="Horizontal" Grid.Column="4" Grid.Row="19" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <CheckBox x:Name="NoGarden" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :לא        "/>
-            <CheckBox x:Name="YesGarden" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :כן"/>
-        </StackPanel>
-        <TextBlock x:Name="childrenAttractionsWarning" Grid.Column="2" Grid.Row="18" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock x:Name="childrenAttractionsText" Visibility="Hidden" Grid.Column="2" Grid.Row="19" Text=":סמן האם קיימות אטרקציות לילדים ביחידה" Style="{StaticResource myTextBlock}"/>
-        <StackPanel x:Name="childrenAttractionsTextStack" Visibility="Hidden" Orientation="Horizontal" Grid.Column="1" Grid.Row="19" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <CheckBox x:Name="NoChildrenAttractions" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :לא        "/>
-            <CheckBox x:Name="YesChildrenAttractions" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :כן"/>
-        </StackPanel>
-        <TextBlock x:Name="wifiWarning" Grid.Column="5" Grid.Row="20" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="5" Grid.Row="21" Text=":ביחידת האירוח Wifi סמן האם קיים" Style="{StaticResource myTextBlock}"/>
-        <StackPanel Orientation="Horizontal" Grid.Column="4" Grid.Row="21" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <CheckBox x:Name="NoWifi" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :לא        "/>
-            <CheckBox x:Name="YesWifi" Style="{StaticResource myCheckBox}"/>
-            <TextBlock Text="   :כן"/>
-        </StackPanel>
-        <TextBlock x:Name="pricePerNightWarning" Grid.Column="2" Grid.Row="20" Style="{StaticResource warningTextBlock}"/>
-        <TextBlock Grid.Column="2" Grid.Row="21" Text=":מחיר ללילה ביחידת האירוח" Style="{StaticResource myTextBlock}"/>
-        <TextBox x:Name="pricePerNight" Grid.Column="1" Grid.Row="21" Style="{StaticResource myTextBox}"/>
-        <Button x:Name="addButton" Content="הוספת היחידה" FontWeight="Bold" Foreground="White" BorderBrush="CornflowerBlue" Background="CornflowerBlue" Grid.Column="1" Grid.Row="23" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="הכנס את פרטיך ואת פרטי היחידה" FontWeight="Bold" FontSize="20" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+
+        <TextBlock Grid.Column="5" Grid.Row="1" Text="פרטים אישיים" FontWeight="Bold" FontSize="14" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+        <TextBox Name="firstName" Grid.Row="2" Grid.Column="5" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="שם פרטי" />
+        <TextBlock x:Name="firstNameEmpty" Grid.Column="5" Grid.Row="3" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBlock x:Name="firstNameError" Grid.Column="5" Grid.Row="3" Style="{StaticResource errorTextBlock}" Text="אותיות בלבד*"/>
+
+        <TextBox Name="lastName" Grid.Row="2" Grid.Column="3" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="שם משפחה" />
+        <TextBlock x:Name="lastNameEmpty" Grid.Column="3" Grid.Row="3" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBlock x:Name="lastNameError" Grid.Column="3" Grid.Row="3" Style="{StaticResource errorTextBlock}" Text="אותיות בלבד*"/>
+
+        <TextBox Name="phoneNumber" Grid.Row="2" Grid.Column="1" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="מספר טלפון" />
+        <TextBlock x:Name="phoneNumberEmpty" Grid.Column="1" Grid.Row="3" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBlock x:Name="phoneNumberError" Grid.Column="1" Grid.Row="3" Style="{StaticResource errorTextBlock}" Text="בין 9 ל-10 ספרות בלבד*"/>
+
+        <TextBox Name="emailAddress" Grid.Row="4" Grid.Column="5" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="כתובת אימייל" />
+        <TextBlock x:Name="emailAddressEmpty" Grid.Column="5" Grid.Row="5" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBlock x:Name="emailAddressError" Grid.Column="5" Grid.Row="5" Style="{StaticResource errorTextBlock}" Text="כתובת המייל אינה תקינה*"/>
+
+        <TextBlock Grid.Column="5" Grid.Row="6" Text="פרטי בנק" FontWeight="Bold" FontSize="14" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+        <TextBlock Grid.Column="5" Grid.Row="7" Style="{StaticResource myTextBlock}">
+            <Grid Width="220">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text=":שם הבנק ומספרו" Style="{StaticResource myTextBlock}"/>
+                <ComboBox x:Name="bankNameCMB" Grid.Row="1" Text="בחר בנק"  Style="{StaticResource myComboBox}" SelectionChanged="BankNameCMB_SelectionChanged"/>
+            </Grid>
+        </TextBlock>
+        <TextBlock x:Name="bankNameCMBEmpty" Grid.Column="5" Grid.Row="8" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBlock Grid.Column="3" Grid.Row="7" Style="{StaticResource myTextBlock}">
+            <Grid Width="220">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text=":סניף הבנק" Style="{StaticResource myTextBlock}"/>
+                <ComboBox x:Name="branchNumberCMB" Grid.Row="1" Text="בחר סניף"  Style="{StaticResource myComboBox}"/>
+            </Grid>
+        </TextBlock>
+        <TextBlock x:Name="branchNumberCMBEmpty" Grid.Column="3" Grid.Row="8" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBox Name="bankAccountNumber" Grid.Row="7" Grid.Column="1" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="מספר חשבון בנק" />
+        <TextBlock x:Name="bankAccountNumberEmpty" Grid.Column="1" Grid.Row="8" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBlock x:Name="bankAccountNumberError" Grid.Column="1" Grid.Row="8" Style="{StaticResource errorTextBlock}" Text="ספרות בלבד*"/>
+
+        <TextBlock Grid.Column="5" Grid.Row="9" Style="{StaticResource myTextBlock}">
+            <Grid Height="50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="160"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="2" Text=":הרשאה לחיוב חשבון בנק" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource myTextBlock}"/>
+                <CheckBox x:Name="CheckCollectionClearance" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource myCheckBox}"/>
+            </Grid>
+        </TextBlock>
+
+        <TextBlock Grid.Column="5" Grid.Row="10" Text="פרטי היחידה" FontWeight="Bold" FontSize="14" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+        <TextBox Name="hostingUnitName" Grid.Row="11" Grid.Column="5" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="שם היחידה" />
+        <TextBlock x:Name="hostingUnitNameEmpty" Grid.Column="5" Grid.Row="12" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBlock x:Name="hostingUnitNameError" Grid.Column="5" Grid.Row="12" Style="{StaticResource errorTextBlock}" Text="אותיות בלבד*"/>
+
+        <TextBlock Grid.Column="3" Grid.Row="11" Style="{StaticResource myTextBlock}">
+            <Grid Width="220">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text=":אזור היחידה" Style="{StaticResource myTextBlock}"/>
+                <ComboBox x:Name="unitAreasCMB" Grid.Row="1" Text="בחר אזור"  Style="{StaticResource myComboBox}" SelectionChanged="AreasComboBox_SelectionChanged"/>
+            </Grid>
+        </TextBlock>
+        <TextBlock x:Name="unitAreasCMBEmpty" Grid.Column="3" Grid.Row="12" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBlock Grid.Column="1" Grid.Row="11" Style="{StaticResource myTextBlock}">
+            <Grid Width="220">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text=":תת אזור היחידה" Style="{StaticResource myTextBlock}"/>
+                <ComboBox x:Name="unitSubAreasCMB" Grid.Row="1" Text="בחר תת אזור"  Style="{StaticResource myComboBox}"/>
+            </Grid>
+        </TextBlock>
+        <TextBlock x:Name="unitSubAreasCMBEmpty" Grid.Column="1" Grid.Row="12" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+
+        <TextBlock Grid.Column="5" Grid.Row="13" Style="{StaticResource myTextBlock}">
+            <Grid Width="220">
+              <Grid.RowDefinitions>
+                  <RowDefinition Height="20" />
+                  <RowDefinition Height="30" />
+              </Grid.RowDefinitions>
+              <TextBlock Grid.Row="0" Text=":סוג היחידה" Style="{StaticResource myTextBlock}"/>
+              <ComboBox x:Name="unitTypesCMB" Grid.Row="1" Text="בחר סוג"  Style="{StaticResource myComboBox}"/>
+            </Grid>
+        </TextBlock>
+        <TextBlock x:Name="unitTypesCMBEmpty" Grid.Column="5" Grid.Row="14" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+
+        <TextBlock Grid.Column="3" Grid.Row="13" Style="{StaticResource myTextBlock}">
+            <Grid Width="220">
+              <Grid.RowDefinitions>
+                  <RowDefinition Height="20" />
+                  <RowDefinition Height="30" />
+              </Grid.RowDefinitions>
+              <TextBlock Grid.Row="0" Text=":מספר מבוגרים מקסימלי" Style="{StaticResource myTextBlock}"/>
+              <ComboBox x:Name="maxAdultsCMB" Text="סמן מספר" Grid.Row="1" Style="{StaticResource myComboBox}" DropDownClosed="Adults_DropDownClosed">
+                  <ComboBoxItem Style="{StaticResource myComboBoxItem}">
+                      <Grid>
+                          <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="30*"/>
+                              <ColumnDefinition Width="30*"/>
+                              <ColumnDefinition Width="30*"/>
+                          </Grid.ColumnDefinitions>
+                          <Button x:Name="adultsPlus" Content="+" Style="{StaticResource plusMinusButton}" Grid.Column="0"/>
+                          <Button x:Name="adultsMinus" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2"/>
+                          <TextBox x:Name="adults" Text="2" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Width="25" Grid.Column="1"/>
+                      </Grid>
+                  </ComboBoxItem>
+              </ComboBox>
+            </Grid>
+        </TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="13" Style="{StaticResource myTextBlock}">
+            <Grid Width="220">
+              <Grid.RowDefinitions>
+                  <RowDefinition Height="20" />
+                  <RowDefinition Height="30" />
+              </Grid.RowDefinitions>
+              <TextBlock Grid.Row="0" Text=":מספר ילדים מקסימלי" Style="{StaticResource myTextBlock}"/>
+              <ComboBox x:Name="maxChildrenCMB" Text="סמן מספר" Grid.Row="1" Style="{StaticResource myComboBox}" DropDownClosed="Children_DropDownClosed">
+                  <ComboBoxItem Style="{StaticResource myComboBoxItem}">
+                      <Grid>
+                          <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="30*"/>
+                              <ColumnDefinition Width="30*"/>
+                              <ColumnDefinition Width="30*"/>
+                          </Grid.ColumnDefinitions>
+                          <Button x:Name="childPlus" Content="+" Style="{StaticResource plusMinusButton}" Grid.Column="0"/>
+                          <Button x:Name="childMinus" IsEnabled="False" Content="-" Style="{StaticResource plusMinusButton}" Grid.Column="2"/>
+                          <TextBox x:Name="children" Text="0" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" Width="25" Grid.Column="1"/>
+                      </Grid>
+                  </ComboBoxItem>
+              </ComboBox>
+            </Grid>
+        </TextBlock>
+
+        <TextBox Name="pricePerNight" Grid.Row="15" Grid.Column="5" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="(מחיר ללילה (בשקלים" />
+        <TextBlock x:Name="pricePerNightEmpty" Grid.Column="5" Grid.Row="16" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+        <TextBlock x:Name="pricePerNightError" Grid.Column="5" Grid.Row="16" Style="{StaticResource errorTextBlock}" Text="ספרות בלבד*"/>
+
+        <TextBox Name="unitAddress" ToolTip="(הכנס כתובת מדוייקת(כולל מספר בית" Grid.Row="15" Grid.Column="3" FontSize="18" HorizontalContentAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaxLength="28" materialDesign:HintAssist.Hint="כתובת היחידה" />
+        <TextBlock x:Name="unitAddressEmpty" Grid.Column="3" Grid.Row="16" Style="{StaticResource errorTextBlock}" Text="חובה למלא את השדה הנוכחי*"/>
+
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="17">
+            <Grid Width="680" FlowDirection="LeftToRight">
+                <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="148*"/>                             
+                     <ColumnDefinition Width="10*"/>
+                     <ColumnDefinition Width="148*"/>
+                     <ColumnDefinition Width="10*"/>
+                     <ColumnDefinition Width="148*"/>
+                     <ColumnDefinition Width="10*"/>
+                     <ColumnDefinition Width="148*"/>
+                     <ColumnDefinition Width="10*"/>
+                     <ColumnDefinition Width="148*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                     <RowDefinition Height="50"/>
+                     <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="8" Grid.Row="0" Style="{StaticResource myTextBlock}">
+                    <Grid Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="58"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="2" Text=":בריכה" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource myTextBlock}"/>
+                        <CheckBox x:Name="CheckPool" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource myCheckBox}"/>
+                    </Grid>
+                </TextBlock>
+                <TextBlock Grid.Column="6" Grid.Row="0" Style="{StaticResource myTextBlock}">
+                    <Grid Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="58"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="2" Text=":ג'קוזי" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource myTextBlock}"/>
+                        <CheckBox x:Name="CheckJacuzzi" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource myCheckBox}"/>
+                    </Grid>
+                </TextBlock>
+                <TextBlock Grid.Column="4" Grid.Row="0" Style="{StaticResource myTextBlock}">
+                    <Grid Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="58"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="2" Text=":גינה" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource myTextBlock}"/>
+                        <CheckBox x:Name="CheckGarden" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource myCheckBox}"/>
+                    </Grid>
+                </TextBlock>
+                
+                <TextBlock Grid.Column="2" Grid.Row="0" Style="{StaticResource myTextBlock}">
+                    <Grid Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="38"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="2" Text=":Wifi" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource myTextBlock}"/>
+                        <CheckBox x:Name="CheckWifi" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource myCheckBox}"/>
+                    </Grid>
+                </TextBlock>
+                
+                <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource myTextBlock}">
+                    <Grid Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="125"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="childrenAttractionsText" Visibility="Hidden" Grid.Column="2" Text=":אטרקציות ילדים" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource myTextBlock}"/>
+                        <CheckBox x:Name="CheckChildrenAttractions" Visibility="Hidden" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource myCheckBox}"/>
+                    </Grid>
+                </TextBlock>
+            </Grid>
+        </TextBlock>
+        
+        <Button x:Name="loadButton" Background="White" Grid.Column="5"  Grid.Row="19"  FontWeight="Bold" HorizontalAlignment="Stretch" BorderThickness="2" BorderBrush="#FFD54F" Style="{StaticResource MaterialDesignRaisedLightButton}" 
+                VerticalAlignment="Stretch" Click="LoadButton_Click">לחץ כאן להוספת תמונות
+        </Button>
+        <Image Grid.Column="5"  Grid.Row="20" Grid.RowSpan="4" Name="imgPhoto" Stretch="Uniform"/>
+        <Button x:Name="addButton" Content="הוספת היחידה" FontWeight="Bold" Foreground="White" BorderBrush="CornflowerBlue" Background="CornflowerBlue" Grid.Column="1" Grid.Row="23" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddButton_Click"/>
     </Grid>
 </Page>

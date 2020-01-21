@@ -74,11 +74,13 @@ namespace BL
                 var openOrdersByUnit = from order in dal.ReceiveOrderList()
                                        let unitKey = myHostingUnit.HostingUnitKey
                                        where order.HostingUnitKey == unitKey &&
-                                       (order.Status == Enum_s.OrderStatus.לא_בטיפול ||
-                                       order.Status == Enum_s.OrderStatus.נשלח_מייל)
+                                       order.Status != Enum_s.OrderStatus.נסגר_בשל_התנגשות &&
+                                       order.Status != Enum_s.OrderStatus.נסגר_בשל_חוסר_הענות &&
+                                       order.Status != Enum_s.OrderStatus.נסגר_בשל_פגות_תוקף &&
+                                       order.Status != Enum_s.OrderStatus.נסגר_בשל_רכישה_אחרת
                                        select order;
                 if (openOrdersByUnit.Count() != 0)
-                    throw new DeleteUnitWithOpenOrdersException(".מצטערים, אינך יכול למחוק יחידת אירוח זו. קיימות הזמנות פתוחות עבור היחידה"); 
+                    throw new DeleteUnitWithOpenOrdersException("מצטערים, אינך יכול למחוק יחידת אירוח זו. קיימות הזמנות פתוחות עבור היחידה"); 
                 dal.DeleteHostingUnit(myHostingUnit);
             }
             catch (Exception ex)

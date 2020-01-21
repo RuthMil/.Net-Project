@@ -33,6 +33,7 @@ namespace PLWPF
             foreach (var item in hostingUnitList)
             {
                 HostingUnitUserControl a = new HostingUnitUserControl(item);
+                hostingUnitGridView.RowDefinitions.Add(new RowDefinition());
                 hostingUnitGridView.Children.Add(a);
                 Grid.SetRow(a, index);
                 index++;

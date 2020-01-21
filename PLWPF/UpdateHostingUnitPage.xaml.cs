@@ -19,12 +19,13 @@ using System.IO;
 namespace PLWPF
 {
     /// <summary>
-    /// Interaction logic for AddHostingUnitPage.xaml
+    /// Interaction logic for UpdateHostingUnitPage.xaml
     /// </summary>
-    public partial class AddHostingUnitPage : Page
+    public partial class UpdateHostingUnitPage : Page
     {
         HostingUnit myHostingUnit;
         readonly BL.IBL bl = BL.BlFactory.GetBL();
+        List<string> branches = new List<string>();
         Dictionary<int, string> bankNames = new Dictionary<int, string>
         {
             [13] = "בנק אגוד לישראל",
@@ -44,9 +45,11 @@ namespace PLWPF
             [26] = "יובנק"
         };
 
-        public AddHostingUnitPage()
+        public UpdateHostingUnitPage()
         {
             InitializeComponent();
+            FirstGrid.Visibility = Visibility.Visible;
+            SecondGrid.Visibility = Visibility.Hidden;
             List<Enum_s.Areas> areas = new List<Enum_s.Areas>() { Enum_s.Areas.דרום, Enum_s.Areas.ירושלים, Enum_s.Areas.מרכז, Enum_s.Areas.צפון };
             List<Enum_s.SubArea> subAreas = new List<Enum_s.SubArea>() { Enum_s.SubArea.ירושלים, Enum_s.SubArea.צפון, Enum_s.SubArea.חיפה, Enum_s.SubArea.גליל, Enum_s.SubArea.דרום, Enum_s.SubArea.באר_שבע, Enum_s.SubArea.אילת, Enum_s.SubArea.מרכז, Enum_s.SubArea.תל_אביב };
             List<Enum_s.HostingUnitTypes> types = new List<Enum_s.HostingUnitTypes>() { Enum_s.HostingUnitTypes.הכל, Enum_s.HostingUnitTypes.דירה, Enum_s.HostingUnitTypes.בקתה, Enum_s.HostingUnitTypes.מלון, Enum_s.HostingUnitTypes.קמפינג, Enum_s.HostingUnitTypes.וילה };
@@ -54,10 +57,36 @@ namespace PLWPF
             unitSubAreasCMB.ItemsSource = subAreas;
             unitTypesCMB.ItemsSource = types;
             bankNameCMB.ItemsSource = bankNames;
-            List<string> branches = new List<string>();
             foreach (var item in bl.ReceiveBankBranchesList())
                 branches.Add(item.BranchNumber.ToString() + " - " + item.BranchCity);
             branchNumberCMB.ItemsSource = branches;
+        }
+        public void InitHostingUnit()
+        {
+            myHostingUnit = bl.GetHostingUnitByKey(long.Parse(KeyBox.Text));
+            firstName.Text = myHostingUnit.Owner.FirstName;
+            lastName.Text = myHostingUnit.Owner.LastName;
+            phoneNumber.Text = myHostingUnit.Owner.PhoneNumber;
+            emailAddress.Text = myHostingUnit.Owner.MailAddress;
+            bankNameCMB.Text = bankNames[myHostingUnit.Owner.BankBranchDetails.BankNumber];
+            branchNumberCMB.Text = branches.Find(x => x.Split(' ')[0] == myHostingUnit.Owner.BankBranchDetails.BranchNumber.ToString());
+            bankAccountNumber.Text = myHostingUnit.Owner.BankAccountNumber;
+            CheckCollectionClearance.IsChecked = myHostingUnit.Owner.CollectionClearance ? true : false;
+            hostingUnitName.Text = myHostingUnit.HostingUnitName;
+            unitAreasCMB.SelectedValue = myHostingUnit.Area;
+            unitSubAreasCMB.SelectedValue = myHostingUnit.SubArea;
+            unitTypesCMB.SelectedValue = myHostingUnit.Type;
+            adults.Text = myHostingUnit.Adults.ToString();
+            children.Text = myHostingUnit.Children.ToString();
+            CheckPool.IsChecked = myHostingUnit.Pool ? true : false;
+            CheckJacuzzi.IsChecked = myHostingUnit.Jacuzzi ? true : false;
+            CheckGarden.IsChecked = myHostingUnit.Garden ? true : false;
+            CheckChildrenAttractions.IsChecked = myHostingUnit.ChildrenAttractions ? true : false;
+            CheckWifi.IsChecked = myHostingUnit.Wifi ? true : false;
+            pricePerNight.Text = myHostingUnit.Price.ToString();
+            unitAddress.Text = myHostingUnit.Address;
+            //if (myHostingUnit.Images != null)
+            //    imgPhoto = (Image)myHostingUnit.Images;
         }
 
         private void BankNameCMB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -153,24 +182,18 @@ namespace PLWPF
             }
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private void updateButton_Click(object sender, RoutedEventArgs e)
         {
             firstNameEmpty.Visibility = firstName.Text == "" ? Visibility.Visible : Visibility.Hidden;
             lastNameEmpty.Visibility = lastName.Text == "" ? Visibility.Visible : Visibility.Hidden;
-            if (phoneNumber.Text == "")
-                phoneNumberEmpty.Visibility = Visibility.Visible;
-            else
-            {
-                phoneNumberEmpty.Visibility = Visibility.Hidden;
-                phoneNumberError.Visibility = (phoneNumber.Text.Length < 9 || phoneNumber.Text.Length > 10) ? Visibility.Visible : Visibility.Hidden;
-            }
-            if (emailAddress.Text == "")
-                emailAddressEmpty.Visibility = Visibility.Visible;
-            else
-            {
-                emailAddressEmpty.Visibility = Visibility.Hidden;
-                emailAddressEmpty.Visibility = (!bl.IsValidMail(emailAddress.Text)) ? Visibility.Visible : Visibility.Hidden;
-            }
+            phoneNumberEmpty.Visibility = phoneNumber.Text == "" ? Visibility.Visible : Visibility.Hidden;
+            if (phoneNumber.Text.Length < 9 || phoneNumber.Text.Length > 10)
+                phoneNumberError.Visibility = Visibility.Visible;
+            else phoneNumberError.Visibility = Visibility.Hidden;
+            emailAddressEmpty.Visibility = emailAddress.Text == "" ? Visibility.Visible : Visibility.Hidden;
+            if (!bl.IsValidMail(emailAddress.Text))
+                emailAddressError.Visibility = Visibility.Visible;
+            else emailAddressError.Visibility = Visibility.Hidden;
             bankNameCMBEmpty.Visibility = bankNameCMB.SelectedValue == null ? Visibility.Visible : Visibility.Hidden;
             branchNumberCMBEmpty.Visibility = branchNumberCMB.SelectedValue == null ? Visibility.Visible : Visibility.Hidden;
             bankAccountNumberEmpty.Visibility = bankAccountNumber.Text == "" ? Visibility.Visible : Visibility.Hidden;
@@ -190,10 +213,6 @@ namespace PLWPF
                 unitAddressEmpty.Visibility == Visibility.Visible)
                 return;
 
-            myHostingUnit = new HostingUnit();
-            myHostingUnit.Owner = new Host();
-            myHostingUnit.Owner.BankBranchDetails = new BankBranch();
-            myHostingUnit.Diary = new bool[12, 31];
             myHostingUnit.Owner.FirstName = firstName.Text;
             myHostingUnit.Owner.LastName = lastName.Text;
             myHostingUnit.Owner.PhoneNumber = phoneNumber.Text;
@@ -217,33 +236,71 @@ namespace PLWPF
             myHostingUnit.ChildrenAttractions = (bool)CheckChildrenAttractions.IsChecked;
             myHostingUnit.Wifi = (bool)CheckWifi.IsChecked;
 
+
             try
             {
-                bl.AddHostingUnit(myHostingUnit);
-                if (CheckCollectionClearance.IsChecked == true)
-                {
-                    MessageBox.Show("שלום " + myHostingUnit.Owner.FirstName + "!\n" + "היחידה הצטרפה למאגר בהצלחה" + "\n"
-                    + myHostingUnit.HostingUnitKey + " :מספר היחידה הוא" + "\n" + "מקווים שתהנה משירותינו");
-                }
-                else MessageBox.Show("שלום " + myHostingUnit.Owner.FirstName + "!\n" + "היחידה הצטרפה למאגר בהצלחה" + "\n"
-                    + myHostingUnit.HostingUnitKey + " :מספר היחידה הוא" + "\n" + "שים לב כי לא תוכל לבצע עסקאות מכיוון שחסרה הרשאת חיוב חשבון " +
-                    "\n" + "מקווים שתהנה משירותינו");
-                myHostingUnit.Diary = new bool[12, 31];
-                myHostingUnit.Owner.BankBranchDetails = new BankBranch();
-                myHostingUnit.Owner = new Host();
-                myHostingUnit = null;
-                myHostingUnit = new HostingUnit();
-                this.NavigationService.Content = new AddHostingUnitPage();
+                bl.UpdateHostingUnit(myHostingUnit);
+                MessageBox.Show("שלום " + myHostingUnit.Owner.FirstName + "!\n" + "היחידה עודכנה בהצלחה" + "\n");
+
+                this.NavigationService.Content = new MainPage();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("שלום " + myHostingUnit.Owner.FirstName + "!\n" + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, MessageBoxOptions.RightAlign);
-                myHostingUnit = null;
-                myHostingUnit = new HostingUnit();
-                myHostingUnit.Owner = new Host();
-                myHostingUnit.Owner.BankBranchDetails = new BankBranch();
-                myHostingUnit.Diary = new bool[12, 31];
             }
+        }
+
+        private bool KeyIsValid()
+        {
+            if (KeyBox.Text == "")
+            {
+                errKey.Text = "הכנס מספר מזהה של מקום האירוח שלך כדי שנוכל להסיר אותה מהמאגר";
+                errKey.Visibility = Visibility.Visible;
+                return false;
+            }
+            if (!long.TryParse(KeyBox.Text, out long key))
+            {
+                errKey.Text = "הכנס ספרות בלבד";
+                errKey.Visibility = Visibility.Visible;
+                return false;
+            }
+            try
+            {
+                bl.GetHostingUnitByKey(key);
+                errKey.Visibility = Visibility.Hidden;
+                return true;
+            }
+            catch (Exception)
+            {
+                errKey.Text = "לא קיים מקום אירוח עם מספר מזהה זה";
+                errKey.Visibility = Visibility.Visible;
+                return false;
+            }
+        }
+
+        private void KeyBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                if (KeyIsValid())
+                {
+                    ChangeView();
+                    InitHostingUnit();
+                }
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (KeyIsValid())
+            {
+                ChangeView();
+                InitHostingUnit();
+            }
+        }
+
+        private void ChangeView()
+        {
+            FirstGrid.Visibility = Visibility.Hidden;
+            SecondGrid.Visibility = Visibility.Visible;
         }
     }
 }

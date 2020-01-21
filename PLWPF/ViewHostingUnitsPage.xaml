@@ -8,14 +8,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="1000"
       Title="ViewHostingUnitsPage">
-
     <Grid x:Name="hostingUnitGridView">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="425" />
-            <RowDefinition Height="425" />
-            <RowDefinition Height="425" />
-            <RowDefinition Height="425" />
-            <RowDefinition Height="425" />
-        </Grid.RowDefinitions>
     </Grid>
 </Page>

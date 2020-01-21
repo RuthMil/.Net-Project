@@ -32,8 +32,11 @@
                     </Grid>
                 </Border>
             </TabItem>
-            <TabItem Header="יחידות אירוח" Foreground="#FFD54F" Background="White" >
-                
+            <TabItem Header="יחידות אירוח" Foreground="#FFD54F" Background="White" RenderTransformOrigin="0.5,0.505" >
+                <Border BorderBrush="#FFD54F" BorderThickness="2">
+                    <Grid x:Name="hostingUnitGrid">
+                    </Grid>
+                </Border>
             </TabItem>
             <TabItem Header="נתונים" Foreground="#FFD54F" Background="White" >
                 

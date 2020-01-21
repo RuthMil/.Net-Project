@@ -41,7 +41,16 @@ namespace PLWPF
                 noOrdersTxt.Visibility = Visibility.Hidden;
                 ordersListView.Visibility = Visibility.Visible;
             }
-            ordersListView.DataContext = orderList; 
+            ordersListView.DataContext = orderList;
+            int index = 0;
+            foreach (var item in bl.ReceiveHostingUnitList()) 
+            {
+                HostingUnitUserControl a = new HostingUnitUserControl(item);
+                hostingUnitGrid.RowDefinitions.Add(new RowDefinition());
+                hostingUnitGrid.Children.Add(a);
+                Grid.SetRow(a, index);
+                index++;
+            }
         }
     }
 }
