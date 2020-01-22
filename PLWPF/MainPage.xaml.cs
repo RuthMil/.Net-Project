@@ -44,6 +44,17 @@ namespace PLWPF
             myGuestRequest = new GuestRequest();
             myCalendar.DisplayDateStart = DateTime.Now;
             myCalendar.DisplayDateEnd = DateTime.Now.AddMonths(11);
+            List<HostingUnit> hostingUnits = new List<HostingUnit>();
+            float average = 0;
+            foreach (var item1 in bl.GroupHostingUnitByAreas())
+                if (item1.Key == Enum_s.Areas.ירושלים)
+                    foreach (var item2 in item1)
+                    {
+                        hostingUnits.Add(item2);
+                        average += item2.Price;
+                    }
+            average /= hostingUnits.Count();
+            avgPriceJerusalem.Text += average.ToString() + " ש'ח" ;
         }
 
         private void AreasComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

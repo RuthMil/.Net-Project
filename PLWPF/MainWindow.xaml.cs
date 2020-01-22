@@ -63,7 +63,8 @@ namespace PLWPF
                     Jacuzzi = false,
                     Garden = true,
                     ChildrenAttractions = true,
-                    Wifi = true
+                    Wifi = true, 
+                    Price = 250
                 },
                 new HostingUnit()
                 {
@@ -98,7 +99,8 @@ namespace PLWPF
                     Jacuzzi = false,
                     Garden = false,
                     ChildrenAttractions = false,
-                    Wifi = true
+                    Wifi = true,
+                    Price = 300
                 },
                 new HostingUnit()
                 {
@@ -133,7 +135,8 @@ namespace PLWPF
                     Jacuzzi = true,
                     Garden = false,
                     ChildrenAttractions = false,
-                    Wifi = true
+                    Wifi = true,
+                    Price = 500
                 },
                 new HostingUnit()
                 {
@@ -168,7 +171,8 @@ namespace PLWPF
                     Jacuzzi = false,
                     Garden = true,
                     ChildrenAttractions = true,
-                    Wifi = true
+                    Wifi = true,
+                    Price = 289
                 },
                 new HostingUnit()
                 {
@@ -203,7 +207,8 @@ namespace PLWPF
                     Jacuzzi = true,
                     Garden = true,
                     ChildrenAttractions = true,
-                    Wifi = true
+                    Wifi = true,
+                    Price = 299
                 }
             };
             foreach (var item in HostingUnitList)

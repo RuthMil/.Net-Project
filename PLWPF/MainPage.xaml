@@ -55,7 +55,7 @@
             <RowDefinition Height="41"/>
             <RowDefinition Height="41"/>
             <RowDefinition Height="280"/>
-            <RowDefinition Height="600"/>
+            <RowDefinition Height="800"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -162,16 +162,17 @@
         </Grid>
         <Grid FlowDirection="RightToLeft" Grid.Row="3" HorizontalAlignment="Center" Grid.ColumnSpan="4">
             <Grid.RowDefinitions>
-                <RowDefinition Height="300" />
-                <RowDefinition Height="300" />
+                <RowDefinition Height="400" />
+                <RowDefinition Height="400" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" />
-                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="400" />
             </Grid.ColumnDefinitions>
             <TextBlock Text="ירושלים" Grid.Row="0" Grid.Column="0" Margin="16 38 0 0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="18" />
+            <TextBlock x:Name="avgPriceJerusalem" Text="מחיר ממוצע  " Grid.Row="0" Grid.Column="0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="243,47,0,0" />
             <Button x:Name="jerusalemImgButton" Grid.Row="0" Grid.Column="0" Height="Auto" Width="Auto" BorderBrush="Transparent" Background="Transparent" Click="JerusalemImgButton_Click" >
-                <Image x:Name="jerusalemImg" Source="Resources/jerusalem.jpg" />
+                <Image x:Name="jerusalemImg" Source="https://storage.hidabroot.org/articles_new/147890_tumb_750Xauto.jpg" />
             </Button>
         </Grid>
     </Grid>
