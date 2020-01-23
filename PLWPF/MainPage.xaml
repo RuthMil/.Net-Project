@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:PLWPF"
       mc:Ignorable="d" 
       d:DesignHeight="1200" d:DesignWidth="800"
-      Title="MainPage" x:Name="mainPage">
+      Title="MainPage" x:Name="mainPage" >
     <Page.Resources>
         <local:ImageConverter x:Key="ImageConverter" />
         <Style x:Key="errorMessage" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">

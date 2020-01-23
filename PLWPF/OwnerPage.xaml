@@ -10,10 +10,10 @@
       Title="OwnerPage" VerticalAlignment="Top">
     <Grid>
         <TabControl FlowDirection="RightToLeft" >
-            <TabItem Header="הגדרות" Height="35" Foreground="#FFD54F" Background="White">
+            <TabItem Header="הגדרות" Height="35" Background="White">
                 
             </TabItem>
-            <TabItem Header="הזמנות" Foreground="#FFD54F" Background="White" >
+            <TabItem Header="הזמנות" Background="White" >
                 <Border x:Name="orderListBorder" Background="#FFECB3" BorderBrush="#FFD54F" BorderThickness="2" >
                     <Grid>
                         <TextBlock x:Name="noOrdersTxt" Text=".אין כרגע הזמנות במערכת" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="DimGray" FontSize="14" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
@@ -32,13 +32,13 @@
                     </Grid>
                 </Border>
             </TabItem>
-            <TabItem Header="יחידות אירוח" Foreground="#FFD54F" Background="White" RenderTransformOrigin="0.5,0.505" >
+            <TabItem Header="יחידות אירוח" Background="White" RenderTransformOrigin="0.5,0.505" >
                 <Border BorderBrush="#FFD54F" BorderThickness="2">
                     <Grid x:Name="hostingUnitGrid">
                     </Grid>
                 </Border>
             </TabItem>
-            <TabItem Header="נתונים" Foreground="#FFD54F" Background="White" >
+            <TabItem Header="נתונים" Background="White" >
                 
             </TabItem>
         </TabControl>

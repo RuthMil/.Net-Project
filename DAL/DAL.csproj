@@ -44,6 +44,7 @@
     <Compile Include="Cloning.cs" />
     <Compile Include="DalFactory.cs" />
     <Compile Include="Dal_imp.cs" />
+    <Compile Include="Dal_XML_imp.cs" />
     <Compile Include="ExistValueException.cs" />
     <Compile Include="IDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
