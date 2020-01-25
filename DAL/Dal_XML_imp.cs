@@ -149,7 +149,13 @@ namespace DAL
 
         public void UpdateGuestRequest(GuestRequest myGuestRequest)
         {
-            throw new NotImplementedException();
+            DS.DataSource.GuestRequestList = loadListFromXML<GuestRequest>(guestRequestRootPath);
+            int isExist = DS.DataSource.GuestRequestList.FindIndex(x => x.GuestRequestKey == myGuestRequest.GuestRequestKey);
+            if (isExist == -1)
+                throw new KeyNotFoundException("Guest Request does not exist in the system");
+            DS.DataSource.GuestRequestList.RemoveAt(isExist);
+            DS.DataSource.GuestRequestList.Add(myGuestRequest.Clone());
+            saveListToXML(DS.DataSource.GuestRequestList, guestRequestRootPath);
         }
 
         public void AddHostingUnit(HostingUnit myHostingUnit)
@@ -159,17 +165,31 @@ namespace DAL
 
         public void DeleteHostingUnit(HostingUnit myHostingUnit)
         {
-            throw new NotImplementedException();
+            DS.DataSource.HostingUnitList = loadListFromXML<HostingUnit>(hostingUnitRootPath);
+            if (!DS.DataSource.HostingUnitList.Exists(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey))
+                throw new KeyNotFoundException("Hosting unit does not exists in the system");
+            DS.DataSource.HostingUnitList.RemoveAt(DS.DataSource.HostingUnitList.FindIndex(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey));
+            saveListToXML(DS.DataSource.HostingUnitList, hostingUnitRootPath); 
         }
 
         public void DeleteOrder(Order myOrder)
         {
-            throw new NotImplementedException();
+            DS.DataSource.OrderList = loadListFromXML<Order>(orderRootPath);
+            if (!DS.DataSource.OrderList.Exists(x => x.OrderKey == myOrder.OrderKey))
+                throw new KeyNotFoundException("Order does not exists in the system");
+            DS.DataSource.OrderList.RemoveAt(DS.DataSource.OrderList.FindIndex(x => x.OrderKey == myOrder.OrderKey));
+            saveListToXML(DS.DataSource.OrderList, orderRootPath);
         }
 
         public void UpdateHostingUnit(HostingUnit myHostingUnit)
         {
-            throw new NotImplementedException();
+            DS.DataSource.HostingUnitList = loadListFromXML<HostingUnit>(hostingUnitRootPath);
+            int isExist = DS.DataSource.HostingUnitList.FindIndex(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey);
+            if (isExist == -1)
+                throw new KeyNotFoundException("Hosting unit does not exist in the system");
+            DS.DataSource.HostingUnitList.RemoveAt(isExist);
+            DS.DataSource.HostingUnitList.Add(myHostingUnit.Clone());
+            saveListToXML(DS.DataSource.HostingUnitList, hostingUnitRootPath);
         }
 
         public void AddOrder(Order myOrder)
@@ -179,7 +199,13 @@ namespace DAL
 
         public void UpdateOrder(Order myOrder)
         {
-            throw new NotImplementedException();
+            DS.DataSource.OrderList = loadListFromXML<Order>(orderRootPath);
+            int isExist = DS.DataSource.OrderList.FindIndex(x => x.OrderKey == myOrder.OrderKey);
+            if (isExist == -1)
+                throw new KeyNotFoundException("Guest Request does not exist in the system");
+            DS.DataSource.OrderList.RemoveAt(isExist);
+            DS.DataSource.OrderList.Add(myOrder.Clone());
+            saveListToXML(DS.DataSource.OrderList, orderRootPath);
         }
 
         public List<HostingUnit> ReceiveHostingUnitList()
