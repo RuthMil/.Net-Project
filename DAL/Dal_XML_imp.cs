@@ -10,11 +10,11 @@ using BE;
 
 namespace DAL
 {
-    class Dal_XML_imp : IDAL
+    public class Dal_XML_imp : IDAL
     {
         private static Dal_XML_imp instance;
 
-        private Dal_XML_imp Instance
+        public static Dal_XML_imp Instance
         {
             get
             {
@@ -24,57 +24,48 @@ namespace DAL
                     return instance; 
             }
         }
-
-        private XElement hostingUnitRoot;
+        static readonly string ProjectPath = Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory.ToString()).FullName).FullName;
+        //private XElement hostingUnitRoot;
         private XElement orderRoot;
-        private XElement guestRequestRoot;
+        //private XElement guestRequestRoot;
         private XElement ownerRoot;
         private XElement configRoot;
-        private const string hostingUnitRootPath = @"..\..\..\xml files\HostingUnit.xml";
-        private const string orderRootPath = @"..\..\..\xml files\Order.xml";
-        private const string guestRequestRootPath = @"..\..\..\xml files\GusetRequest.xml";
-        private const string ownerRootPath = @"..\..\..\xml files\Owner.xml";
-        private const string configRootPath = @"..\..\..\xml files\Configuration.xml";
+        private string hostingUnitRootPath = ProjectPath + "\\data\\HostingUnit.xml";
+        private string orderRootPath = ProjectPath + "\\data\\Order.xml";
+        private string guestRequestRootPath = ProjectPath + "\\data\\GusetRequest.xml";
+        private string ownerRootPath = ProjectPath + "\\data\\Owner.xml";
+        private string configRootPath = ProjectPath + "\\data\\Configuration.xml";
 
         private Dal_XML_imp()
         {
             try
             {
-                if (!File.Exists(orderRootPath))
-                    CreateOrdersFile();
-                else
-                    LoadOrderFile();
-                if (!File.Exists(configRootPath))
-                    CreateConfigFile();
-                else
-                    LoadConfigFile();
+                //if (!File.Exists(ownerRootPath))
+                //    CreateOwnerFile();
+                //else
+                //    LoadOwnerFile();
+                //if (!File.Exists(configRootPath))
+                //    CreateConfigFile();
+                //else
+                //    LoadConfigFile();
                 if (!File.Exists(hostingUnitRootPath))
                 {
-                    FileStream hostingUnitsFile = new FileStream(hostingUnitRootPath, FileMode.Create);
-                    hostingUnitsFile.Close();
+                    saveListToXML<HostingUnit>(new List<HostingUnit>(), hostingUnitRootPath);
                 }
                 else
-                {
                     DS.DataSource.HostingUnitList = loadListFromXML<HostingUnit>(hostingUnitRootPath);
-                }
                 if (!File.Exists(guestRequestRootPath))
                 {
-                    FileStream guestRequestsFile = new FileStream(guestRequestRootPath, FileMode.Create);
-                    guestRequestsFile.Close();
+                    saveListToXML<GuestRequest>(new List<GuestRequest>(), guestRequestRootPath);
                 }
                 else
-                {
                     DS.DataSource.GuestRequestList = loadListFromXML<GuestRequest>(hostingUnitRootPath);
-                }
-                if (!File.Exists(ownerRootPath))
+                if (!File.Exists(orderRootPath))
                 {
-                    FileStream ownerFile = new FileStream(ownerRootPath, FileMode.Create);
-                    ownerFile.Close();
+                    saveListToXML<Order>(new List<Order>(), orderRootPath); 
                 }
                 else
-                {
-                    
-                }
+                    DS.DataSource.OrderList = loadListFromXML<Order>(orderRootPath);
             }
             catch(Exception ex)
             {
@@ -119,7 +110,7 @@ namespace DAL
         private void CreateConfigFile()
         {
             configRoot = new XElement("Configuration", new XElement("HostingUnitID", "0"), new XElement("GuestRequestID", "0"),
-                new XElement("OrderID", "0"), new XElement("HostID", "0"), new XElement(""), new XElement("commission", "10"), 
+                new XElement("OrderID", "0"), new XElement("HostID", "0"), new XElement("commission", "10"), 
                 new XElement("orderValidTime", "30"), new XElement("orderCancelationDays", "14")); 
             configRoot.Save(configRootPath);
         }
@@ -136,6 +127,25 @@ namespace DAL
             }
         }
 
+        private void CreateOwnerFile()
+        {
+            ownerRoot = new XElement("Owner", new XElement("FirstName", "TR"), new XElement("LastName", "YM"),
+                new XElement("Password", "tiru1234"));
+            ownerRoot.Save(ownerRootPath);
+
+        }
+
+        private void LoadOwnerFile()
+        {
+            try
+            {
+                ownerRoot = XElement.Load(ownerRootPath);
+            }
+            catch (Exception)
+            {
+                throw new Exception("בעיה בטעינת קובץ");
+            }
+        }
         private void CreateOrdersFile()
         {
             orderRoot = new XElement("Orders"); 
@@ -144,7 +154,13 @@ namespace DAL
 
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {
-            throw new NotImplementedException();
+            DS.DataSource.GuestRequestList = loadListFromXML<GuestRequest>(guestRequestRootPath);
+            if (DS.DataSource.GuestRequestList.Exists(x => x.GuestRequestKey == myGuestRequest.GuestRequestKey))
+                throw new ExistValueException("Request number exists in the system");
+            Configuration.GuestRequestID++;
+            myGuestRequest.GuestRequestKey = Configuration.GuestRequestID;
+            DS.DataSource.GuestRequestList.Add(myGuestRequest.Clone());
+            saveListToXML(DS.DataSource.GuestRequestList, guestRequestRootPath);
         }
 
         public void UpdateGuestRequest(GuestRequest myGuestRequest)
@@ -160,7 +176,21 @@ namespace DAL
 
         public void AddHostingUnit(HostingUnit myHostingUnit)
         {
-            throw new NotImplementedException();
+            DS.DataSource.HostingUnitList = loadListFromXML<HostingUnit>(hostingUnitRootPath);
+            if (DS.DataSource.HostingUnitList.Exists(x => x.HostingUnitKey == myHostingUnit.HostingUnitKey))
+                throw new ExistValueException("Hosting Unit number exists in the system");
+            HostingUnit hostIsExist = DS.DataSource.HostingUnitList.Find(x => x.Owner.MailAddress == myHostingUnit.Owner.MailAddress);
+            if (hostIsExist == default(HostingUnit))
+            {
+                Configuration.HostID++;
+                myHostingUnit.Owner.HostKey = Configuration.HostID;
+            }
+            else
+                myHostingUnit.Owner.HostKey = hostIsExist.Owner.HostKey;
+            Configuration.HostingUnitID++;
+            myHostingUnit.HostingUnitKey = Configuration.HostingUnitID;
+            DS.DataSource.HostingUnitList.Add(myHostingUnit.Clone());
+            saveListToXML(DS.DataSource.HostingUnitList, hostingUnitRootPath);
         }
 
         public void DeleteHostingUnit(HostingUnit myHostingUnit)
@@ -194,7 +224,13 @@ namespace DAL
 
         public void AddOrder(Order myOrder)
         {
-            throw new NotImplementedException();
+            DS.DataSource.OrderList = loadListFromXML<Order>(orderRootPath);
+            if (DS.DataSource.OrderList.Exists(x => x.OrderKey == myOrder.OrderKey))
+                throw new ExistValueException("Order number exists in the system");
+            Configuration.OrderID++;
+            myOrder.OrderKey = Configuration.OrderID;
+            DS.DataSource.OrderList.Add(myOrder.Clone());
+            saveListToXML(DS.DataSource.OrderList, orderRootPath);
         }
 
         public void UpdateOrder(Order myOrder)
@@ -230,22 +266,74 @@ namespace DAL
 
         public GuestRequest GetGuestRequestByKey(long key)
         {
-            throw new NotImplementedException();
+            DS.DataSource.GuestRequestList = loadListFromXML<GuestRequest>(guestRequestRootPath);
+            var myGuestRequest = from request in DS.DataSource.GuestRequestList
+                                 where request.GuestRequestKey == key
+                                 select request;
+            try
+            {
+                if (myGuestRequest.Count() == 0)
+                    throw new KeyNotFoundException("Guest Request Does Not Exist");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            return myGuestRequest.First().Clone();
         }
 
         public Order GetOrderByKey(long key)
         {
-            throw new NotImplementedException();
+            DS.DataSource.OrderList = loadListFromXML<Order>(orderRootPath);
+            var myOrder = from order in DS.DataSource.OrderList
+                          where order.OrderKey == key
+                          select order;
+            try
+            {
+                if (myOrder.Count() == 0)
+                    throw new KeyNotFoundException("Order Does Not Exist");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            return myOrder.First().Clone();
         }
 
         public HostingUnit GetHostingUnitByKey(long key)
         {
-            throw new NotImplementedException();
+            DS.DataSource.HostingUnitList = loadListFromXML<HostingUnit>(hostingUnitRootPath);
+            var myUnit = from unit in DS.DataSource.HostingUnitList
+                         where unit.HostingUnitKey == key
+                         select unit;
+            try
+            {
+                if (myUnit.Count() == 0)
+                    throw new KeyNotFoundException("Hosting Unit Does Not Exist");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            return myUnit.First().Clone();
         }
 
         public Host GetHostByKey(long key)
         {
-            throw new NotImplementedException();
+            DS.DataSource.HostingUnitList = loadListFromXML<HostingUnit>(hostingUnitRootPath);
+                var myHost = from unit in DS.DataSource.HostingUnitList
+                             where unit.Owner.HostKey == key
+                             select unit.Owner;
+            try
+            {
+                if (myHost.Count() == 0)
+                    throw new KeyNotFoundException("Host Does Not Exist");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw ex;
+            }
+            return myHost.First().Clone();
         }
     }
 }

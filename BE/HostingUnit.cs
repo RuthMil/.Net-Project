@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Media;
 using System.Windows;
+using System.Xml.Serialization;
 
 namespace BE
 {
@@ -15,7 +16,16 @@ namespace BE
         public long HostingUnitKey { get; set; }
         public Host Owner { get; set; }
         public string HostingUnitName { get; set; }
+        [XmlIgnore]
         public bool[,] Diary { get; set; }
+        private bool[] myDiaryDto;
+        [XmlArray("Diary")]
+        public  bool[] DiaryDto
+        {
+            get { return Diary.Flatten(); }
+            set { Diary = value.Expand(12); }
+        }
+
         public Enum_s.Areas Area { get; set; }
         public Enum_s.SubArea SubArea { get; set; }
         public Enum_s.HostingUnitTypes Type { get; set; }
