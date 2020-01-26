@@ -11,5 +11,6 @@ namespace BE
         public static string FirstName = "TR";
         public static string LastNAme = "YM";
         public static string Password = "tiru1234";
+        public static float Commission = 0;
     }
 }

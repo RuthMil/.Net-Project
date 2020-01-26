@@ -9,7 +9,6 @@
       d:DesignHeight="1200" d:DesignWidth="800"
       Title="MainPage" x:Name="mainPage" >
     <Page.Resources>
-        <local:ImageConverter x:Key="ImageConverter" />
         <Style x:Key="errorMessage" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
             <Setter Property="FontSize" Value="9"/>
             <Setter Property="Foreground" Value="Red"/>
@@ -172,7 +171,22 @@
             <TextBlock Text="ירושלים" Grid.Row="0" Grid.Column="0" Margin="16 38 0 0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="18" />
             <TextBlock x:Name="avgPriceJerusalem" Text="מחיר ממוצע  " Grid.Row="0" Grid.Column="0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="243,47,0,0" />
             <Button x:Name="jerusalemImgButton" Grid.Row="0" Grid.Column="0" Height="Auto" Width="Auto" BorderBrush="Transparent" Background="Transparent" Click="JerusalemImgButton_Click" >
-                <Image x:Name="jerusalemImg" Source="https://storage.hidabroot.org/articles_new/147890_tumb_750Xauto.jpg" />
+                <Image x:Name="jerusalemImg" Source="/images/jerusalem.jpg" />
+            </Button>
+            <TextBlock Text="צפון" Grid.Row="0" Grid.Column="1" Margin="16 38 0 0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="18" />
+            <TextBlock x:Name="avgPriceNorth" Text="מחיר ממוצע  " Grid.Row="0" Grid.Column="1" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="243,47,0,0" />
+            <Button x:Name="northImgButton" Grid.Row="0" Grid.Column="1" Height="Auto" Width="Auto" BorderBrush="Transparent" Background="Transparent" Click="JerusalemImgButton_Click" >
+                <Image x:Name="northImg" Source="/images/zfat.jpg" Height="242" />
+            </Button>
+            <TextBlock Text="מרכז" Grid.Row="1" Grid.Column="0" Margin="16 38 0 0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="18" />
+            <TextBlock x:Name="avgPriceCenter" Text="מחיר ממוצע  " Grid.Row="1" Grid.Column="0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="243,47,0,0" />
+            <Button x:Name="centerImgButton" Grid.Row="1" Grid.Column="0" Height="Auto" Width="Auto" BorderBrush="Transparent" Background="Transparent" Click="JerusalemImgButton_Click" >
+                <Image x:Name="centerImg" Source="/images/center.jpg" Height="214" />
+            </Button>
+            <TextBlock Text="דרום" Grid.Row="1" Grid.Column="1" Margin="16 38 0 0" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="18" />
+            <TextBlock x:Name="avgPriceSouth" Text="מחיר ממוצע  " Grid.Row="1" Grid.Column="1" Foreground="CornflowerBlue" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="243,47,0,0" />
+            <Button x:Name="southImgButton" Grid.Row="1" Grid.Column="1" Height="Auto" Width="Auto" BorderBrush="Transparent" Background="Transparent" Click="JerusalemImgButton_Click" >
+                <Image x:Name="southImg" Source="/images/south.jpg" />
             </Button>
         </Grid>
     </Grid>

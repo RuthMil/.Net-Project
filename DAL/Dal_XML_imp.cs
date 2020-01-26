@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Reflection;
 using BE;
 
 namespace DAL
@@ -29,11 +30,11 @@ namespace DAL
         private XElement guestRequestRoot;
         private XElement ownerRoot;
         private XElement configRoot;
-        private string hostingUnitRootPath = ProjectPath + "\\data\\HostingUnit.xml";
-        private string orderRootPath = ProjectPath + "\\data\\Order.xml";
-        private string guestRequestRootPath = ProjectPath + "\\data\\GusetRequest.xml";
-        private string ownerRootPath = ProjectPath + "\\data\\Owner.xml";
-        private string configRootPath = ProjectPath + "\\data\\Configuration.xml";
+        private string hostingUnitRootPath = ProjectPath + "\\HostingUnit.xml";
+        private string orderRootPath = ProjectPath + "\\Order.xml";
+        private string guestRequestRootPath = ProjectPath + "\\GusetRequest.xml";
+        private string ownerRootPath = ProjectPath + "\\Owner.xml";
+        private string configRootPath = ProjectPath + "\\Configuration.xml";
 
         private Dal_XML_imp()
         {
@@ -65,11 +66,22 @@ namespace DAL
                 }
                 else
                     DS.DataSource.OrderList = LoadListFromXML<Order>(orderRootPath);
+                DS.DataSource.HostingUnitList = LoadListFromXML<HostingUnit>(hostingUnitRootPath);
+                DS.DataSource.OrderList = LoadListFromXML<Order>(orderRootPath);
+                DS.DataSource.GuestRequestList = LoadListFromXML<GuestRequest>(guestRequestRootPath);
+                Owner.Commission = float.Parse(ownerRoot.Element("Commission").Value);
             }
             catch(Exception ex)
             {
                 throw ex;
             }
+        }
+
+         ~Dal_XML_imp()
+        {
+            foreach (var item in typeof(Configuration).GetFields())
+                configRoot.Element(item.Name).Value = typeof(Configuration).GetField(item.Name).GetValue(null).ToString();
+            ownerRoot.Element("Commission").Value = Owner.Commission.ToString();
         }
 
         public static void SaveListToXML<T>(List<T> list, string Path)
@@ -99,6 +111,19 @@ namespace DAL
             try
             {
                 configRoot = XElement.Load(configRootPath);
+                //Type h = typeof(Configuration).GetField("HostID").GetType();
+                //List<string> elements = new List<string>();
+                //foreach (var item in configRoot.Elements())
+                //    elements.Add(item.Value);
+
+                //    typeof(Configuration).GetField(item.Name.ToString()).SetValue(null,item.Value);
+                Configuration.GuestRequestID = long.Parse(configRoot.Element("GuestRequestID").Value);
+                Configuration.HostID = long.Parse(configRoot.Element("HostID").Value);
+                Configuration.HostingUnitID = long.Parse(configRoot.Element("HostingUnitID").Value);
+                Configuration.OrderID = long.Parse(configRoot.Element("OrderID").Value);
+                Configuration.commission = float.Parse(configRoot.Element("commission").Value);
+                Configuration.orderValidTime = int.Parse(configRoot.Element("orderValidTime").Value);
+                Configuration.orderCancelationDays = int.Parse(configRoot.Element("orderCancelationDays").Value);
             }
             catch
             {
@@ -114,22 +139,22 @@ namespace DAL
             configRoot.Save(configRootPath);
         }
 
-        private void LoadOrderFile()
-        {
-            try
-            {
-                orderRoot = XElement.Load(orderRootPath);
-            }
-            catch(Exception)
-            {
-                throw new Exception("בעיה בטעינת קובץ");
-            }
-        }
+        //private void LoadOrderFile()
+        //{
+        //    try
+        //    {
+        //        orderRoot = XElement.Load(orderRootPath);
+        //    }
+        //    catch(Exception)
+        //    {
+        //        throw new Exception("בעיה בטעינת קובץ");
+        //    }
+        //}
 
         private void CreateOwnerFile()
         {
             ownerRoot = new XElement("Owner", new XElement("FirstName", "TR"), new XElement("LastName", "YM"),
-                new XElement("Password", "tiru1234"));
+                new XElement("Password", "tiru1234"), new XElement("Commission", "0"));  
             ownerRoot.Save(ownerRootPath);
 
         }
@@ -145,11 +170,11 @@ namespace DAL
                 throw new Exception("בעיה בטעינת קובץ");
             }
         }
-        private void CreateOrdersFile()
-        {
-            orderRoot = new XElement("Orders"); 
-            configRoot.Save(configRootPath);
-        }
+        //private void CreateOrdersFile()
+        //{
+        //    orderRoot = new XElement("Orders"); 
+        //    configRoot.Save(configRootPath);
+        //}
 
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {
@@ -160,6 +185,7 @@ namespace DAL
             myGuestRequest.GuestRequestKey = Configuration.GuestRequestID;
             DS.DataSource.GuestRequestList.Add(myGuestRequest.Clone());
             SaveListToXML(DS.DataSource.GuestRequestList, guestRequestRootPath);
+            UpdateConfig("GuestRequestID", Configuration.GuestRequestID);
         }
 
         public void UpdateGuestRequest(GuestRequest myGuestRequest)
@@ -190,6 +216,8 @@ namespace DAL
             myHostingUnit.HostingUnitKey = Configuration.HostingUnitID;
             DS.DataSource.HostingUnitList.Add(myHostingUnit.Clone());
             SaveListToXML(DS.DataSource.HostingUnitList, hostingUnitRootPath);
+            UpdateConfig("HostingUnitID", Configuration.HostingUnitID);
+            UpdateConfig("HostID", Configuration.HostID);
         }
 
         public void DeleteHostingUnit(HostingUnit myHostingUnit)
@@ -230,6 +258,7 @@ namespace DAL
             myOrder.OrderKey = Configuration.OrderID;
             DS.DataSource.OrderList.Add(myOrder.Clone());
             SaveListToXML(DS.DataSource.OrderList, orderRootPath);
+            UpdateConfig("OrderID", Configuration.OrderID);
         }
 
         public void UpdateOrder(Order myOrder)
@@ -396,5 +425,12 @@ namespace DAL
             }
             return myHost.First().Clone();
         }
+
+        private void UpdateConfig<T>(string key, T value)
+        {
+            configRoot.Element(key).Value = value.ToString(); 
+            configRoot.Save(configRootPath);
+        }
+
     }
 }

@@ -286,7 +286,8 @@ namespace BL
                     //signing the busy days in the diary matrix
                     for (DateTime tmp = orderGuestRequest.EntryDate; tmp < orderGuestRequest.ReleaseDate; tmp = tmp.AddDays(1))
                         myHostingUnit.Diary[tmp.Month - 1, tmp.Day - 1] = true;
-                    myHostingUnit.Owner.Commission += Configuration.commission * SumDaysBetween(orderGuestRequest.EntryDate, orderGuestRequest.RegistrationDate);
+                    myHostingUnit.Owner.Commission += Configuration.commission * SumDaysBetween(orderGuestRequest.EntryDate, orderGuestRequest.ReleaseDate); 
+                    Owner.Commission += Configuration.commission * SumDaysBetween(orderGuestRequest.EntryDate, orderGuestRequest.ReleaseDate);
                     dal.UpdateHostingUnit(myHostingUnit);
                     break;
                 case Enum_s.OrderStatus.נשלח_מייל:

@@ -45,8 +45,14 @@ namespace PLWPF
             myCalendar.DisplayDateStart = DateTime.Now;
             myCalendar.DisplayDateEnd = DateTime.Now.AddMonths(11);
             List<HostingUnit> hostingUnits = new List<HostingUnit>();
+            initAverages(hostingUnits);
+        }
+
+        private void initAverages(List<HostingUnit> hostingUnits)
+        {
             float average = 0;
-            foreach (var item1 in bl.GroupHostingUnitByAreas())
+            IEnumerable<IGrouping<Enum_s.Areas, HostingUnit>> unitsGroupByAreas = bl.GroupHostingUnitByAreas();
+            foreach (var item1 in unitsGroupByAreas)
                 if (item1.Key == Enum_s.Areas.ירושלים)
                     foreach (var item2 in item1)
                     {
@@ -54,7 +60,34 @@ namespace PLWPF
                         average += item2.Price;
                     }
             average /= hostingUnits.Count();
-            avgPriceJerusalem.Text += average.ToString() + " ש'ח" ;
+            avgPriceJerusalem.Text += average.ToString() + " ש'ח";
+            foreach (var item1 in unitsGroupByAreas)
+                if (item1.Key == Enum_s.Areas.צפון)
+                    foreach (var item2 in item1)
+                    {
+                        hostingUnits.Add(item2);
+                        average += item2.Price;
+                    }
+            average /= hostingUnits.Count();
+            avgPriceNorth.Text += average.ToString() + " ש'ח";
+            foreach (var item1 in unitsGroupByAreas)
+                if (item1.Key == Enum_s.Areas.מרכז)
+                    foreach (var item2 in item1)
+                    {
+                        hostingUnits.Add(item2);
+                        average += item2.Price;
+                    }
+            average /= hostingUnits.Count();
+            avgPriceCenter.Text += average.ToString() + " ש'ח";
+            foreach (var item1 in unitsGroupByAreas)
+                if (item1.Key == Enum_s.Areas.דרום)
+                    foreach (var item2 in item1)
+                    {
+                        hostingUnits.Add(item2);
+                        average += item2.Price;
+                    }
+            average /= hostingUnits.Count();
+            avgPriceSouth.Text += average.ToString() + " ש'ח";
         }
 
         private void AreasComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -246,10 +279,35 @@ namespace PLWPF
         {
             MainWindow.prevPage = this;
             List<HostingUnit> hostingUnits = new List<HostingUnit>();
-            foreach (var item1 in bl.GroupHostingUnitByAreas())
-                if (item1.Key == Enum_s.Areas.ירושלים)
-                    foreach (var item2 in item1)
-                        hostingUnits.Add(item2);
+            IEnumerable<IGrouping<Enum_s.Areas, HostingUnit>> unitsGroupByAreas = bl.GroupHostingUnitByAreas();
+            if (e.Source == jerusalemImgButton)
+            {
+                foreach (var item1 in unitsGroupByAreas)
+                    if (item1.Key == Enum_s.Areas.ירושלים)
+                        foreach (var item2 in item1)
+                            hostingUnits.Add(item2);
+            }
+            else if (e.Source == northImgButton) 
+            {
+                foreach (var item1 in unitsGroupByAreas)
+                    if (item1.Key == Enum_s.Areas.צפון)
+                        foreach (var item2 in item1)
+                            hostingUnits.Add(item2);
+            }
+            else if (e.Source == centerImgButton)
+            {
+                foreach (var item1 in unitsGroupByAreas)
+                    if (item1.Key == Enum_s.Areas.מרכז)
+                        foreach (var item2 in item1)
+                            hostingUnits.Add(item2);
+            }
+            else if (e.Source == southImgButton)
+            {
+                foreach (var item1 in unitsGroupByAreas)
+                    if (item1.Key == Enum_s.Areas.דרום)
+                        foreach (var item2 in item1)
+                            hostingUnits.Add(item2);
+            }
             ViewHostingUnitsPage hostingUnitsPage = new ViewHostingUnitsPage(hostingUnits);  
             this.NavigationService.Navigate(hostingUnitsPage); 
         }

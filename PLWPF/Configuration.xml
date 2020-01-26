@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
-  <HostingUnitID>0</HostingUnitID>
-  <GuestRequestID>0</GuestRequestID>
+  <HostingUnitID>5</HostingUnitID>
+  <GuestRequestID>5</GuestRequestID>
   <OrderID>0</OrderID>
-  <HostID>0</HostID>
+  <HostID>5</HostID>
   <commission>10</commission>
   <orderValidTime>30</orderValidTime>
   <orderCancelationDays>14</orderCancelationDays>

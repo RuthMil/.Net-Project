@@ -43,15 +43,15 @@
             <Image Source="{Binding Path=Images}" Grid.Row="4" Grid.ColumnSpan="2"/>
             <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" >
                 <TextBlock x:Name="txt0" />
-                <Image x:Name="img0" Source="Resources/garden.png" />
+                <Image x:Name="img0" Source="/images/garden.png" />
                 <TextBlock x:Name="txt1" />
-                <Image x:Name="img1" Source="Resources/pool.png" />
+                <Image x:Name="img1" Source="/images/pool.png" />
                 <TextBlock x:Name="txt2" />
-                <Image x:Name="img2" Source="Resources/bath.png" />
+                <Image x:Name="img2" Source="/images/bath.png" />
                 <TextBlock x:Name="txt3" />
-                <Image x:Name="img3" Source="Resources/wifi.png" />
+                <Image x:Name="img3" Source="/images/wifi.png" />
                 <TextBlock x:Name="txt4" />
-                <Image x:Name="img4" Source="Resources/toys.png" />
+                <Image x:Name="img4" Source="/images/toys.png" />
             </StackPanel>
         </Grid>
     </Border>

@@ -235,7 +235,8 @@ namespace PLWPF
             myHostingUnit.Garden = (bool)CheckGarden.IsChecked;
             myHostingUnit.ChildrenAttractions = (bool)CheckChildrenAttractions.IsChecked;
             myHostingUnit.Wifi = (bool)CheckWifi.IsChecked;
-
+            myHostingUnit.HostingUnitName = hostingUnitName.Text;
+            myHostingUnit.Address = unitAddress.Text;
 
             try
             {
