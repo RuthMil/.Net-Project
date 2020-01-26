@@ -18,7 +18,6 @@ namespace BE
         public string HostingUnitName { get; set; }
         [XmlIgnore]
         public bool[,] Diary { get; set; }
-        private bool[] myDiaryDto;
         [XmlArray("Diary")]
         public  bool[] DiaryDto
         {

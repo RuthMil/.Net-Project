@@ -1,2 +1,30 @@
 <?xml version="1.0"?>
-<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <HostingUnitKey>1</HostingUnitKey>
+    <GuestRequestKey>1</GuestRequestKey>
+    <OrderKey>1</OrderKey>
+    <Status>נשלח_מייל</Status>
+    <CreateDate>2020-01-26T12:30:43.1809288+02:00</CreateDate>
+    <OrderDate>2020-01-26T12:30:45.3373619+02:00</OrderDate>
+    <GuestName>אבי מילר</GuestName>
+  </Order>
+  <Order>
+    <HostingUnitKey>2</HostingUnitKey>
+    <GuestRequestKey>2</GuestRequestKey>
+    <OrderKey>2</OrderKey>
+    <Status>נשלח_מייל</Status>
+    <CreateDate>2020-01-26T12:36:08.9066465+02:00</CreateDate>
+    <OrderDate>2020-01-26T12:36:10.6476074+02:00</OrderDate>
+    <GuestName>תהל סימנטוב</GuestName>
+  </Order>
+  <Order>
+    <HostingUnitKey>1</HostingUnitKey>
+    <GuestRequestKey>1</GuestRequestKey>
+    <OrderKey>1</OrderKey>
+    <Status>לא_בטיפול</Status>
+    <CreateDate>2020-01-26T12:39:28.1654343+02:00</CreateDate>
+    <OrderDate>0001-01-01T00:00:00</OrderDate>
+    <GuestName>אבי מילר</GuestName>
+  </Order>
+</ArrayOfOrder>
