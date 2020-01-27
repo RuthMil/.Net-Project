@@ -69,7 +69,6 @@ namespace DAL
                 DS.DataSource.HostingUnitList = LoadListFromXML<HostingUnit>(hostingUnitRootPath);
                 DS.DataSource.OrderList = LoadListFromXML<Order>(orderRootPath);
                 DS.DataSource.GuestRequestList = LoadListFromXML<GuestRequest>(guestRequestRootPath);
-                Owner.Commission = float.Parse(ownerRoot.Element("Commission").Value);
             }
             catch(Exception ex)
             {
@@ -79,9 +78,9 @@ namespace DAL
 
          ~Dal_XML_imp()
         {
-            foreach (var item in typeof(Configuration).GetFields())
-                configRoot.Element(item.Name).Value = typeof(Configuration).GetField(item.Name).GetValue(null).ToString();
-            ownerRoot.Element("Commission").Value = Owner.Commission.ToString();
+            foreach (var item in configRoot.Elements())
+                item.Value = typeof(Configuration).GetField(item.Name.ToString()).GetValue(null).ToString();
+            configRoot.Save(configRootPath);
         }
 
         public static void SaveListToXML<T>(List<T> list, string Path)
@@ -154,7 +153,7 @@ namespace DAL
         private void CreateOwnerFile()
         {
             ownerRoot = new XElement("Owner", new XElement("FirstName", "TR"), new XElement("LastName", "YM"),
-                new XElement("Password", "tiru1234"), new XElement("Commission", "0"));  
+                new XElement("Password", "tiru1234")); 
             ownerRoot.Save(ownerRootPath);
 
         }

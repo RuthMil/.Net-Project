@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
   <HostingUnitID>5</HostingUnitID>
-  <GuestRequestID>5</GuestRequestID>
-  <OrderID>0</OrderID>
+  <GuestRequestID>7</GuestRequestID>
+  <OrderID>2</OrderID>
   <HostID>5</HostID>
-  <commission>10</commission>
+  <commission>25</commission>
   <orderValidTime>30</orderValidTime>
   <orderCancelationDays>14</orderCancelationDays>
 </Configuration>

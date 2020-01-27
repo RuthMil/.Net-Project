@@ -61,6 +61,7 @@ namespace PLWPF
                     }
             average /= hostingUnits.Count();
             avgPriceJerusalem.Text += average.ToString() + " ש'ח";
+            hostingUnits.Clear();
             foreach (var item1 in unitsGroupByAreas)
                 if (item1.Key == Enum_s.Areas.צפון)
                     foreach (var item2 in item1)
@@ -70,6 +71,7 @@ namespace PLWPF
                     }
             average /= hostingUnits.Count();
             avgPriceNorth.Text += average.ToString() + " ש'ח";
+            hostingUnits.Clear();
             foreach (var item1 in unitsGroupByAreas)
                 if (item1.Key == Enum_s.Areas.מרכז)
                     foreach (var item2 in item1)
@@ -79,6 +81,7 @@ namespace PLWPF
                     }
             average /= hostingUnits.Count();
             avgPriceCenter.Text += average.ToString() + " ש'ח";
+            hostingUnits.Clear();
             foreach (var item1 in unitsGroupByAreas)
                 if (item1.Key == Enum_s.Areas.דרום)
                     foreach (var item2 in item1)
