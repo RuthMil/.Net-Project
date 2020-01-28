@@ -8,11 +8,16 @@
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="1000"
       Title="OwnerPage" VerticalAlignment="Top">
+    <Page.Resources>
+        <Style x:Key="myTextBlock" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+    </Page.Resources>
     <Grid>
         <TabControl FlowDirection="RightToLeft" >
-            <TabItem Header="הגדרות" Height="35" Background="White">
-                
-            </TabItem>
             <TabItem Header="הזמנות" Background="White" >
                 <Border x:Name="orderListBorder" Background="#FFECB3" BorderBrush="#FFD54F" BorderThickness="2" >
                     <Grid>
@@ -38,8 +43,80 @@
                     </Grid>
                 </Border>
             </TabItem>
+            <TabItem Header="בקשות אירוח" Background="White">
+                <Border x:Name="guestRequestListBorder" Background="#FFECB3" BorderBrush="#FFD54F" BorderThickness="2" >
+                    <Grid>
+                        <TextBlock x:Name="noRequestTxt" Text=".אין כרגע בקשות אירוח במערכת" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="DimGray" FontSize="14" Style="{StaticResource MaterialDesignHeadline2TextBlock}" />
+                        <ListView x:Name="guestRequestListView" FlowDirection="RightToLeft" ItemsSource="{Binding}" >
+                            <ListView.View >
+                                <GridView >
+                                    <GridViewColumn Header="מספר בקשת אירוח" DisplayMemberBinding="{Binding GuestRequestKey}" Width="160" />
+                                    <GridViewColumn Header="שם לקוח" DisplayMemberBinding="{Binding LastName}" Width="160" />
+                                    <GridViewColumn Header="סטטוס בקשה" DisplayMemberBinding="{Binding Status}" Width="160"/>
+                                    <GridViewColumn Header="תאריך יצירת בקשה" DisplayMemberBinding="{Binding RegistrationDate, StringFormat=d}" Width="160" />
+                                    <GridViewColumn Header="אזור הנופש" DisplayMemberBinding="{Binding Area}" Width="150" />
+                                    <GridViewColumn Header="תאריך תחילת הנופש" DisplayMemberBinding="{Binding EntryDate, StringFormat=d}" Width="160" />
+                                    <GridViewColumn Header="תאריך סיום הנופש" DisplayMemberBinding="{Binding ReleaseDate, StringFormat=d}" Width="160" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </Border>
+            </TabItem>
             <TabItem Header="נתונים" Background="White" >
-                
+                <Border x:Name="activityDataBorder" Background="#FFECB3" BorderBrush="#FFD54F" BorderThickness="2" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="350"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="ממוצעי מחירי היחידות המפורסמות באתר" FontWeight="Bold" FontSize="20" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                        <TextBlock Grid.Row="1" Text="ממוצע מחירים לפי אזורים:" FontWeight="Bold" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}" TextDecorations="Underline"/>
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="צפון - " FontWeight="Bold" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="northAvg" Grid.Row="0" Grid.Column="1" Text="" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="northEmpty" Grid.Row="0" Grid.Column="1" Text="לא קיימות יחידות באזור זה" FontSize="18" Visibility="Hidden" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="northSymbol" Grid.Row="0" Grid.Column="2" Text="₪" Visibility="Visible" FontSize="30" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="מרכז - " FontWeight="Bold" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="centerAvg" Grid.Row="1" Grid.Column="1" Text="" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="centerEmpty" Grid.Row="1" Grid.Column="1" Text="לא קיימות יחידות באזור זה" FontSize="18" Visibility="Hidden" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="centerSymbol" Grid.Row="1" Grid.Column="2" Text="₪" Visibility="Visible" FontSize="30" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="ירושלים - " FontWeight="Bold" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="jerusalemAvg" Grid.Row="2" Grid.Column="1" Text="" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="jerusalemEmpty" Grid.Row="2" Grid.Column="1" Text="לא קיימות יחידות באזור זה" FontSize="18" Visibility="Hidden" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="jerusalemSymbol" Grid.Row="2" Grid.Column="2" Text="₪" Visibility="Visible" FontSize="30" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="דרום - " FontWeight="Bold" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="southAvg" Grid.Row="3" Grid.Column="1" Text="" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="southEmpty" Grid.Row="3" Grid.Column="1" Text="לא קיימות יחידות באזור זה" FontSize="18" Visibility="Hidden" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="southSymbol" Grid.Row="3" Grid.Column="2" Text="₪" Visibility="Visible" FontSize="30" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock Grid.Row="4" Text="ממוצע מחירים כללי:" FontWeight="Bold" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}" TextDecorations="Underline"/>
+                            <TextBlock x:Name="generalAvg" Grid.Row="4" Grid.Column="1" Text="" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="generalEmpty" Grid.Row="4" Grid.Column="1" Text="לא קיימות יחידות באתר" FontSize="18" Visibility="Hidden" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="generalSymbol" Grid.Row="4" Grid.Column="2" Text="₪" Visibility="Visible" FontSize="30" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="הרווחים מפעילות האתר" FontWeight="Bold" FontSize="20" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock Grid.Row="6" Text="סך הרווחים:" FontWeight="Bold" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}" TextDecorations="Underline"/>
+                            <TextBlock x:Name="siteEarnings" Grid.Row="6" Grid.Column="1" Text="" FontSize="18" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="siteEarningsEmpty" Grid.Row="6" Grid.Column="1" Text="לא קיימים רווחים" FontSize="18" Visibility="Hidden" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                            <TextBlock x:Name="siteEarningsSymbol" Grid.Row="6" Grid.Column="2" Text="₪" FontSize="30" Visibility="Visible" Foreground="CornflowerBlue" Style="{StaticResource myTextBlock}"/>
+                        </Grid>
+                    </Grid>
+                </Border>
             </TabItem>
         </TabControl>
     </Grid>

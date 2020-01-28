@@ -26,28 +26,20 @@ namespace PLWPF
         HostingUnit myHostingUnit;
         readonly BL.IBL bl = BL.BlFactory.GetBL();
         List<string> branches = new List<string>();
-        Dictionary<int, string> bankNames = new Dictionary<int, string>
-        {
-            [13] = "בנק אגוד לישראל",
-            [14] = "בנק אוצר החייל",
-            [11] = "בנק דיסקונט לישראל",
-            [68] = "בנק דקסיה ישראל",
-            [12] = "בנק הפועלים",
-            [4] = "בנק יהב לעובדי המדינה",
-            [54] = "בנק ירושלים",
-            [10] = "בנק לאומי לישראל",
-            [20] = "בנק מזרחי טפחות",
-            [46] = "בנק מסד",
-            [17] = "בנק מרכנתיל דיסקונט",
-            [34] = "בנק ערבי ישראל",
-            [52] = "בנק פועלי אגודת ישראל",
-            [31] = "הבנק הבילאומי הראשון לישראל",
-            [26] = "יובנק"
-        };
+        Dictionary<int, string> bankNames = new Dictionary<int, string>();
 
         public UpdateHostingUnitPage()
         {
             InitializeComponent();
+            try
+            {
+                foreach (var item in bl.ReceiveBankBranchesList())
+                {
+                    if (!bankNames.ContainsKey(item.BankNumber))
+                        bankNames.Add(item.BankNumber, item.BankName);
+                }
+            }
+            catch (Exception) { }
             FirstGrid.Visibility = Visibility.Visible;
             SecondGrid.Visibility = Visibility.Hidden;
             List<Enum_s.Areas> areas = new List<Enum_s.Areas>() { Enum_s.Areas.דרום, Enum_s.Areas.ירושלים, Enum_s.Areas.מרכז, Enum_s.Areas.צפון };
@@ -57,8 +49,13 @@ namespace PLWPF
             unitSubAreasCMB.ItemsSource = subAreas;
             unitTypesCMB.ItemsSource = types;
             bankNameCMB.ItemsSource = bankNames;
-            foreach (var item in bl.ReceiveBankBranchesList())
-                branches.Add(item.BranchNumber.ToString() + " - " + item.BranchCity);
+            try
+            {
+                foreach (var item in bl.ReceiveBankBranchesList())
+                    branches.Add(item.BranchNumber.ToString() + " - " + item.BranchCity);
+                branchNumberCMB.ItemsSource = branches;
+            }
+            catch (Exception) { }
             branchNumberCMB.ItemsSource = branches;
         }
         public void InitHostingUnit()

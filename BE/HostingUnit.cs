@@ -24,7 +24,6 @@ namespace BE
             get { return Diary.Flatten(); }
             set { Diary = value.Expand(12); }
         }
-
         public Enum_s.Areas Area { get; set; }
         public Enum_s.SubArea SubArea { get; set; }
         public Enum_s.HostingUnitTypes Type { get; set; }

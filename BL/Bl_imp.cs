@@ -14,6 +14,47 @@ namespace BL
     {
         readonly DAL.IDAL dal = DAL.DalFactory.GetDAL();
 
+        private static Bl_imp instance;
+
+        public static Bl_imp Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new Bl_imp();
+                return instance;
+            }
+        }
+
+        private Bl_imp()
+        {
+            new Thread(() =>
+            {
+                while (true)
+                {
+                    foreach (var item in ExpiredOrders())
+                        dal.DeleteOrder(item);
+                    Thread.Sleep(24 * 60 * 60 * 1000);
+                    //DateTime dateNow = DateTime.Now;
+                    //DateTime date = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 1, 0, 0);
+                    //TimeSpan ts;
+                    //if (date > dateNow)
+                    //    ts = date - dateNow;
+                    //else
+                    //{
+                    //    date = date.AddDays(1);
+                    //    ts = date - dateNow;
+                    //}
+                    //Task.Delay(ts).ContinueWith((x) =>
+                    //{
+                    //    foreach (var item in ExpiredOrders())
+                    //        dal.DeleteOrder(item);
+                    //});
+                }
+            }
+            ).Start();
+        }
+
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {
             if (myGuestRequest.ReleaseDate <= myGuestRequest.EntryDate)
@@ -314,6 +355,7 @@ namespace BL
                     //signing the busy days in the diary matrix
                     for (DateTime tmp = orderGuestRequest.EntryDate; tmp < orderGuestRequest.ReleaseDate; tmp = tmp.AddDays(1))
                         myHostingUnit.Diary[tmp.Month - 1, tmp.Day - 1] = true;
+                    //myHostingUnit.datesRanges.Add(new Tuple<DateTime, DateTime>(orderGuestRequest.EntryDate, orderGuestRequest.ReleaseDate));
                     myHostingUnit.Owner.Commission += Configuration.commission * SumDaysBetween(orderGuestRequest.EntryDate, orderGuestRequest.ReleaseDate); 
                     dal.UpdateHostingUnit(myHostingUnit);
                     break;

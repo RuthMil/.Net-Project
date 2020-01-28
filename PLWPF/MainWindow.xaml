@@ -12,7 +12,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Title="MainWindow" Height="650" Width="1000" Name="mainWindow" WindowStartupLocation="CenterScreen">
+        Title="חופשונט" Height="650" Width="1000" Name="mainWindow" WindowStartupLocation="CenterScreen" >
     <Window.Resources>
     </Window.Resources>
     <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True" Style="{StaticResource MaterialDesignScrollViewer}">
@@ -30,7 +30,6 @@
                 <Button x:Name="homePage" Grid.Column="2" HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent" Click="HomePage_Click">
                     <materialDesign:PackIcon Kind="Home"/>
                 </Button>
-                <Expander Header="צור קשר" Grid.Column="1" FontWeight="Normal" Foreground="Black" FontSize="11" Content="info@hosting.com :אימייל &#x0a;טלפון: 0587750643" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="100" Background="Transparent"/>
                 <Button x:Name="backButton" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#B0BEC5" BorderBrush="#B0BEC5" Height="63" Click="BackButton_Click">
                     <materialDesign:PackIcon Kind="ArrowBack" Foreground="White"/>
                 </Button>

@@ -1,57 +1,21 @@
 <?xml version="1.0"?>
 <ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Order>
-    <HostingUnitKey>1</HostingUnitKey>
+    <HostingUnitKey>3</HostingUnitKey>
     <GuestRequestKey>7</GuestRequestKey>
     <OrderKey>2</OrderKey>
     <Status>נשלח_מייל</Status>
-    <CreateDate>2020-01-28T02:18:56.8968135+02:00</CreateDate>
-    <OrderDate>2020-01-28T02:18:56.9167349+02:00</OrderDate>
-    <GuestName>כוכבי שביט</GuestName>
+    <CreateDate>2020-01-28T14:23:19.4573283+02:00</CreateDate>
+    <OrderDate>2020-01-28T14:23:19.4681582+02:00</OrderDate>
+    <GuestName>תילי  יפה</GuestName>
   </Order>
   <Order>
     <HostingUnitKey>1</HostingUnitKey>
     <GuestRequestKey>6</GuestRequestKey>
     <OrderKey>1</OrderKey>
-    <Status>נסגר_בשל_התנגשות</Status>
-    <CreateDate>2020-01-28T00:48:59.3412975+02:00</CreateDate>
-    <OrderDate>2020-01-28T00:49:02.100016+02:00</OrderDate>
-    <GuestName>תילי יפה</GuestName>
-  </Order>
-  <Order>
-    <HostingUnitKey>1</HostingUnitKey>
-    <GuestRequestKey>9</GuestRequestKey>
-    <OrderKey>4</OrderKey>
-    <Status>נשלח_מייל</Status>
-    <CreateDate>2020-01-28T02:21:50.4444365+02:00</CreateDate>
-    <OrderDate>2020-01-28T02:21:50.452415+02:00</OrderDate>
-    <GuestName>שלום רב</GuestName>
-  </Order>
-  <Order>
-    <HostingUnitKey>1</HostingUnitKey>
-    <GuestRequestKey>10</GuestRequestKey>
-    <OrderKey>5</OrderKey>
-    <Status>נשלח_מייל</Status>
-    <CreateDate>2020-01-28T02:24:51.375139+02:00</CreateDate>
-    <OrderDate>2020-01-28T02:24:51.3900683+02:00</OrderDate>
-    <GuestName>עפרון עטי</GuestName>
-  </Order>
-  <Order>
-    <HostingUnitKey>1</HostingUnitKey>
-    <GuestRequestKey>11</GuestRequestKey>
-    <OrderKey>6</OrderKey>
-    <Status>לא_בטיפול</Status>
-    <CreateDate>2020-01-28T02:26:36.4517985+02:00</CreateDate>
-    <OrderDate>0001-01-01T00:00:00</OrderDate>
-    <GuestName>שיר השלום</GuestName>
-  </Order>
-  <Order>
-    <HostingUnitKey>1</HostingUnitKey>
-    <GuestRequestKey>12</GuestRequestKey>
-    <OrderKey>7</OrderKey>
-    <Status>נשלח_מייל</Status>
-    <CreateDate>2020-01-28T02:29:33.2641046+02:00</CreateDate>
-    <OrderDate>2020-01-28T02:29:33.2790652+02:00</OrderDate>
-    <GuestName>שמיר שומרון</GuestName>
+    <Status>נסגר_בשל_הענות</Status>
+    <CreateDate>2020-01-28T14:22:15.1120358+02:00</CreateDate>
+    <OrderDate>2020-01-28T14:25:06.9253107+02:00</OrderDate>
+    <GuestName>רות מילר</GuestName>
   </Order>
 </ArrayOfOrder>

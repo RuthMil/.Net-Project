@@ -6,9 +6,9 @@
     <LastName>Cohen</LastName>
     <MailAddress>ron@gmail.com</MailAddress>
     <Status>Open</Status>
-    <RegistrationDate>2020-01-28T00:48:25.1239233+02:00</RegistrationDate>
-    <EntryDate>2020-01-29T00:48:25.1229255+02:00</EntryDate>
-    <ReleaseDate>2020-02-02T00:48:25.1229255+02:00</ReleaseDate>
+    <RegistrationDate>2020-01-28T14:15:09.850527+02:00</RegistrationDate>
+    <EntryDate>2020-01-29T14:15:09.8483003+02:00</EntryDate>
+    <ReleaseDate>2020-02-02T14:15:09.8485322+02:00</ReleaseDate>
     <Area>צפון</Area>
     <SubArea>חיפה</SubArea>
     <Type>מלון</Type>
@@ -26,9 +26,9 @@
     <LastName>Levi</LastName>
     <MailAddress>Dar@gmail.com</MailAddress>
     <Status>Open</Status>
-    <RegistrationDate>2020-01-28T00:48:25.1348933+02:00</RegistrationDate>
-    <EntryDate>2020-02-05T00:48:25.1239233+02:00</EntryDate>
-    <ReleaseDate>2020-02-12T00:48:25.1239233+02:00</ReleaseDate>
+    <RegistrationDate>2020-01-28T14:15:09.8724684+02:00</RegistrationDate>
+    <EntryDate>2020-02-05T14:15:09.8492622+02:00</EntryDate>
+    <ReleaseDate>2020-02-12T14:15:09.8492622+02:00</ReleaseDate>
     <Area>מרכז</Area>
     <SubArea>תל_אביב</SubArea>
     <Type>דירה</Type>
@@ -46,9 +46,9 @@
     <LastName>Rot</LastName>
     <MailAddress>Eyal@gmail.com</MailAddress>
     <Status>Open</Status>
-    <RegistrationDate>2020-01-28T00:48:25.1418748+02:00</RegistrationDate>
-    <EntryDate>2020-03-18T00:48:25.1239233+02:00</EntryDate>
-    <ReleaseDate>2020-03-28T00:48:25.1239233+03:00</ReleaseDate>
+    <RegistrationDate>2020-01-28T14:15:09.8844371+02:00</RegistrationDate>
+    <EntryDate>2020-03-18T14:15:09.8492622+02:00</EntryDate>
+    <ReleaseDate>2020-03-28T14:15:09.8492622+03:00</ReleaseDate>
     <Area>דרום</Area>
     <SubArea>אילת</SubArea>
     <Type>מלון</Type>
@@ -66,9 +66,9 @@
     <LastName>Mark</LastName>
     <MailAddress>Itay@gmail.com</MailAddress>
     <Status>Open</Status>
-    <RegistrationDate>2020-01-28T00:48:25.1459006+02:00</RegistrationDate>
-    <EntryDate>2020-02-09T00:48:25.1239233+02:00</EntryDate>
-    <ReleaseDate>2020-02-16T00:48:25.1239233+02:00</ReleaseDate>
+    <RegistrationDate>2020-01-28T14:15:09.8904213+02:00</RegistrationDate>
+    <EntryDate>2020-02-09T14:15:09.8492622+02:00</EntryDate>
+    <ReleaseDate>2020-02-16T14:15:09.8492622+02:00</ReleaseDate>
     <Area>צפון</Area>
     <SubArea>גליל</SubArea>
     <Type>בקתה</Type>
@@ -86,9 +86,9 @@
     <LastName>Halpern</LastName>
     <MailAddress>Tomer@gmail.com</MailAddress>
     <Status>Open</Status>
-    <RegistrationDate>2020-01-28T00:48:25.1488934+02:00</RegistrationDate>
-    <EntryDate>2020-01-30T00:48:25.1239233+02:00</EntryDate>
-    <ReleaseDate>2020-02-04T00:48:25.1239233+02:00</ReleaseDate>
+    <RegistrationDate>2020-01-28T14:15:09.8964505+02:00</RegistrationDate>
+    <EntryDate>2020-01-30T14:15:09.8492622+02:00</EntryDate>
+    <ReleaseDate>2020-02-04T14:15:09.8492622+02:00</ReleaseDate>
     <Area>ירושלים</Area>
     <SubArea>ירושלים</SubArea>
     <Type>מלון</Type>
@@ -101,139 +101,39 @@
     <Wifi>אפשרי</Wifi>
   </GuestRequest>
   <GuestRequest>
-    <GuestRequestKey>6</GuestRequestKey>
-    <FirstName>תילי</FirstName>
-    <LastName>יפה</LastName>
-    <MailAddress>tehilayafe@gmail.com</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T00:48:59.3353129+02:00</RegistrationDate>
-    <EntryDate>2020-02-13T00:00:00</EntryDate>
-    <ReleaseDate>2020-02-14T00:00:00</ReleaseDate>
-    <Area>צפון</Area>
-    <SubArea>צפון</SubArea>
-    <Type>הכל</Type>
-    <Adults>2</Adults>
-    <Children>0</Children>
-    <Pool>אפשרי</Pool>
-    <Jacuzzi>אפשרי</Jacuzzi>
-    <Garden>אפשרי</Garden>
-    <ChildrenAttractions>אפשרי</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
     <GuestRequestKey>7</GuestRequestKey>
-    <FirstName>כוכבי</FirstName>
-    <LastName>שביט</LastName>
-    <MailAddress>ffd@gg.viv</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T02:18:56.8768423+02:00</RegistrationDate>
-    <EntryDate>2020-02-20T00:00:00</EntryDate>
-    <ReleaseDate>2020-02-21T00:00:00</ReleaseDate>
-    <Area>צפון</Area>
-    <SubArea>צפון</SubArea>
-    <Type>הכל</Type>
-    <Adults>2</Adults>
-    <Children>0</Children>
-    <Pool>אפשרי</Pool>
-    <Jacuzzi>אפשרי</Jacuzzi>
-    <Garden>אפשרי</Garden>
-    <ChildrenAttractions>אפשרי</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
-    <GuestRequestKey>8</GuestRequestKey>
-    <FirstName>שמעון</FirstName>
-    <LastName>הלוי</LastName>
-    <MailAddress>ruthmiller2000@gmail.com</MailAddress>
-    <Status>ClosedDueToResponsivenessByApp</Status>
-    <RegistrationDate>2020-01-28T02:19:27.2839088+02:00</RegistrationDate>
-    <EntryDate>2020-02-13T00:00:00</EntryDate>
-    <ReleaseDate>2020-02-15T00:00:00</ReleaseDate>
-    <Area>צפון</Area>
-    <SubArea>צפון</SubArea>
-    <Type>הכל</Type>
-    <Adults>2</Adults>
-    <Children>0</Children>
-    <Pool>אפשרי</Pool>
-    <Jacuzzi>אפשרי</Jacuzzi>
-    <Garden>אפשרי</Garden>
-    <ChildrenAttractions>אפשרי</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
-    <GuestRequestKey>9</GuestRequestKey>
-    <FirstName>שלום</FirstName>
-    <LastName>רב</LastName>
+    <FirstName>תילי </FirstName>
+    <LastName>יפה</LastName>
     <MailAddress>ruthmiller2000@gmail.com</MailAddress>
     <Status>Open</Status>
-    <RegistrationDate>2020-01-28T02:21:50.4404471+02:00</RegistrationDate>
-    <EntryDate>2020-02-13T00:00:00</EntryDate>
-    <ReleaseDate>2020-02-15T00:00:00</ReleaseDate>
-    <Area>צפון</Area>
-    <SubArea>צפון</SubArea>
-    <Type>הכל</Type>
-    <Adults>2</Adults>
-    <Children>0</Children>
-    <Pool>אפשרי</Pool>
-    <Jacuzzi>אפשרי</Jacuzzi>
-    <Garden>אפשרי</Garden>
-    <ChildrenAttractions>אפשרי</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
-    <GuestRequestKey>10</GuestRequestKey>
-    <FirstName>עפרון</FirstName>
-    <LastName>עטי</LastName>
-    <MailAddress>ruthmiller2000@gmail.com</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T02:24:51.3621434+02:00</RegistrationDate>
-    <EntryDate>2020-02-13T00:00:00</EntryDate>
-    <ReleaseDate>2020-02-14T00:00:00</ReleaseDate>
-    <Area>צפון</Area>
-    <SubArea>צפון</SubArea>
-    <Type>הכל</Type>
-    <Adults>2</Adults>
-    <Children>0</Children>
-    <Pool>אפשרי</Pool>
-    <Jacuzzi>אפשרי</Jacuzzi>
-    <Garden>אפשרי</Garden>
-    <ChildrenAttractions>אפשרי</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
-    <GuestRequestKey>11</GuestRequestKey>
-    <FirstName>שיר</FirstName>
-    <LastName>השלום</LastName>
-    <MailAddress>ruthmiller2000@gmail.com</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T02:25:59.5095334+02:00</RegistrationDate>
-    <EntryDate>2020-02-20T00:00:00</EntryDate>
-    <ReleaseDate>2020-02-21T00:00:00</ReleaseDate>
-    <Area>צפון</Area>
-    <SubArea>צפון</SubArea>
-    <Type>הכל</Type>
-    <Adults>2</Adults>
-    <Children>0</Children>
-    <Pool>אפשרי</Pool>
-    <Jacuzzi>אפשרי</Jacuzzi>
-    <Garden>אפשרי</Garden>
-    <ChildrenAttractions>אפשרי</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
-    <GuestRequestKey>12</GuestRequestKey>
-    <FirstName>שמיר</FirstName>
-    <LastName>שומרון</LastName>
-    <MailAddress>ruthmiller2000@gmail.com</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T02:29:33.2501403+02:00</RegistrationDate>
+    <RegistrationDate>2020-01-28T14:23:19.4442228+02:00</RegistrationDate>
     <EntryDate>2020-02-12T00:00:00</EntryDate>
-    <ReleaseDate>2020-02-13T00:00:00</ReleaseDate>
+    <ReleaseDate>2020-02-14T00:00:00</ReleaseDate>
+    <Area>דרום</Area>
+    <SubArea>דרום</SubArea>
+    <Type>הכל</Type>
+    <Adults>2</Adults>
+    <Children>0</Children>
+    <Pool>אפשרי</Pool>
+    <Jacuzzi>אפשרי</Jacuzzi>
+    <Garden>אפשרי</Garden>
+    <ChildrenAttractions>אפשרי</ChildrenAttractions>
+    <Wifi>אפשרי</Wifi>
+  </GuestRequest>
+  <GuestRequest>
+    <GuestRequestKey>6</GuestRequestKey>
+    <FirstName>רות</FirstName>
+    <LastName>מילר</LastName>
+    <MailAddress>ygoldsht@jct.ac.il</MailAddress>
+    <Status>ClosedDueToResponsivenessByApp</Status>
+    <RegistrationDate>2020-01-28T14:22:15.090083+02:00</RegistrationDate>
+    <EntryDate>2020-02-05T00:00:00</EntryDate>
+    <ReleaseDate>2020-02-07T00:00:00</ReleaseDate>
     <Area>צפון</Area>
     <SubArea>צפון</SubArea>
     <Type>הכל</Type>
     <Adults>2</Adults>
-    <Children>0</Children>
+    <Children>1</Children>
     <Pool>אפשרי</Pool>
     <Jacuzzi>אפשרי</Jacuzzi>
     <Garden>אפשרי</Garden>

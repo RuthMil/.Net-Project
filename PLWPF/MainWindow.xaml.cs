@@ -32,10 +32,8 @@ namespace PLWPF
             {
                 new HostingUnit()
                 {
-                    HostingUnitKey = 1,
                     Owner = new Host()
                     {
-                        HostKey = 1,
                         FirstName = "Efraim",
                         LastName = "Miller",
                         PhoneNumber = "0545851233",
@@ -69,10 +67,8 @@ namespace PLWPF
                 },
                 new HostingUnit()
                 {
-                    HostingUnitKey = 2,
                     Owner = new Host()
                     {
-                        HostKey = 2,
                         FirstName = "Israel",
                         LastName = "Avramov",
                         PhoneNumber = "0527188451",
@@ -106,10 +102,8 @@ namespace PLWPF
                 },
                 new HostingUnit()
                 {
-                    HostingUnitKey = 3,
                     Owner = new Host()
                     {
-                        HostKey = 3,
                         FirstName = "Yafit",
                         LastName = "Halevi",
                         PhoneNumber = "0587760213",
@@ -143,10 +137,8 @@ namespace PLWPF
                 },
                 new HostingUnit()
                 {
-                    HostingUnitKey = 4,
                     Owner = new Host()
                     {
-                        HostKey = 4,
                         FirstName = "Yizhak",
                         LastName = "Shamir",
                         PhoneNumber = "0512054332",
@@ -180,10 +172,8 @@ namespace PLWPF
                 },
                 new HostingUnit()
                 {
-                    HostingUnitKey = 5,
                     Owner = new Host()
                     {
-                        HostKey = 5,
                         FirstName = "Ruth",
                         LastName = "Miller",
                         PhoneNumber = "0587760213",
@@ -345,8 +335,8 @@ namespace PLWPF
         public MainWindow()
         {
             InitializeComponent();
-            initHostingUnit();
-            initGuestRequests();
+            //initHostingUnit();
+            //initGuestRequests();
             navigationFrame.Navigate(new MainPage());
         }
         

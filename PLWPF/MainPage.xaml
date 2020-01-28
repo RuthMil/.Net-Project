@@ -53,7 +53,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="41"/>
             <RowDefinition Height="41"/>
-            <RowDefinition Height="280"/>
+            <RowDefinition Height="330"/>
             <RowDefinition Height="800"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
@@ -79,16 +79,16 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="25"/>
-                <RowDefinition Name="row3" Height="41"/>
-                <RowDefinition Height="41"/>
-                <RowDefinition Height="123*"/>
+                <RowDefinition Name="row3" Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100*"/>
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="165"/>
-                <ColumnDefinition Width="191"/>
-                <ColumnDefinition Width="142"/>
+                <ColumnDefinition Width="211"/>
+                <ColumnDefinition Width="162"/>
             </Grid.ColumnDefinitions>
             <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" Grid.Row="0" Text="...מצאו את הנופש המושלם עבורכם" VerticalAlignment="Top" Height="50" Width="334" FontWeight="Bold" FontSize="20" Foreground="Black" Grid.ColumnSpan="2" Grid.Column="3"/>
             <TextBlock x:Name="errorArea" Grid.Row="1" Grid.Column="4" Text="אנא הכניסו יעד כדי להתחיל בחיפוש" Style="{StaticResource errorMessage}"/>

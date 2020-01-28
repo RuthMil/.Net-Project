@@ -8,6 +8,11 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Reflection;
 using BE;
+using System.Net;
+using System.Xml;
+using System.ComponentModel;
+using System.Threading;
+using System.Data;
 
 namespace DAL
 {
@@ -25,20 +30,20 @@ namespace DAL
             }
         }
 
+        public static volatile bool bankDownloaded = false;
         private static string solutionDirectory = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName;
         private static string filePath = System.IO.Path.Combine(solutionDirectory, "DataXML");
         static string projectPath = Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory.ToString()).FullName).FullName;
-        private XElement hostingUnitRoot;
-        private XElement orderRoot;
-        private XElement guestRequestRoot;
         private XElement ownerRoot;
         private XElement configRoot;
+        private XElement atmRoot;
         private static string hostingUnitRootPath = Path.Combine(filePath, "HostingUnits.xml");
         private static string orderRootPath = Path.Combine(filePath, "Orders.xml");
         private static string guestRequestRootPath = Path.Combine(filePath, "GuestRequests.xml");
         private static string ownerRootPath = Path.Combine(filePath, "Owner.xml");
         private static string configRootPath = Path.Combine(filePath, "Config.xml");
-
+        private static string atmRootPath = Path.Combine(filePath, "atmRootPath.xml");
+        BackgroundWorker worker;
         private Dal_XML_imp()
         {
             try
@@ -76,8 +81,19 @@ namespace DAL
                 DS.DataSource.HostingUnitList = LoadListFromXML<HostingUnit>(hostingUnitRootPath);
                 DS.DataSource.OrderList = LoadListFromXML<Order>(orderRootPath);
                 DS.DataSource.GuestRequestList = LoadListFromXML<GuestRequest>(guestRequestRootPath);
+                try//bank download
+                {
+                    worker = new BackgroundWorker();
+                    worker.DoWork += Worker_DoWork;
+                    worker.RunWorkerAsync();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -311,54 +327,54 @@ namespace DAL
             return tmpOrdersList;
         }
 
-        public List<BankBranch> ReceiveBankBranchesList()
-        {
-            List<BankBranch> myBankAccountList = new List<BankBranch>
-            {
-                new BankBranch()
-                {
-                    BankNumber = 11,
-                    BankName = "בנק דיסקונט לישראל",
-                    BranchNumber = 41,
-                    BranchAddress = "יפו 220",
-                    BranchCity = "ירושלים"
-                },
-                new BankBranch()
-                {
-                    BankNumber = 13,
-                    BankName = "בנק אגוד לישראל",
-                    BranchNumber = 159,
-                    BranchAddress = "ג'בוטיסקי 20",
-                    BranchCity = "ראשון לציון"
-                },
-                new BankBranch()
-                {
-                    BankNumber = 13,
-                    BankName = "בנק אגוד לישראל",
-                    BranchNumber = 840,
-                    BranchAddress = "הגליל 16",
-                    BranchCity = "נצרת"
-                },
-                new BankBranch()
-                {
-                    BankNumber = 20,
-                    BankName = "בנק מזרחי טפחות",
-                    BranchNumber = 653,
-                    BranchAddress = "אפעל 25",
-                    BranchCity = "פתח תקווה"
-                },
-                new BankBranch()
-                {
-                    BankNumber = 17,
-                    BankName = "בנק מרכנתיל דיסקונט",
-                    BranchNumber = 725,
-                    BranchAddress = "ישעיהו הנביא 4",
-                    BranchCity = "בית שמש"
-                },
+        //public List<BankBranch> ReceiveBankBranchesList()
+        //{
+        //    List<BankBranch> myBankAccountList = new List<BankBranch>
+        //    {
+        //        new BankBranch()
+        //        {
+        //            BankNumber = 11,
+        //            BankName = "בנק דיסקונט לישראל",
+        //            BranchNumber = 41,
+        //            BranchAddress = "יפו 220",
+        //            BranchCity = "ירושלים"
+        //        },
+        //        new BankBranch()
+        //        {
+        //            BankNumber = 13,
+        //            BankName = "בנק אגוד לישראל",
+        //            BranchNumber = 159,
+        //            BranchAddress = "ג'בוטיסקי 20",
+        //            BranchCity = "ראשון לציון"
+        //        },
+        //        new BankBranch()
+        //        {
+        //            BankNumber = 13,
+        //            BankName = "בנק אגוד לישראל",
+        //            BranchNumber = 840,
+        //            BranchAddress = "הגליל 16",
+        //            BranchCity = "נצרת"
+        //        },
+        //        new BankBranch()
+        //        {
+        //            BankNumber = 20,
+        //            BankName = "בנק מזרחי טפחות",
+        //            BranchNumber = 653,
+        //            BranchAddress = "אפעל 25",
+        //            BranchCity = "פתח תקווה"
+        //        },
+        //        new BankBranch()
+        //        {
+        //            BankNumber = 17,
+        //            BankName = "בנק מרכנתיל דיסקונט",
+        //            BranchNumber = 725,
+        //            BranchAddress = "ישעיהו הנביא 4",
+        //            BranchCity = "בית שמש"
+        //        },
 
-            };
-            return myBankAccountList;
-        }
+        //    };
+        //    return myBankAccountList;
+        //}
 
         public GuestRequest GetGuestRequestByKey(long key)
         {
@@ -438,5 +454,110 @@ namespace DAL
             configRoot.Save(configRootPath);
         }
 
+        private List<BankBranch> bankBranchesList = new List<BankBranch>();
+
+        void DownloadBanksFile()
+        {
+            const string xmlLocalPath = @"atm.xml";
+            WebClient wc = new WebClient();
+            try
+            {
+                string xmlServerPath =
+                    @"http://www.boi.org.il/he/BankingSupervision/BanksAndBranchLocations/Lists/BoiBankBranchesDocs/atm.xml";
+                wc.DownloadFile(xmlServerPath, xmlLocalPath);
+                bankDownloaded = true;
+            }
+            catch (Exception)
+            {
+                string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
+                wc.DownloadFile(xmlServerPath, xmlLocalPath);
+                bankDownloaded = true;
+            }
+            finally
+            {
+                wc.Dispose();
+            }
+        }
+
+        public List<BankBranch> ReceiveBankBranchesList()
+        {
+            if (bankDownloaded) 
+            {
+                if (bankBranchesList.Count() == 0) 
+                {
+                    bankBranchesList = new List<BankBranch>();
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(@"atm.xml");
+                    XmlNode rootNode = doc.DocumentElement;
+                    XmlNodeList children = rootNode.ChildNodes;
+                    foreach (XmlNode child in children)
+                    {
+                        BankBranch b = GetBranchByXmlNode(child);
+                        if (b != null && bankBranchesList.FindIndex(x => x.BranchNumber == b.BranchNumber) == -1)   
+                        {
+                            bankBranchesList.Add(b);
+                        }
+                    }
+                }
+                return bankBranchesList;
+            }
+            else
+                throw new DataException("הקובץ אינו תקין");
+        }
+
+
+        private static BankBranch GetBranchByXmlNode(XmlNode node)
+        {
+            if (node.Name != "ATM") return null;
+            BankBranch branch = new BankBranch();
+            branch.BankNumber = -1;
+
+            XmlNodeList children = node.ChildNodes;
+
+            foreach (XmlNode child in children)
+            {
+                switch (child.Name)
+                {
+                    case "קוד_בנק":
+                        branch.BankNumber = int.Parse(child.InnerText);
+                        break;
+                    case "שם_בנק":
+                        branch.BankName = child.InnerText;
+                        break;
+                    case "קוד_סניף":
+                        branch.BranchNumber = int.Parse(child.InnerText);
+                        break;
+                    case "כתובת_ה-ATM":
+                        branch.BranchAddress = child.InnerText;
+                        break;
+                    case "ישוב":
+                        branch.BranchCity = child.InnerText;
+                        break;
+                }
+            }
+            if (branch.BranchNumber > 0)
+                return branch;
+            return null;
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            object ob = e.Argument;
+            while (bankDownloaded == false)
+            {
+                try
+                {
+                    DownloadBanksFile();
+                    Thread.Sleep(2000);
+                }
+                catch
+                {
+
+                }
+            }
+
+            ReceiveBankBranchesList();
+        }
     }
 }
