@@ -133,12 +133,6 @@ namespace DAL
             try
             {
                 configRoot = XElement.Load(configRootPath);
-                //Type h = typeof(Configuration).GetField("HostID").GetType();
-                //List<string> elements = new List<string>();
-                //foreach (var item in configRoot.Elements())
-                //    elements.Add(item.Value);
-
-                //    typeof(Configuration).GetField(item.Name.ToString()).SetValue(null,item.Value);
                 Configuration.GuestRequestID = long.Parse(configRoot.Element("GuestRequestID").Value);
                 Configuration.HostID = long.Parse(configRoot.Element("HostID").Value);
                 Configuration.HostingUnitID = long.Parse(configRoot.Element("HostingUnitID").Value);
@@ -161,18 +155,6 @@ namespace DAL
             configRoot.Save(configRootPath);
         }
 
-        //private void LoadOrderFile()
-        //{
-        //    try
-        //    {
-        //        orderRoot = XElement.Load(orderRootPath);
-        //    }
-        //    catch(Exception)
-        //    {
-        //        throw new Exception("בעיה בטעינת קובץ");
-        //    }
-        //}
-
         private void CreateOwnerFile()
         {
             ownerRoot = new XElement("Owner", new XElement("FirstName", "TR"), new XElement("LastName", "YM"),
@@ -192,11 +174,6 @@ namespace DAL
                 throw new Exception("בעיה בטעינת קובץ");
             }
         }
-        //private void CreateOrdersFile()
-        //{
-        //    orderRoot = new XElement("Orders"); 
-        //    configRoot.Save(configRootPath);
-        //}
 
         public void AddGuestRequest(GuestRequest myGuestRequest)
         {

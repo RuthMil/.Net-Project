@@ -35,21 +35,6 @@ namespace BL
                     foreach (var item in ExpiredOrders())
                         dal.DeleteOrder(item);
                     Thread.Sleep(24 * 60 * 60 * 1000);
-                    //DateTime dateNow = DateTime.Now;
-                    //DateTime date = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 1, 0, 0);
-                    //TimeSpan ts;
-                    //if (date > dateNow)
-                    //    ts = date - dateNow;
-                    //else
-                    //{
-                    //    date = date.AddDays(1);
-                    //    ts = date - dateNow;
-                    //}
-                    //Task.Delay(ts).ContinueWith((x) =>
-                    //{
-                    //    foreach (var item in ExpiredOrders())
-                    //        dal.DeleteOrder(item);
-                    //});
                 }
             }
             ).Start();
@@ -560,7 +545,6 @@ namespace BL
             return groupByNumberOfChildren;
         }
 
-        //לבדוק טוב בדיבאג
         public IEnumerable<IGrouping<int, Host>> GroupHostByNumberOfHostingUnit()
         {
             var groupByNumberOfHostingUnit = from unit in dal.ReceiveHostingUnitList()
@@ -596,7 +580,6 @@ namespace BL
             return dal.ReceiveOrderList().FindAll(x => x.HostingUnitKey == hostingUnitKey);
         }
 
-        //להוסיף בדיקה שהמארח קיים
         public List<Order> ReceiveOrdersForHost(long hostKey)
         {
             var orders = from unit in dal.ReceiveHostingUnitList()
