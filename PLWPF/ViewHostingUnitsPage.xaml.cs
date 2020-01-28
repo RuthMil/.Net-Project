@@ -30,13 +30,18 @@ namespace PLWPF
         {
             InitializeComponent();
             int index = 0;
-            foreach (var item in hostingUnitList)
+            if (hostingUnitList.Count() == 0)
+                noHostingUnits.Visibility = Visibility;
+            else
             {
-                HostingUnitUserControl a = new HostingUnitUserControl(item);
-                hostingUnitGridView.RowDefinitions.Add(new RowDefinition());
-                hostingUnitGridView.Children.Add(a);
-                Grid.SetRow(a, index);
-                index++;
+                foreach (var item in hostingUnitList)
+                {
+                    HostingUnitUserControl a = new HostingUnitUserControl(item);
+                    hostingUnitGridView.RowDefinitions.Add(new RowDefinition());
+                    hostingUnitGridView.Children.Add(a);
+                    Grid.SetRow(a, index);
+                    index++;
+                }
             }
         }
     }

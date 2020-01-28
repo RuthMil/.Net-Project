@@ -397,6 +397,7 @@
     <Area>ירושלים</Area>
     <SubArea>ירושלים</SubArea>
     <Type>דירה</Type>
+    <Address>גאולה 145</Address>
     <Adults>4</Adults>
     <Children>2</Children>
     <Pool>false</Pool>
@@ -804,6 +805,7 @@
     <Area>דרום</Area>
     <SubArea>באר_שבע</SubArea>
     <Type>בקתה</Type>
+    <Address>האחדות 78</Address>
     <Adults>2</Adults>
     <Children>0</Children>
     <Pool>true</Pool>
@@ -1211,6 +1213,7 @@
     <Area>דרום</Area>
     <SubArea>אילת</SubArea>
     <Type>מלון</Type>
+    <Address>דקל 22</Address>
     <Adults>2</Adults>
     <Children>2</Children>
     <Pool>true</Pool>
@@ -1618,6 +1621,7 @@
     <Area>ירושלים</Area>
     <SubArea>ירושלים</SubArea>
     <Type>בקתה</Type>
+    <Address>ממילא 45</Address>
     <Adults>4</Adults>
     <Children>4</Children>
     <Pool>false</Pool>
@@ -1645,7 +1649,7 @@
       </BankBranchDetails>
       <BankAccountNumber>1601245551</BankAccountNumber>
       <CollectionClearance>true</CollectionClearance>
-      <Commission>50</Commission>
+      <Commission>0</Commission>
     </Owner>
     <HostingUnitName>Kalanit</HostingUnitName>
     <Diary>
@@ -2025,6 +2029,7 @@
     <Area>צפון</Area>
     <SubArea>גליל</SubArea>
     <Type>קמפינג</Type>
+    <Address>האורנים 15</Address>
     <Adults>2</Adults>
     <Children>4</Children>
     <Pool>true</Pool>

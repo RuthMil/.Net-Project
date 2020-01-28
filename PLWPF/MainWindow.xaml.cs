@@ -64,6 +64,7 @@ namespace PLWPF
                     Garden = true,
                     ChildrenAttractions = true,
                     Wifi = true, 
+                    Address = "האורנים 15",
                     Price = 250
                 },
                 new HostingUnit()
@@ -100,6 +101,7 @@ namespace PLWPF
                     Garden = false,
                     ChildrenAttractions = false,
                     Wifi = true,
+                    Address = "גאולה 145",
                     Price = 300
                 },
                 new HostingUnit()
@@ -136,6 +138,7 @@ namespace PLWPF
                     Garden = false,
                     ChildrenAttractions = false,
                     Wifi = true,
+                    Address = "האחדות 78",
                     Price = 500
                 },
                 new HostingUnit()
@@ -172,6 +175,7 @@ namespace PLWPF
                     Garden = true,
                     ChildrenAttractions = true,
                     Wifi = true,
+                    Address = "דקל 22",
                     Price = 289
                 },
                 new HostingUnit()
@@ -208,6 +212,7 @@ namespace PLWPF
                     Garden = true,
                     ChildrenAttractions = true,
                     Wifi = true,
+                    Address = "ממילא 45",
                     Price = 299
                 }
             };

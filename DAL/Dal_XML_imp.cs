@@ -24,22 +24,29 @@ namespace DAL
                 return instance;
             }
         }
-        static readonly string ProjectPath = Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory.ToString()).FullName).FullName;
+
+        private static string solutionDirectory = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName;
+        private static string filePath = System.IO.Path.Combine(solutionDirectory, "DataXML");
+        static string projectPath = Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory.ToString()).FullName).FullName;
         private XElement hostingUnitRoot;
         private XElement orderRoot;
         private XElement guestRequestRoot;
         private XElement ownerRoot;
         private XElement configRoot;
-        private string hostingUnitRootPath = ProjectPath + "\\HostingUnit.xml";
-        private string orderRootPath = ProjectPath + "\\Order.xml";
-        private string guestRequestRootPath = ProjectPath + "\\GusetRequest.xml";
-        private string ownerRootPath = ProjectPath + "\\Owner.xml";
-        private string configRootPath = ProjectPath + "\\Configuration.xml";
+        private static string hostingUnitRootPath = Path.Combine(filePath, "HostingUnits.xml");
+        private static string orderRootPath = Path.Combine(filePath, "Orders.xml");
+        private static string guestRequestRootPath = Path.Combine(filePath, "GuestRequests.xml");
+        private static string ownerRootPath = Path.Combine(filePath, "Owner.xml");
+        private static string configRootPath = Path.Combine(filePath, "Config.xml");
 
         private Dal_XML_imp()
         {
             try
             {
+                if (!Directory.Exists(filePath)) 
+                {
+                    Directory.CreateDirectory(filePath);
+                }
                 if (!File.Exists(ownerRootPath))
                     CreateOwnerFile();
                 else

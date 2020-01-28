@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 using BE;
 
 namespace PLWPF
@@ -44,12 +45,12 @@ namespace PLWPF
             myGuestRequest = new GuestRequest();
             myCalendar.DisplayDateStart = DateTime.Now;
             myCalendar.DisplayDateEnd = DateTime.Now.AddMonths(11);
-            List<HostingUnit> hostingUnits = new List<HostingUnit>();
-            initAverages(hostingUnits);
+            initAverages(); 
         }
 
-        private void initAverages(List<HostingUnit> hostingUnits)
+        private void initAverages()
         {
+            List<HostingUnit> hostingUnits = new List<HostingUnit>();
             float average = 0;
             IEnumerable<IGrouping<Enum_s.Areas, HostingUnit>> unitsGroupByAreas = bl.GroupHostingUnitByAreas();
             foreach (var item1 in unitsGroupByAreas)
@@ -59,9 +60,10 @@ namespace PLWPF
                         hostingUnits.Add(item2);
                         average += item2.Price;
                     }
-            average /= hostingUnits.Count();
-            avgPriceJerusalem.Text += average.ToString() + " ש'ח";
+            average /= hostingUnits.Count() > 0 ? hostingUnits.Count() : 1; 
+            avgPriceJerusalem.Text += average != 0 ? average.ToString() + " ₪" : "---";
             hostingUnits.Clear();
+            average = 0;
             foreach (var item1 in unitsGroupByAreas)
                 if (item1.Key == Enum_s.Areas.צפון)
                     foreach (var item2 in item1)
@@ -69,9 +71,10 @@ namespace PLWPF
                         hostingUnits.Add(item2);
                         average += item2.Price;
                     }
-            average /= hostingUnits.Count();
-            avgPriceNorth.Text += average.ToString() + " ש'ח";
+            average /= hostingUnits.Count() > 0 ? hostingUnits.Count() : 1;
+            avgPriceNorth.Text += average != 0 ? average.ToString() + " ₪" : "---"; 
             hostingUnits.Clear();
+            average = 0;
             foreach (var item1 in unitsGroupByAreas)
                 if (item1.Key == Enum_s.Areas.מרכז)
                     foreach (var item2 in item1)
@@ -79,9 +82,10 @@ namespace PLWPF
                         hostingUnits.Add(item2);
                         average += item2.Price;
                     }
-            average /= hostingUnits.Count();
-            avgPriceCenter.Text += average.ToString() + " ש'ח";
+            average /= hostingUnits.Count() > 0 ? hostingUnits.Count() : 1;
+            avgPriceCenter.Text += average != 0 ? average.ToString() + " ₪" : "---";
             hostingUnits.Clear();
+            average = 0;
             foreach (var item1 in unitsGroupByAreas)
                 if (item1.Key == Enum_s.Areas.דרום)
                     foreach (var item2 in item1)
@@ -89,8 +93,8 @@ namespace PLWPF
                         hostingUnits.Add(item2);
                         average += item2.Price;
                     }
-            average /= hostingUnits.Count();
-            avgPriceSouth.Text += average.ToString() + " ש'ח";
+            average /= hostingUnits.Count() > 0 ? hostingUnits.Count() : 1;
+            avgPriceSouth.Text += average != 0 ? average.ToString() + " ₪" : "---";
         }
 
         private void AreasComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -152,6 +156,7 @@ namespace PLWPF
                 adultsMinus.IsEnabled = true;
             else
                 adultsMinus.IsEnabled = false;
+            adultsMinus.IsEnabled = int.Parse(adults.Text) > 1 ? true : false; 
             if (int.Parse(children.Text) > 0)
             {
                 childMinus.IsEnabled = true;
@@ -213,13 +218,18 @@ namespace PLWPF
                 areasCMB.SelectedValue = null;
                 this.NavigationService.Content = new MainPage();
             }
-             
+            catch (ThreadStateException)
+            {
+                MessageBox.Show("שלום " + myGuestRequest.FirstName + "!\n" + "בקשתך נקלטה בהצלחה!" + '\n' + "מצטערים, אירעה שגיאה בעת שליחת המייל ובו הצעות אירוח. " , "", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.None, MessageBoxOptions.RightAlign);
+                myGuestRequest = null;
+                myGuestRequest = new GuestRequest();
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("שלום " + myGuestRequest.FirstName + "!\n" + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.None, MessageBoxOptions.RightAlign);
                 myGuestRequest = null;
                 myGuestRequest = new GuestRequest();
-            }
+            }        
         }
 
         private void ChildAdult_DropDownClosed(object sender, EventArgs e)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BE;
 using System.Data;
 using System.Net.Mail;
+using System.Threading;
 
 namespace BL
 {
@@ -184,16 +185,34 @@ namespace BL
             foreach (var item in orders)
             {
                 GuestRequest myGuestRequest = dal.GetGuestRequestByKey(item.GuestRequestKey);
-                GeneralSendMail(myGuestRequest.MailAddress, " שלום" + myGuestRequest.FirstName + ", יש לנו הודעה עבורך", "יחידה מספר: " + item.HostingUnitKey.ToString() + "  אשר קיבלת הזמנת אירוח עבורה, נתפסה בתאריכים שנתבקשו על ידך." + '\n' + " באפשרותך להכנס לאפליקציה 'חופשונט' כדי לחפש יחידות אחרות." + '\n' + "בברכה, מערכת ,'חופשונט'");
+                try
+                {
+                    GeneralSendMail(myGuestRequest.MailAddress, "שלום " + myGuestRequest.FirstName +
+                    ", יש לנו הודעה עבורך", "יחידה מספר: " + item.HostingUnitKey.ToString() +
+                    "  אשר קיבלת הזמנת אירוח עבורה, נתפסה בתאריכים שנתבקשו על ידך." + '\n' +
+                    "באפשרותך להכנס לאפליקציה 'חופשונט' כדי לחפש יחידות אחרות." + '\n' + "בברכה, " +
+                    '\n' + "מערכת 'חופשונט'");
+                }
+                catch(Exception)
+                {
+
+                }
+                
             }
-            //Console.WriteLine("Sending mail for all clashing orders: We are sory, your order was caught"); 
         }
 
         public void SendMailToHostAboutCancelOrder(Order myOrder)
         {
             GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
-            GeneralSendMail(myGuestRequest.MailAddress, "שלום " + myGuestRequest.FirstName, "הזמנה מספר: " + myOrder.OrderKey + " בוטלה בהצלחה!" + '\n' + "בברכה, מערכת 'חופשונט'");
-            //Console.WriteLine("Sending mail about order cancelation. oreder details:\n" + myOrder.ToString());
+            try
+            {
+                GeneralSendMail(myGuestRequest.MailAddress, "שלום " + myGuestRequest.FirstName, "הזמנה מספר: " +
+                    myOrder.OrderKey + " בוטלה בהצלחה!" + '\n' + "בברכה, " + '\n' + "מערכת 'חופשונט'");
+            }
+            catch(Exception)
+            {
+
+            }
         }
 
         public List<Order> ReceiveOrdersForGuestRequest(long myGuestRequestKey)
@@ -299,7 +318,14 @@ namespace BL
                     dal.UpdateHostingUnit(myHostingUnit);
                     break;
                 case Enum_s.OrderStatus.נשלח_מייל:
-                    SendMailToGuestWithSuggest(myOrder);
+                    try
+                    {
+                        SendMailToGuestWithSuggest(myOrder);
+                    }
+                    catch(Exception)
+                    {
+                        throw new ThreadStateException();
+                    }
                     break;
             }
             myOrder.OrderDate = DateTime.Now;
@@ -308,9 +334,38 @@ namespace BL
 
         public void SendMailToGuestWithSuggest(Order myOrder)
         {
-            HostingUnit myUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
-            GuestRequest myGuestRequest = GetGuestRequestByKey(myOrder.GuestRequestKey);
-            GeneralSendMail(myGuestRequest.MailAddress, "שלום " + myGuestRequest.FirstName + ", מצאנו עבורך יחידות אירוח מדהימות", "", false);
+            GuestRequest myGuestRequest = dal.GetGuestRequestByKey(myOrder.GuestRequestKey);
+            HostingUnit myHostingUnit = dal.GetHostingUnitByKey(myOrder.HostingUnitKey);
+            string area = "";
+            string extra = "";
+            string subArea = "";
+            extra += myHostingUnit.Pool ? "בריכה" : "";
+            extra += myHostingUnit.Wifi ? ", Wifi" : "";
+            extra += myHostingUnit.Jacuzzi ? ", ג'קןזי" : "";
+            extra += myHostingUnit.Garden ? ", גינה" : "";
+            extra += myHostingUnit.ChildrenAttractions ? ", פעילויות לילדים" : "";
+            if (extra == "")
+                extra = "אין";
+            foreach (var item in myHostingUnit.Area.ToString().Split('_'))
+                area += item + ' ';
+            foreach (var item in myHostingUnit.SubArea.ToString().Split('_'))
+                subArea += item + ' ';
+            string subject = "שלום " + myGuestRequest.FirstName + ", מצאנו עבורך יחידת אירוח מדהימה ב" + subArea;
+            string body = "קוד הזמנה: " + myOrder.OrderKey.ToString() + "\n\n" + "פרטי  היחידה: " + '\n' + "שם: " + myHostingUnit.HostingUnitName +
+                "   מספר היחידה: " + myHostingUnit.HostingUnitKey.ToString() + "   שם המארח: " + myHostingUnit.Owner.FirstName + ' ' + myHostingUnit.Owner.LastName +
+                "   כתובת אימייל של המארח: " + myHostingUnit.Owner.MailAddress + '\n' + "סוג היחידה: " + myHostingUnit.Type.ToString() + 
+                "   אזור: " + area + ", " + subArea + "   מספר מבוגרים: " + myHostingUnit.Adults.ToString() + "   מספר ילדים: " + myHostingUnit.Children.ToString() + 
+                "   כתובת: " + myHostingUnit.Address + '\n' + "מתקנים: " + '\n' + extra + '\n' + "מחיר עבור לילה: " + myHostingUnit.Price.ToString() + " ₪" +
+                "\n\n" + "אם ברצונך לבצע עסקה זו, פנה לכתובת האימייל של המארח ומסור לו את קוד הזמנתך." + "\n\n" + "תודה על פנייתך!" +
+                '\n' +"מערכת 'חופשונט'";  
+            try
+            {
+                GeneralSendMail(myGuestRequest.MailAddress, subject, body);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public int SumDaysBetween(DateTime firstDate, DateTime? secondDate = null)
@@ -590,24 +645,28 @@ namespace BL
 
         public void GeneralSendMail(string dstMail, string subject, string body = "", bool isBodyHmtl = false)
         {
-            MailMessage mail = new MailMessage();
-            mail.To.Add(dstMail);
-            mail.From = new MailAddress("hufshonet@gmail.com");
-            mail.Subject = subject;
-            mail.Body = body;
-            mail.IsBodyHtml = isBodyHmtl;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Credentials = new System.Net.NetworkCredential("hufshonet@gmail.com", "tiru1234");
-            smtp.EnableSsl = true;
-            try
+            new Thread(() =>
             {
-                smtp.Send(mail);
+                MailMessage mail = new MailMessage();
+                mail.To.Add(dstMail);
+                mail.From = new MailAddress("hufshonet@gmail.com");
+                mail.Subject = subject;
+                mail.Body = body;
+                mail.IsBodyHtml = isBodyHmtl;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Credentials = new System.Net.NetworkCredential("hufshonet@gmail.com", "tiru1234");
+                smtp.EnableSsl = true;
+                try
+                {
+                    smtp.Send(mail);
+                }
+                catch (Exception)
+                {
+                    
+                }
             }
-            catch (Exception ex)
-            {
-
-            }
+            ).Start();
         }
     }
 }

@@ -9,5 +9,6 @@
       d:DesignHeight="550" d:DesignWidth="1000"
       Title="ViewHostingUnitsPage">
     <Grid x:Name="hostingUnitGridView">
+        <TextBlock x:Name="noHostingUnits" Text="לא קיימות יחידות אירוח" Visibility="Hidden" FontSize="20" Style="{StaticResource MaterialDesignTextBlock}" HorizontalAlignment="Center" Foreground="CornflowerBlue" FontWeight="Bold" />
     </Grid>
 </Page>
