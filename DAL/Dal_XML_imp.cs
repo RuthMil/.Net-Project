@@ -81,17 +81,9 @@ namespace DAL
                 DS.DataSource.HostingUnitList = LoadListFromXML<HostingUnit>(hostingUnitRootPath);
                 DS.DataSource.OrderList = LoadListFromXML<Order>(orderRootPath);
                 DS.DataSource.GuestRequestList = LoadListFromXML<GuestRequest>(guestRequestRootPath);
-                try//bank download
-                {
-                    worker = new BackgroundWorker();
-                    worker.DoWork += Worker_DoWork;
-                    worker.RunWorkerAsync();
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
-
+                worker = new BackgroundWorker();
+                worker.DoWork += Worker_DoWork;
+                worker.RunWorkerAsync();
             }
             catch (Exception ex)
             {

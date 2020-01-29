@@ -1,21 +1,39 @@
 <?xml version="1.0"?>
 <ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Order>
-    <HostingUnitKey>3</HostingUnitKey>
-    <GuestRequestKey>7</GuestRequestKey>
+    <HostingUnitKey>2</HostingUnitKey>
+    <GuestRequestKey>2</GuestRequestKey>
     <OrderKey>2</OrderKey>
     <Status>נשלח_מייל</Status>
-    <CreateDate>2020-01-28T14:23:19.4573283+02:00</CreateDate>
-    <OrderDate>2020-01-28T14:23:19.4681582+02:00</OrderDate>
-    <GuestName>תילי  יפה</GuestName>
+    <CreateDate>2020-01-29T18:07:40.1422847+02:00</CreateDate>
+    <OrderDate>2020-01-29T18:07:40.1482681+02:00</OrderDate>
+    <GuestName>שלמה עיוני</GuestName>
   </Order>
   <Order>
     <HostingUnitKey>1</HostingUnitKey>
-    <GuestRequestKey>6</GuestRequestKey>
+    <GuestRequestKey>1</GuestRequestKey>
     <OrderKey>1</OrderKey>
     <Status>נסגר_בשל_הענות</Status>
-    <CreateDate>2020-01-28T14:22:15.1120358+02:00</CreateDate>
-    <OrderDate>2020-01-28T14:25:06.9253107+02:00</OrderDate>
-    <GuestName>רות מילר</GuestName>
+    <CreateDate>2020-01-29T18:03:55.135487+02:00</CreateDate>
+    <OrderDate>2020-01-29T18:10:08.895014+02:00</OrderDate>
+    <GuestName>הארי  פוטר</GuestName>
+  </Order>
+  <Order>
+    <HostingUnitKey>3</HostingUnitKey>
+    <GuestRequestKey>3</GuestRequestKey>
+    <OrderKey>4</OrderKey>
+    <Status>נסגר_בשל_רכישה_אחרת</Status>
+    <CreateDate>2020-01-29T18:15:43.3433829+02:00</CreateDate>
+    <OrderDate>2020-01-29T18:15:43.3503655+02:00</OrderDate>
+    <GuestName>וירג'ין המקורי</GuestName>
+  </Order>
+  <Order>
+    <HostingUnitKey>3</HostingUnitKey>
+    <GuestRequestKey>3</GuestRequestKey>
+    <OrderKey>3</OrderKey>
+    <Status>נסגר_בשל_הענות</Status>
+    <CreateDate>2020-01-29T18:14:17.9970659+02:00</CreateDate>
+    <OrderDate>2020-01-29T18:27:57.4273585+02:00</OrderDate>
+    <GuestName>וירג'ין המקורי</GuestName>
   </Order>
 </ArrayOfOrder>

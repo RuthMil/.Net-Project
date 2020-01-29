@@ -176,7 +176,8 @@ namespace BL
                 {
                     var openOrders = from order in dal.ReceiveOrderList()
                                      where dal.GetHostingUnitByKey(order.HostingUnitKey).Owner.HostKey == myHostingUnit.Owner.HostKey &&
-                                     (order.Status == Enum_s.OrderStatus.לא_בטיפול || order.Status == Enum_s.OrderStatus.נשלח_מייל)
+                                     (order.Status == Enum_s.OrderStatus.לא_בטיפול || order.Status == Enum_s.OrderStatus.נשלח_מייל ||
+                                     order.Status == Enum_s.OrderStatus.נסגר_בשל_הענות)
                                      select order;
                     if (openOrders.Count() != 0)
                         throw new StatusChangeException(".מצטערים, אינך יכול לבטל את הרשאת החיוב שלך. קיימות הזמנות פתוחות עבור יחידת אירוח השייכת לך");
@@ -368,7 +369,7 @@ namespace BL
             string subArea = "";
             extra += myHostingUnit.Pool ? "בריכה" : "";
             extra += myHostingUnit.Wifi ? ", Wifi" : "";
-            extra += myHostingUnit.Jacuzzi ? ", ג'קןזי" : "";
+            extra += myHostingUnit.Jacuzzi ? ", ג'קוזי" : "";
             extra += myHostingUnit.Garden ? ", גינה" : "";
             extra += myHostingUnit.ChildrenAttractions ? ", פעילויות לילדים" : "";
             if (extra == "")

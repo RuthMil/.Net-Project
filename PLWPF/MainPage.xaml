@@ -53,7 +53,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="41"/>
             <RowDefinition Height="41"/>
-            <RowDefinition Height="330"/>
+            <RowDefinition Height="340"/>
             <RowDefinition Height="800"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
@@ -95,8 +95,8 @@
             <ComboBox x:Name="areasCMB" IsEditable="True" Text="בחר אזור" ItemsSource="{Binding}" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="4" ToolTip="בחרו את האזור בו תרצו לנפוש" SelectionChanged="AreasComboBox_SelectionChanged"/>
             <TextBlock x:Name="errordate" Grid.Row="1" Grid.Column="3" Text="אנא הכניסו תאריך כדי להתחיל בחיפוש" Style="{StaticResource errorMessage}"/>
             <ComboBox x:Name="dateCMB" Text="צ'ק-אין - צ'ק-אאוט" Style="{StaticResource myComboBox}" Grid.Row="2" Grid.Column="3" ToolTip="בחרו טווח תאריכים עבור הנופש שלכם" DropDownClosed="DateComboBox_DropDownClosed">
-                <ComboBoxItem Padding="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" VerticalContentAlignment="Stretch">
-                    <Calendar x:Name="myCalendar" Language="He" SelectionMode="SingleRange" IsTodayHighlighted="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDatesChanged="MyCalendar_SelectedDatesChanged">
+                <ComboBoxItem >
+                    <Calendar x:Name="myCalendar" Language="He" SelectionMode="SingleRange" IsTodayHighlighted="True" SelectedDatesChanged="MyCalendar_SelectedDatesChanged">
                         <Calendar.Resources>
                             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Gray"/>
                         </Calendar.Resources>

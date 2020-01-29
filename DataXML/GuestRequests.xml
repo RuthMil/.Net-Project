@@ -1,116 +1,16 @@
 <?xml version="1.0"?>
 <ArrayOfGuestRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GuestRequest>
-    <GuestRequestKey>1</GuestRequestKey>
-    <FirstName>Ron</FirstName>
-    <LastName>Cohen</LastName>
-    <MailAddress>ron@gmail.com</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T14:15:09.850527+02:00</RegistrationDate>
-    <EntryDate>2020-01-29T14:15:09.8483003+02:00</EntryDate>
-    <ReleaseDate>2020-02-02T14:15:09.8485322+02:00</ReleaseDate>
-    <Area>צפון</Area>
-    <SubArea>חיפה</SubArea>
-    <Type>מלון</Type>
-    <Adults>2</Adults>
-    <Children>3</Children>
-    <Pool>כן</Pool>
-    <Jacuzzi>כן</Jacuzzi>
-    <Garden>לא</Garden>
-    <ChildrenAttractions>כן</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
     <GuestRequestKey>2</GuestRequestKey>
-    <FirstName>Dar</FirstName>
-    <LastName>Levi</LastName>
-    <MailAddress>Dar@gmail.com</MailAddress>
+    <FirstName>שלמה</FirstName>
+    <LastName>עיוני</LastName>
+    <MailAddress>shlomoblabla@gmail.com</MailAddress>
     <Status>Open</Status>
-    <RegistrationDate>2020-01-28T14:15:09.8724684+02:00</RegistrationDate>
-    <EntryDate>2020-02-05T14:15:09.8492622+02:00</EntryDate>
-    <ReleaseDate>2020-02-12T14:15:09.8492622+02:00</ReleaseDate>
-    <Area>מרכז</Area>
-    <SubArea>תל_אביב</SubArea>
-    <Type>דירה</Type>
-    <Adults>3</Adults>
-    <Children>0</Children>
-    <Pool>אפשרי</Pool>
-    <Jacuzzi>אפשרי</Jacuzzi>
-    <Garden>כן</Garden>
-    <ChildrenAttractions>לא</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
-    <GuestRequestKey>3</GuestRequestKey>
-    <FirstName>Eyal</FirstName>
-    <LastName>Rot</LastName>
-    <MailAddress>Eyal@gmail.com</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T14:15:09.8844371+02:00</RegistrationDate>
-    <EntryDate>2020-03-18T14:15:09.8492622+02:00</EntryDate>
-    <ReleaseDate>2020-03-28T14:15:09.8492622+03:00</ReleaseDate>
-    <Area>דרום</Area>
-    <SubArea>אילת</SubArea>
-    <Type>מלון</Type>
-    <Adults>4</Adults>
-    <Children>4</Children>
-    <Pool>כן</Pool>
-    <Jacuzzi>כן</Jacuzzi>
-    <Garden>אפשרי</Garden>
-    <ChildrenAttractions>כן</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
-    <GuestRequestKey>4</GuestRequestKey>
-    <FirstName>Itay</FirstName>
-    <LastName>Mark</LastName>
-    <MailAddress>Itay@gmail.com</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T14:15:09.8904213+02:00</RegistrationDate>
-    <EntryDate>2020-02-09T14:15:09.8492622+02:00</EntryDate>
-    <ReleaseDate>2020-02-16T14:15:09.8492622+02:00</ReleaseDate>
-    <Area>צפון</Area>
-    <SubArea>גליל</SubArea>
-    <Type>בקתה</Type>
-    <Adults>2</Adults>
-    <Children>0</Children>
-    <Pool>לא</Pool>
-    <Jacuzzi>כן</Jacuzzi>
-    <Garden>לא</Garden>
-    <ChildrenAttractions>לא</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
-    <GuestRequestKey>5</GuestRequestKey>
-    <FirstName>Tomer</FirstName>
-    <LastName>Halpern</LastName>
-    <MailAddress>Tomer@gmail.com</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T14:15:09.8964505+02:00</RegistrationDate>
-    <EntryDate>2020-01-30T14:15:09.8492622+02:00</EntryDate>
-    <ReleaseDate>2020-02-04T14:15:09.8492622+02:00</ReleaseDate>
-    <Area>ירושלים</Area>
-    <SubArea>ירושלים</SubArea>
-    <Type>מלון</Type>
-    <Adults>3</Adults>
-    <Children>2</Children>
-    <Pool>כן</Pool>
-    <Jacuzzi>כן</Jacuzzi>
-    <Garden>כן</Garden>
-    <ChildrenAttractions>כן</ChildrenAttractions>
-    <Wifi>אפשרי</Wifi>
-  </GuestRequest>
-  <GuestRequest>
-    <GuestRequestKey>7</GuestRequestKey>
-    <FirstName>תילי </FirstName>
-    <LastName>יפה</LastName>
-    <MailAddress>ruthmiller2000@gmail.com</MailAddress>
-    <Status>Open</Status>
-    <RegistrationDate>2020-01-28T14:23:19.4442228+02:00</RegistrationDate>
+    <RegistrationDate>2020-01-29T18:04:58.2328542+02:00</RegistrationDate>
     <EntryDate>2020-02-12T00:00:00</EntryDate>
     <ReleaseDate>2020-02-14T00:00:00</ReleaseDate>
-    <Area>דרום</Area>
-    <SubArea>דרום</SubArea>
+    <Area>מרכז</Area>
+    <SubArea>מרכז</SubArea>
     <Type>הכל</Type>
     <Adults>2</Adults>
     <Children>0</Children>
@@ -121,19 +21,39 @@
     <Wifi>אפשרי</Wifi>
   </GuestRequest>
   <GuestRequest>
-    <GuestRequestKey>6</GuestRequestKey>
-    <FirstName>רות</FirstName>
-    <LastName>מילר</LastName>
-    <MailAddress>ygoldsht@jct.ac.il</MailAddress>
+    <GuestRequestKey>1</GuestRequestKey>
+    <FirstName>הארי </FirstName>
+    <LastName>פוטר</LastName>
+    <MailAddress>ruthmiller2000@gmail.com</MailAddress>
     <Status>ClosedDueToResponsivenessByApp</Status>
-    <RegistrationDate>2020-01-28T14:22:15.090083+02:00</RegistrationDate>
-    <EntryDate>2020-02-05T00:00:00</EntryDate>
-    <ReleaseDate>2020-02-07T00:00:00</ReleaseDate>
+    <RegistrationDate>2020-01-29T18:01:26.0079335+02:00</RegistrationDate>
+    <EntryDate>2020-02-11T00:00:00</EntryDate>
+    <ReleaseDate>2020-02-13T00:00:00</ReleaseDate>
     <Area>צפון</Area>
     <SubArea>צפון</SubArea>
     <Type>הכל</Type>
     <Adults>2</Adults>
-    <Children>1</Children>
+    <Children>0</Children>
+    <Pool>אפשרי</Pool>
+    <Jacuzzi>אפשרי</Jacuzzi>
+    <Garden>אפשרי</Garden>
+    <ChildrenAttractions>אפשרי</ChildrenAttractions>
+    <Wifi>אפשרי</Wifi>
+  </GuestRequest>
+  <GuestRequest>
+    <GuestRequestKey>3</GuestRequestKey>
+    <FirstName>וירג'ין</FirstName>
+    <LastName>המקורי</LastName>
+    <MailAddress>ruthmiller2000@gmail.com</MailAddress>
+    <Status>ClosedDueToResponsivenessByApp</Status>
+    <RegistrationDate>2020-01-29T18:11:17.3022264+02:00</RegistrationDate>
+    <EntryDate>2020-02-18T00:00:00</EntryDate>
+    <ReleaseDate>2020-02-20T00:00:00</ReleaseDate>
+    <Area>דרום</Area>
+    <SubArea>דרום</SubArea>
+    <Type>הכל</Type>
+    <Adults>3</Adults>
+    <Children>3</Children>
     <Pool>אפשרי</Pool>
     <Jacuzzi>אפשרי</Jacuzzi>
     <Garden>אפשרי</Garden>
